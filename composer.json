@@ -1,6 +1,6 @@
 {
-    "name": "mad/iliadbox-php",
-    "description": "PHP library to access The IliadBox APIs",
+    "name": "mad/openbox-php",
+    "description": "PHP library to access the OpenBox APIs",
     "type": "library",
     "license": "BSD-3-Clause",
     "authors": [

@@ -1,3 +1,3 @@
-# IliadBox PHP
+# OpenBoxBox PHP
 
-PHP library to access The IliadBox APIs.
+PHP library to access the OpenBox APIs.
