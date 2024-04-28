@@ -1,3 +1,3 @@
-# OpenBox PHP
+# FreeBox PHP
 
-PHP library to access the OpenBox APIs.
+PHP library to access the FreeBox APIs.
