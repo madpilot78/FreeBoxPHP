@@ -2,6 +2,11 @@
     "name": "mad/freebox-php",
     "description": "PHP library to access the FreeBox APIs",
     "type": "library",
+    "keywords": [
+        "api",
+        "freebox",
+        "php"
+    ],
     "license": "BSD-3-Clause",
     "authors": [
         {
