@@ -32,7 +32,7 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "madpilot78\\freebox-php\\": "src/"
+            "madpilot78\\FreeBoxPHP\\": "src/"
         }
     },
     "autoload-dev": {
