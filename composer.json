@@ -1,19 +1,51 @@
 {
-    "name": "mad/freebox-php",
+    "name": "madpilot78/freebox-php",
     "description": "PHP library to access the FreeBox APIs",
+    "license": "BSD-3-Clause",
     "type": "library",
+    "version": "0.0.1",
     "keywords": [
         "api",
         "freebox",
         "php"
     ],
-    "license": "BSD-3-Clause",
     "authors": [
         {
             "name": "Guido Falsi",
             "email": "mad@madpilot.net"
         }
     ],
+    "require": {
+        "php": "^8.3",
+        "guzzlehttp/guzzle": "^7.0",
+        "league/container": "^4.2",
+        "psr/http-message": "^1.1 || ^2.0"
+    },
+    "require-dev": {
+        "ergebnis/composer-normalize": "^2.42",
+        "friendsofphp/php-cs-fixer": "^3.54",
+        "madpilot78/php-cs-fixer-config": "^1.0",
+        "symfony/var-dumper": "^7.0"
+    },
     "minimum-stability": "stable",
-    "require": {}
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "madpilot78\\freebox-php\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true
+        }
+    },
+    "scripts": {
+        "cs:check": "php-cs-fixer fix --dry-run --diff",
+        "cs:fix": "php-cs-fixer fix"
+    }
 }
