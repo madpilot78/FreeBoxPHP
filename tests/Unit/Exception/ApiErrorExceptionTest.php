@@ -19,7 +19,7 @@ class ApiErrorExceptionTest extends TestCase
 
     public function testApiErrorExceptionMissingSuccess(): void
     {
-        $exception = new ApiErrorException('', [ 'foo' => 'bar' ]);
+        $exception = new ApiErrorException('', ['foo' => 'bar']);
 
         $this->assertInstanceOf(ApiErrorException::class, $exception);
         $this->assertEquals(ApiErrorException::SUCCESS_MISSING, $exception->getMessage());
