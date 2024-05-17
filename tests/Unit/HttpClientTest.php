@@ -18,10 +18,10 @@ use madpilot78\FreeBoxPHP\HttpClient;
 
 class HttpClientTest extends TestCase
 {
+    private const URL = 'https://www.test.org/test';
+
     private HttpClient $httpClient;
     private MockHandler $mock;
-
-    private const URL = 'https://www.test.org/test';
 
     protected function setUp(): void
     {
