@@ -186,7 +186,7 @@ class HttpClientTest extends TestCase
             ),
         );
 
-        $content = $this->httpClient->get(['foo'], self::URL);
+        $content = $this->httpClient->post(['foo'], self::URL);
 
         $this->assertArrayHasKey('foo', $content);
         $this->assertEquals('bar', $content['foo']);
