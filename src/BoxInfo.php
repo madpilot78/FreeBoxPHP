@@ -30,7 +30,7 @@ class BoxInfo
      *
      * @throws InvalidArgumentException
      */
-    public function save(array $data): void
+    public function save(array $data): self
     {
         $req = self::REQUIRED;
 
@@ -55,6 +55,8 @@ class BoxInfo
         if (!$this->config->isDefaulthostname()) {
             $this->info['api_domain'] = $this->config->hostname;
         }
+
+        return $this;
     }
 
     private function makeApiUrl(): ?string

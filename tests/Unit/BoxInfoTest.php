@@ -65,7 +65,10 @@ class BoxInfoTest extends TestCase
 
     public function testBoxInfoGetValue(): void
     {
-        $this->boxInfo->save(self::INFO);
+        $this->assertInstanceOf(
+            BoxInfo::class,
+            $this->boxInfo->save(self::INFO),
+        );
 
         $this->assertEquals(self::INFO['api_domain'], $this->boxInfo->api_domain);
         $this->assertTrue(self::INFO['https_available']);
@@ -73,7 +76,10 @@ class BoxInfoTest extends TestCase
 
     public function testBoxInfoGetValueNotSaved(): void
     {
-        $this->boxInfo->save(self::INFO);
+        $this->assertInstanceOf(
+            BoxInfo::class,
+            $this->boxInfo->save(self::INFO),
+        );
 
         $this->expectException(OutOfBoundsException::class);
         $result = $this->boxInfo->foo;
@@ -81,7 +87,10 @@ class BoxInfoTest extends TestCase
 
     public function testBoxInfoGetApiUrl(): void
     {
-        $this->boxInfo->save(self::INFO);
+        $this->assertInstanceOf(
+            BoxInfo::class,
+            $this->boxInfo->save(self::INFO),
+        );
         $major = substr(self::INFO['api_version'], 0, strpos(self::INFO['api_version'], '.'));
 
         $this->assertEquals(
@@ -93,7 +102,10 @@ class BoxInfoTest extends TestCase
     public function testBoxInfoGetApiUrlNonLocal(): void
     {
         $this->boxInfo = new BoxInfo(new Configuration(localAccess: false));
-        $this->boxInfo->save(self::INFO);
+        $this->assertInstanceOf(
+            BoxInfo::class,
+            $this->boxInfo->save(self::INFO),
+        );
         $major = substr(self::INFO['api_version'], 0, strpos(self::INFO['api_version'], '.'));
 
         $this->assertEquals(
@@ -106,7 +118,10 @@ class BoxInfoTest extends TestCase
     {
         $custom = 'myhost.example.org';
         $this->boxInfo = new BoxInfo(new Configuration(hostname: $custom));
-        $this->boxInfo->save(self::INFO);
+        $this->assertInstanceOf(
+            BoxInfo::class,
+            $this->boxInfo->save(self::INFO),
+        );
 
         $this->assertEquals($custom, $this->boxInfo->api_domain);
     }
