@@ -40,9 +40,10 @@ class Session
             ],
         );
 
-        $this->authManager->setChallenge($result['challenge']);
-        $this->authManager->setSessionToken($result['session_token']);
-        $this->authManager->setPermissions($result['permissions']);
+        $this->authManager
+            ->setChallenge($result['challenge'])
+            ->setSessionToken($result['session_token'])
+            ->setPermissions($result['permissions']);
 
         return $result['session_token'];
     }
