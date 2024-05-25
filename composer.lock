@@ -1153,12 +1153,12 @@
             "version": "v5.2.13",
             "source": {
                 "type": "git",
-                "url": "https://github.com/justinrainbow/json-schema.git",
+                "url": "https://github.com/jsonrainbow/json-schema.git",
                 "reference": "fbbe7e5d79f618997bc3332a6f49246036c45793"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/fbbe7e5d79f618997bc3332a6f49246036c45793",
+                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/fbbe7e5d79f618997bc3332a6f49246036c45793",
                 "reference": "fbbe7e5d79f618997bc3332a6f49246036c45793",
                 "shasum": ""
             },
@@ -1213,8 +1213,8 @@
                 "schema"
             ],
             "support": {
-                "issues": "https://github.com/justinrainbow/json-schema/issues",
-                "source": "https://github.com/justinrainbow/json-schema/tree/v5.2.13"
+                "issues": "https://github.com/jsonrainbow/json-schema/issues",
+                "source": "https://github.com/jsonrainbow/json-schema/tree/v5.2.13"
             },
             "time": "2023-09-26T02:20:38+00:00"
         },
@@ -1563,16 +1563,16 @@
         },
         {
             "name": "php-cs-fixer/shim",
-            "version": "v3.57.1",
+            "version": "v3.57.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/shim.git",
-                "reference": "5f5c7c0e18b6251517c9c3908d1a5420f17d42a5"
+                "reference": "2141067497145f224111eee89a0b4a0d0f3fe487"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/shim/zipball/5f5c7c0e18b6251517c9c3908d1a5420f17d42a5",
-                "reference": "5f5c7c0e18b6251517c9c3908d1a5420f17d42a5",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/shim/zipball/2141067497145f224111eee89a0b4a0d0f3fe487",
+                "reference": "2141067497145f224111eee89a0b4a0d0f3fe487",
                 "shasum": ""
             },
             "require": {
@@ -1609,9 +1609,9 @@
             "description": "A tool to automatically fix PHP code style",
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/shim/issues",
-                "source": "https://github.com/PHP-CS-Fixer/shim/tree/v3.57.1"
+                "source": "https://github.com/PHP-CS-Fixer/shim/tree/v3.57.2"
             },
-            "time": "2024-05-15T22:01:33+00:00"
+            "time": "2024-05-20T20:42:23+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
