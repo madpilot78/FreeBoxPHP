@@ -6,6 +6,7 @@ namespace Tests\Feature\Methods;
 
 use GuzzleHttp\Psr7\Response;
 use madpilot78\FreeBoxPHP\Box;
+use madpilot78\FreeBoxPHP\Exception\AuthException;
 
 class RegisterTest extends MethodTestCase
 {
@@ -65,5 +66,66 @@ class RegisterTest extends MethodTestCase
         $box = new Box(client: $this->guzzleClient);
 
         $this->assertEquals('AppTokenVal', $box->discover()->register(skipSleep: true));
+    }
+
+    public function testDiscoverDenied(): void
+    {
+        $this->mock->append(
+            new Response(
+                body: <<<JSON
+                    {
+                       "uid": "23b86ec8091013d668829fe12791fdab",
+                       "device_name": "Freebox Server",
+                       "box_model": "fbxgw7-r1/full",
+                       "box_model_name": "Freebox v7 (r1)",
+                       "api_version": "6.0",
+                       "api_base_url": "/api/",
+                       "api_domain": "example.fbxos.fr",
+                       "https_available": true,
+                       "https_port": 3615
+                    }
+                    JSON,
+            ),
+            new Response(
+                body: <<<JSON
+                    {
+                        "success": true,
+                        "result": {
+                            "app_token": "AppTokenVal",
+                            "track_id": 42
+                        }
+                    }
+                    JSON,
+            ),
+            new Response(
+                body: <<<JSON
+                    {
+                        "success": true,
+                        "result": {
+                            "status": "pending",
+                            "challenge": "ChallengeVal"
+                        }
+                    }
+                    JSON,
+            ),
+            new Response(
+                body: <<<JSON
+                    {
+                        "success": true,
+                        "result": {
+                            "status": "denied",
+                            "challenge": "ChallengeVal"
+                        }
+                    }
+                    JSON,
+            ),
+        );
+
+        $box = new Box(client: $this->guzzleClient);
+
+        $this->expectException(AuthException::class);
+        $this->expectExceptionMessage('the user denied the authorization request');
+
+        $box->discover()->register(skipSleep: true);
     }
 }
