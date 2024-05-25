@@ -55,7 +55,7 @@ class RegisterTest extends MethodTestCase
                         "success": true,
                         "result": {
                             "status": "granted",
-                            "challenge": "Bj6xMqoe+DCHD44KqBljJ579seOXNWr2"
+                            "challenge": "ChallengeVal"
                         }
                     }
                     JSON,
