@@ -15,28 +15,25 @@ use madpilot78\FreeBoxPHP\Configuration;
 class BoxTest extends TestCase
 {
     private Client $guzzleClient;
-    private MockHandler $mock;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->mock = new MockHandler();
-
-        $handlerStack = HandlerStack::create($this->mock);
-
-        $this->guzzleClient = new Client(['handler' => $handlerStack]);
+        $this->guzzleClient = new Client([
+            'handler' => HandlerStack::create(new MockHandler()),
+        ]);
     }
 
     public function testCreateBoxInstance(): void
     {
-        $this->assertInstanceOf(Box::class, new Box());
+        $this->assertInstanceOf(Box::class, new Box(client: $this->guzzleClient));
 
-        $this->assertInstanceOf(Box::class, new Box('token', new Configuration()));
+        $this->assertInstanceOf(Box::class, new Box('token', new Configuration(), $this->guzzleClient));
 
-        $this->assertInstanceOf(Box::class, new Box(null, new Configuration()));
+        $this->assertInstanceOf(Box::class, new Box(null, new Configuration(), $this->guzzleClient));
 
-        $this->assertInstanceOf(Box::class, new Box('token', new Configuration()));
+        $this->assertInstanceOf(Box::class, new Box('token', new Configuration(), $this->guzzleClient));
     }
 
     public function testBoxBadMethodCall(): void
