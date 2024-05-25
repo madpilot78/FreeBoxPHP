@@ -4,29 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Methods;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
-use PHPUnit\Framework\TestCase;
 use madpilot78\FreeBoxPHP\Box;
 
-class RegisterTest extends TestCase
+class RegisterTest extends MethodTestCase
 {
-    private Client $guzzleClient;
-    private MockHandler $mock;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->mock = new MockHandler();
-
-        $this->guzzleClient = new Client([
-            'handler' => HandlerStack::create($this->mock),
-        ]);
-    }
-
     public function testDiscoverSuccess(): void
     {
         $this->mock->append(
