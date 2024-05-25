@@ -64,6 +64,11 @@ class Box
             ->addArgument(HttpClient::class);
     }
 
+    public function getBoxInfo(): array
+    {
+        return $this->boxInfo->getInfo();
+    }
+
     public function __call(string $name, array $arguments): mixed
     {
         $fullName = self::METHODS_BASE . ucfirst($name);
