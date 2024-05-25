@@ -29,9 +29,11 @@ class HttpClientTest extends TestCase
 
         $this->mock = new MockHandler();
 
-        $handlerStack = HandlerStack::create($this->mock);
-
-        $this->httpClient = new HttpClient(new Client(['handler' => $handlerStack]));
+        $this->httpClient = new HttpClient(
+            new Client([
+                'handler' => HandlerStack::create($this->mock),
+            ]),
+        );
     }
 
     public function testNotJson(): void
