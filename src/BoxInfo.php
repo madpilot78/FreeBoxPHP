@@ -82,6 +82,11 @@ class BoxInfo
         return $scheme . '://' . $this->info['api_domain'] . $port . $this->info['api_base_url'] . 'v' . $major;
     }
 
+    public function getInfo(): array
+    {
+        return $this->info;
+    }
+
     /**
      * @throws OutOfBoundsException
      */

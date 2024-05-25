@@ -125,4 +125,9 @@ class BoxInfoTest extends TestCase
 
         $this->assertEquals($custom, $this->boxInfo->api_domain);
     }
+
+    public function testBoxInfoGetInfo(): void
+    {
+        $this->assertEquals(self::INFO, $this->boxInfo->save(self::INFO)->getInfo());
+    }
 }
