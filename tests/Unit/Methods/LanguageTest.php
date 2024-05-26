@@ -8,12 +8,20 @@ use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use madpilot78\FreeBoxPHP\Auth\Session as AuthSession;
 use madpilot78\FreeBoxPHP\BoxInfo;
+use madpilot78\FreeBoxPHP\Exception\ApiErrorException;
 use madpilot78\FreeBoxPHP\HttpClient;
 use madpilot78\FreeBoxPHP\Methods\Language;
 
 class LanguageTest extends TestCase
 {
     private const array LANGOBJ = [
+        'lang' => 'fra',
+        'avalaible' => [
+            'fra',
+            'eng',
+        ],
+    ];
+    private const array POSTRESPONSEOBJ = [
         'lang' => 'fra',
         'avalaible' => [
             'fra',
@@ -43,14 +51,36 @@ class LanguageTest extends TestCase
         $this->authSessionStub
             ->method('getAuthHeader')
             ->willReturn(['X-Fbx-App-Auth' => 'TokenStub']);
+    }
+
+    public function testGetLanguage(): void
+    {
         $this->httpClientStub
             ->method('__call')
             ->willReturn(self::LANGOBJ);
+
+        $this->assertEquals(self::LANGOBJ, $this->language->run('get'));
     }
 
-    public function testGetLanguages(): void
+    public function testSetLanguage(): void
     {
-        $this->assertEquals(self::LANGOBJ, $this->language->run('get'));
+        $this->httpClientStub
+            ->method('__call')
+            ->willReturn(['success' => true]);
+
+        $this->assertNull($this->language->run('set', 'eng'));
+    }
+
+    public function testSetLanguageFail(): void
+    {
+        $this->httpClientStub
+            ->method('__call')
+            ->willReturn(['success' => false]);
+
+        $this->expectException(ApiErrorException::class);
+        $this->expectExceptionMessage('Failed to set language');
+
+        $this->language->run('set', 'eng');
     }
 
     public function testWrongMethod(): void

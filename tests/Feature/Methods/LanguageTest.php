@@ -41,6 +41,27 @@ class LanguageTest extends MethodTestCase
         $this->assertEquals($decoded['result'], $box->language('get'));
     }
 
+    public function testLanguageSetSuccess(): void
+    {
+        $this->mock->append(new Response(body: '{"success": true}'));
+
+        $box = new Box(authToken: 'fakeToken', client: $this->guzzleClient);
+
+        $this->assertInstanceOf(Box::class, $box->language('set', 'eng'));
+    }
+
+    public function testLanguageSetFail(): void
+    {
+        $this->mock->append(new Response(body: '{"success": false}'));
+
+        $box = new Box(authToken: 'fakeToken', client: $this->guzzleClient);
+
+        $this->expectException(ApiErrorException::class);
+        $this->expectExceptionMessage('Failed to set language');
+
+        $box->language('set', 'eng');
+    }
+
     public function testLanguageWrongMethod(): void
     {
         $this->expectException(InvalidArgumentException::class);
