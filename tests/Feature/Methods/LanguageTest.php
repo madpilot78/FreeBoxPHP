@@ -14,11 +14,11 @@ class LanguageTest extends MethodTestCase
         {
             "success": true,
             "result": {
-              "lang": "fra",
-              "avalaible": [
-                 "fra",
-                 "eng"
-              ]
+                "lang": "fra",
+                "avalaible": [
+                   "fra",
+                   "eng"
+                ]
             }
         }
         JSON;
