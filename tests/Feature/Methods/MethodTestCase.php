@@ -7,7 +7,6 @@ namespace Tests\Feature\Methods;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
 abstract class MethodTestCase extends TestCase
