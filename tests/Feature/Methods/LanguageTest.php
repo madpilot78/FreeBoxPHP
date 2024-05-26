@@ -7,10 +7,11 @@ namespace Tests\Feature\Methods;
 use GuzzleHttp\Psr7\Response;
 use InvalidArgumentException;
 use madpilot78\FreeBoxPHP\Box;
+use madpilot78\FreeBoxPHP\Exception\ApiErrorException;
 
 class LanguageTest extends MethodTestCase
 {
-    private const string JSON = <<<JSON
+    private const string GETJSON = <<<JSON
         {
             "success": true,
             "result": {
@@ -32,7 +33,7 @@ class LanguageTest extends MethodTestCase
 
     public function testLanguageGetSuccess(): void
     {
-        $this->mock->append(new Response(body: self::JSON));
+        $this->mock->append(new Response(body: self::GETJSON));
         $decoded = json_decode(self::JSON, true);
 
         $box = new Box(authToken: 'fakeToken', client: $this->guzzleClient);
