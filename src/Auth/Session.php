@@ -48,7 +48,7 @@ class Session
         return $result['session_token'];
     }
 
-    public function getAuthHader(): array
+    public function getAuthHeader(): array
     {
         return ['X-Fbx-App-Auth' => $this->authManager->getSessionToken() ?? $this->login()];
     }
