@@ -34,7 +34,7 @@ class LanguageTest extends MethodTestCase
     public function testLanguageGetSuccess(): void
     {
         $this->mock->append(new Response(body: self::GETJSON));
-        $decoded = json_decode(self::JSON, true);
+        $decoded = json_decode(self::GETJSON, true);
 
         $box = new Box(authToken: 'fakeToken', client: $this->guzzleClient);
 
