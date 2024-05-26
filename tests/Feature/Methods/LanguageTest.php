@@ -6,11 +6,14 @@ namespace Tests\Feature\Methods;
 
 use GuzzleHttp\Psr7\Response;
 use InvalidArgumentException;
+use Tests\Feature\NeedsLogin;
 use madpilot78\FreeBoxPHP\Box;
 use madpilot78\FreeBoxPHP\Exception\ApiErrorException;
 
 class LanguageTest extends MethodTestCase
 {
+    use NeedsLogin;
+
     private const string GETJSON = <<<JSON
         {
             "success": true,
