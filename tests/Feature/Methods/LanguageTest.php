@@ -27,10 +27,7 @@ class LanguageTest extends MethodTestCase
     {
         parent::setUp();
 
-        $this->mock->append(
-            new Response(body: self::FAKELOGINJSON[0]),
-            new Response(body: self::FAKELOGINJSON[1]),
-        );
+        $this->setupFakeLogin();
     }
 
     public function testLanguageGetSuccess(): void

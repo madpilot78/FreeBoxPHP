@@ -7,11 +7,12 @@ namespace Tests\Feature\Methods;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
 abstract class MethodTestCase extends TestCase
 {
-    protected const array FAKELOGINJSON = [
+    private const array FAKELOGINJSON = [
         <<<JSON
             {
                 "success": true,
@@ -47,5 +48,13 @@ abstract class MethodTestCase extends TestCase
         $this->guzzleClient = new Client([
             'handler' => HandlerStack::create($this->mock),
         ]);
+    }
+
+    protected function setupFakeLogin(): void
+    {
+        $this->mock->append(
+            new Response(body: self::FAKELOGINJSON[0]),
+            new Response(body: self::FAKELOGINJSON[1]),
+        );
     }
 }
