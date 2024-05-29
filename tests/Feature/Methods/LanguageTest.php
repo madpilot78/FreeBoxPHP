@@ -29,12 +29,6 @@ class LanguageTest extends MethodTestCase
         }
         JSON;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-    }
-
     public function testLanguageGetSuccess(): void
     {
         $this->setupFakeLogin();
