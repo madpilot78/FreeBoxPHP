@@ -85,9 +85,14 @@ class ManagerTest extends TestCase
         $this->assertFalse($this->authManager->hasPermission('foo'));
         $this->assertInstanceOf(
             AuthManager::class,
-            $this->authManager->setPermissions(['foo', 'bar']),
+            $this->authManager->setPermissions([
+                'foo' => true,
+                'bar' => true,
+                'zzz' => false,
+            ]),
         );
         $this->assertTrue($this->authManager->hasPermission('foo'));
         $this->assertFalse($this->authManager->hasPermission('baz'));
+        $this->assertFalse($this->authManager->hasPermission('zzz'));
     }
 }
