@@ -16,7 +16,7 @@ final readonly class Configuration
     public const string DEFAULT_DEVICENAME = 'Unknwon';
     public const bool DEFAULT_HTTPS = true;
     public const bool DEFAULT_LOCAL_ACCESS = true;
-    public const string DEFAULT_BOX_TYPE = 'FreeBox';
+    public const BoxType DEFAULT_BOX_TYPE = BoxType::Free;
     public const int DEFAULT_TIMEOUT = 30;
     public const string CERT_PATH = '/data';
 
@@ -29,7 +29,7 @@ final readonly class Configuration
         public string $hostname = self::DEFAULT_HOSTNAME,
         public bool $https = self::DEFAULT_HTTPS,
         public bool $localAccess = self::DEFAULT_LOCAL_ACCESS,
-        public BoxType $boxType = BoxType::Free,
+        public BoxType $boxType = self::DEFAULT_BOX_TYPE,
         public int $timeout = self::DEFAULT_TIMEOUT,
         string $deviceName = self::DEFAULT_DEVICENAME,
         ?string $certFile = '',
