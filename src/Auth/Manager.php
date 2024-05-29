@@ -53,7 +53,7 @@ class Manager
 
     public function hasPermission(string $permission): bool
     {
-        return in_array($permission, $this->permissions);
+        return array_key_exists($permission, $this->permissions) && $this->permissions[$permission];
     }
 
     /**
