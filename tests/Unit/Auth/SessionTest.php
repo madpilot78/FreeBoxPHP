@@ -9,6 +9,7 @@ use madpilot78\FreeBoxPHP\Auth\Manager as AuthManager;
 use madpilot78\FreeBoxPHP\Auth\Session as AuthSession;
 use madpilot78\FreeBoxPHP\BoxInfo;
 use madpilot78\FreeBoxPHP\Configuration;
+use madpilot78\FreeBoxPHP\Enum\Permission;
 use madpilot78\FreeBoxPHP\HttpClient;
 
 class SessionTest extends TestCase
@@ -149,5 +150,15 @@ class SessionTest extends TestCase
 
         $this->assertIsArray($returned);
         $this->assertSame(['X-Fbx-App-Auth' => self::SESSION_TOKEN], $returned);
+    }
+
+    public function testCan(): void
+    {
+        $this->authManagerMock
+            ->expects($this->once())
+            ->method('hasPermission')
+            ->willReturn(true);
+
+        $this->assertTrue($this->authSession->can(Permission::Pvr));
     }
 }

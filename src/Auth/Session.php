@@ -8,6 +8,7 @@ use madpilot78\FreeBoxPHP\Auth\Manager as AuthManager;
 use madpilot78\FreeBoxPHP\BoxInfo;
 use madpilot78\FreeBoxPHP\Configuration;
 use madpilot78\FreeBoxPHP\HttpClient;
+use madpilot78\FreeBoxPHP\Enum\Permission;
 
 class Session
 {
@@ -51,5 +52,10 @@ class Session
     public function getAuthHeader(): array
     {
         return ['X-Fbx-App-Auth' => $this->authManager->getSessionToken() ?? $this->login()];
+    }
+
+    public function can(Permission $perm): bool
+    {
+        return $this->authManager->hasPermission($perm->value);
     }
 }
