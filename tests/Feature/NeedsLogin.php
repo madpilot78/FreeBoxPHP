@@ -12,28 +12,30 @@ trait NeedsLogin
     private function setupFakeLogin(Permission $perm = Permission::Downloader): void
     {
         $this->mock->append(
-            new Response(body: <<<JSON
-                {
-                    "success": true,
-                    "result": {
-                        "logged_in": false,
-                        "challenge": "fakeChallenge"
-                    }
-                }
-                JSON
-            ),
-            new Response(body: <<<JSON
-                {
-                   "success": true,
-                   "result": {
-                        "session_token": "fakeToken",
-                        "challenge": "fakeChallenge",
-                        "permissions": {
-                            "{$perm->value}": true
+            new Response(
+                body: <<<JSON
+                    {
+                        "success": true,
+                        "result": {
+                            "logged_in": false,
+                            "challenge": "fakeChallenge"
                         }
                     }
-                }
-                JSON
+                    JSON,
+            ),
+            new Response(
+                body: <<<JSON
+                    {
+                       "success": true,
+                       "result": {
+                            "session_token": "fakeToken",
+                            "challenge": "fakeChallenge",
+                            "permissions": {
+                                "{$perm->value}": true
+                            }
+                        }
+                    }
+                    JSON,
             ),
         );
     }
