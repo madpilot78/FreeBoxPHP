@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 use madpilot78\FreeBoxPHP\Auth\Session as AuthSession;
 use madpilot78\FreeBoxPHP\BoxInfo;
 use madpilot78\FreeBoxPHP\Exception\ApiErrorException;
+use madpilot78\FreeBoxPHP\Exception\AuthException;
 use madpilot78\FreeBoxPHP\HttpClient;
 use madpilot78\FreeBoxPHP\Methods\Language;
 
@@ -67,6 +68,24 @@ class LanguageTest extends TestCase
         $this->httpClientStub
             ->method('__call')
             ->willReturn(['success' => true]);
+        $this->authSessionStub
+            ->method('can')
+            ->willReturn(true);
+
+        $this->assertNull($this->language->run('set', 'eng'));
+    }
+
+    public function testSetLanguageNoPerm(): void
+    {
+        $this->httpClientStub
+            ->method('__call')
+            ->willReturn(['success' => true]);
+        $this->authSessionStub
+            ->method('can')
+            ->willReturn(false);
+
+        $this->expectException(AuthException::class);
+        $this->expectExceptionMessage('No permission');
 
         $this->assertNull($this->language->run('set', 'eng'));
     }
@@ -76,6 +95,9 @@ class LanguageTest extends TestCase
         $this->httpClientStub
             ->method('__call')
             ->willReturn(['success' => false]);
+        $this->authSessionStub
+            ->method('can')
+            ->willReturn(true);
 
         $this->expectException(ApiErrorException::class);
         $this->expectExceptionMessage('Failed to set language');

@@ -12,6 +12,8 @@ use madpilot78\FreeBoxPHP\Enum\Permission;
 
 class Session
 {
+    public const string NO_PERM_MSG = 'No permission';
+
     public function __construct(
         private AuthManager $authManager,
         private BoxInfo $boxInfo,
