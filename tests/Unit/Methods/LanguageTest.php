@@ -7,7 +7,9 @@ namespace Tests\Unit\Methods;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use madpilot78\FreeBoxPHP\Auth\Session as AuthSession;
+use madpilot78\FreeBoxPHP\Auth\SessionInterface as AuthSessionInterface;
 use madpilot78\FreeBoxPHP\BoxInfo;
+use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Exception\ApiErrorException;
 use madpilot78\FreeBoxPHP\Exception\AuthException;
 use madpilot78\FreeBoxPHP\HttpClient;
@@ -30,8 +32,8 @@ class LanguageTest extends TestCase
         ],
     ];
 
-    private AuthSession $authSessionStub;
-    private BoxInfo $boxInfoStub;
+    private AuthSessionInterface $authSessionStub;
+    private BoxInfoInterface $boxInfoStub;
     private HttpClient $httpClientStub;
     private Language $language;
 

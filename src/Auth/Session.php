@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace madpilot78\FreeBoxPHP\Auth;
 
-use madpilot78\FreeBoxPHP\Auth\Manager as AuthManager;
-use madpilot78\FreeBoxPHP\BoxInfo;
+use madpilot78\FreeBoxPHP\Auth\ManagerInterface as AuthManagerInterface;
+use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Configuration;
 use madpilot78\FreeBoxPHP\HttpClient;
 use madpilot78\FreeBoxPHP\Enum\Permission;
 
-class Session
+class Session implements SessionInterface
 {
-    public const string NO_PERM_MSG = 'No permission';
-
     public function __construct(
-        private AuthManager $authManager,
-        private BoxInfo $boxInfo,
+        private AuthManagerInterface $authManager,
+        private BoxInfoInterface $boxInfo,
         private Configuration $config,
         private HttpClient $client,
     ) {}

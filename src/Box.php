@@ -10,14 +10,16 @@ use BadMethodCallException;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
 use madpilot78\FreeBoxPHP\Auth\Manager as AuthManager;
+use madpilot78\FreeBoxPHP\Auth\ManagerInterface as AuthManagerInterface;
 use madpilot78\FreeBoxPHP\Auth\Session as AuthSession;
+use madpilot78\FreeBoxPHP\Auth\SessionInterface as AuthSessionInterface;
 
 class Box
 {
     private const string METHODS_BASE = 'madpilot78\\FreeBoxPHP\\Methods\\';
 
-    private AuthManager $authManager;
-    private BoxInfo $boxInfo;
+    private AuthManagerInterface $authManager;
+    private BoxInfoInterface $boxInfo;
     private ?Configuration $config;
     private Container $container;
     private ?Guzzle $client;
@@ -55,11 +57,11 @@ class Box
         $this->container->add(HttpClient::class)
             ->addArgument(ClientInterface::class);
         $this->container->add(Configuration::class, $this->config);
-        $this->container->add(BoxInfo::class, $this->boxInfo);
-        $this->container->add(AuthManager::class, $this->authManager);
-        $this->container->add(AuthSession::class)
-            ->addArgument(AuthManager::class)
-            ->addArgument(BoxInfo::class)
+        $this->container->add(BoxInfoInterface::class, $this->boxInfo);
+        $this->container->add(AuthManagerInterface::class, $this->authManager);
+        $this->container->add(AuthSessionInterface::class, AuthSession::class)
+            ->addArgument(AuthManagerInterface::class)
+            ->addArgument(BoxInfoInterface::class)
             ->addArgument(Configuration::class)
             ->addArgument(HttpClient::class);
     }

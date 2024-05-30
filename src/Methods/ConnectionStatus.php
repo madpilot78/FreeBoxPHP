@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace madpilot78\FreeBoxPHP\Methods;
 
-use madpilot78\FreeBoxPHP\Auth\Session as AuthSession;
-use madpilot78\FreeBoxPHP\BoxInfo;
+use madpilot78\FreeBoxPHP\Auth\SessionInterface as AuthSessionInterface;
+use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\HttpClient;
 
 class ConnectionStatus
 {
     public function __construct(
-        private AuthSession $authSession,
-        private BoxInfo $boxInfo,
+        private AuthSessionInterface $authSession,
+        private BoxInfoInterface $boxInfo,
         private HttpClient $client,
     ) {}
 

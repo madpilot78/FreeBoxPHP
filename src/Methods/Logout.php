@@ -6,16 +6,16 @@ namespace madpilot78\FreeBoxPHP\Methods;
 
 use madpilot78\FreeBoxPHP\Exception\ApiAuthException;
 use madpilot78\FreeBoxPHP\HttpClient;
-use madpilot78\FreeBoxPHP\Auth\Session as AuthSession;
-use madpilot78\FreeBoxPHP\BoxInfo;
+use madpilot78\FreeBoxPHP\Auth\SessionInterface as AuthSessionInterface;
+use madpilot78\FreeBoxPHP\BoxInfoInterface;
 
 class Logout
 {
     private array $authHeader;
 
     public function __construct(
-        private AuthSession $authSession,
-        private BoxInfo $boxInfo,
+        private AuthSessionInterface $authSession,
+        private BoxInfoInterface $boxInfo,
         private HttpClient $client,
     ) {}
 

@@ -7,7 +7,7 @@ namespace madpilot78\FreeBoxPHP;
 use InvalidArgumentException;
 use OutOfBoundsException;
 
-class BoxInfo
+class BoxInfo implements BoxInfoInterface
 {
     private const array REQUIRED = [
         'api_base_url',

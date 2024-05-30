@@ -6,7 +6,7 @@ namespace madpilot78\FreeBoxPHP\Auth;
 
 use madpilot78\FreeBoxPHP\Exception\MissingAuthException;
 
-class Manager
+class Manager Implements ManagerInterface
 {
     private ?string $authToken = null;
     private ?string $sessionToken = null;

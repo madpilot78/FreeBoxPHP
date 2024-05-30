@@ -6,7 +6,9 @@ namespace Tests\Unit\Methods;
 
 use PHPUnit\Framework\TestCase;
 use madpilot78\FreeBoxPHP\Auth\Manager as AuthManager;
+use madpilot78\FreeBoxPHP\Auth\ManagerInterface as AuthManagerInterface;
 use madpilot78\FreeBoxPHP\BoxInfo;
+use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Configuration;
 use madpilot78\FreeBoxPHP\Exception\AuthException;
 use madpilot78\FreeBoxPHP\HttpClient;
@@ -17,8 +19,8 @@ class RegisterTest extends TestCase
     private const string CHALLENGE = 'challengeVal';
     private const string APPTOKEN = 'apptokenVal';
 
-    private AuthManager $authManagerMock;
-    private BoxInfo $boxInfoStub;
+    private AuthManagerInterface $authManagerMock;
+    private BoxInfoInterface $boxInfoStub;
     private HttpClient $httpClientStub;
     private Register $register;
 

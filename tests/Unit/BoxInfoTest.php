@@ -9,6 +9,7 @@ use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
 use StdClass;
 use madpilot78\FreeBoxPHP\BoxInfo;
+use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Configuration;
 
 class BoxInfoTest extends TestCase
@@ -22,7 +23,7 @@ class BoxInfoTest extends TestCase
         'api_version' => '10.1',
     ];
 
-    private BoxInfo $boxInfo;
+    private BoxInfoInterface $boxInfo;
 
     protected function setUp(): void
     {

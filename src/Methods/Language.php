@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace madpilot78\FreeBoxPHP\Methods;
 
 use InvalidArgumentException;
-use madpilot78\FreeBoxPHP\Auth\Session as AuthSession;
-use madpilot78\FreeBoxPHP\BoxInfo;
+use madpilot78\FreeBoxPHP\Auth\SessionInterface as AuthSessionInterface;
+use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Enum\Permission;
 use madpilot78\FreeBoxPHP\Exception\ApiErrorException;
 use madpilot78\FreeBoxPHP\Exception\AuthException;
@@ -19,8 +19,8 @@ class Language
     private array $authHeader;
 
     public function __construct(
-        private AuthSession $authSession,
-        private BoxInfo $boxInfo,
+        private AuthSessionInterface $authSession,
+        private BoxInfoInterface $boxInfo,
         private HttpClient $client,
     ) {}
 
@@ -50,7 +50,7 @@ class Language
     private function set(string $lang): void
     {
         if (!$this->authSession->can(Permission::Settings)) {
-            throw new AuthException(AuthSession::NO_PERM_MSG);
+            throw new AuthException(AuthSessionInterface::NO_PERM_MSG);
         }
 
         $response = $this->client->post(

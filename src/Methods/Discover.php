@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace madpilot78\FreeBoxPHP\Methods;
 
-use madpilot78\FreeBoxPHP\BoxInfo;
+use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Configuration;
 use madpilot78\FreeBoxPHP\HttpClient;
 use madpilot78\FreeBoxPHP\Exception\NotSupportedException;
@@ -14,7 +14,7 @@ class Discover
     public function __construct(
         private HttpClient $client,
         private Configuration $config,
-        private BoxInfo $boxInfo,
+        private BoxInfoInterface $boxInfo,
     ) {}
 
     /**
