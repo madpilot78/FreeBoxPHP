@@ -25,7 +25,7 @@ class LanguageTest extends TestCase
         ],
     ];
     private const array POSTRESPONSEOBJ = [
-        'lang' => 'fra',
+        'lang' => 'eng',
         'avalaible' => [
             'fra',
             'eng',
