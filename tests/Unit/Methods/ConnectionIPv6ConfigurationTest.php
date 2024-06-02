@@ -17,39 +17,39 @@ use madpilot78\FreeBoxPHP\Methods\ConnectionIPv6Configuration;
 class ConnectionIPv6ConfigurationTest extends TestCase
 {
 private const array CONFOBJ = [
-        'ipv6_enabled': true,
-        'delegations': [
+        'ipv6_enabled' => true,
+        'delegations' => [
             [
-                'prefix': '2a01:e30:d252:a2a0::/64',
-                'next_hop': '',
+                'prefix' => '2a01:e30:d252:a2a0::/64',
+                'next_hop' => '',
             ],
             [
-                'prefix': '2a01:e30:d252:a2a1::/64',
-                'next_hop': '',
+                'prefix' => '2a01:e30:d252:a2a1::/64',
+                'next_hop' => '',
             ],
             [
-                'prefix': '2a01:e30:d252:a2a2::/64',
-                'next_hop': '',
+                'prefix' => '2a01:e30:d252:a2a2::/64',
+                'next_hop' => '',
             ],
             [
-                'prefix': '2a01:e30:d252:a2a3::/64',
-                'next_hop': '',
+                'prefix' => '2a01:e30:d252:a2a3::/64',
+                'next_hop' => '',
             ],
             [
-                'prefix': '2a01:e30:d252:a2a4::/64',
-                'next_hop': '',
+                'prefix' => '2a01:e30:d252:a2a4::/64',
+                'next_hop' => '',
             ],
             [
-                'prefix': '2a01:e30:d252:a2a5::/64',
-                'next_hop': '',
+                'prefix' => '2a01:e30:d252:a2a5::/64',
+                'next_hop' => '',
             ],
             [
-                'prefix': '2a01:e30:d252:a2a6::/64',
-                'next_hop': '',
+                'prefix' => '2a01:e30:d252:a2a6::/64',
+                'next_hop' => '',
             ],
             [
-                'prefix': '2a01:e30:d252:a2a7::/64',
-                'next_hop': '',
+                'prefix' => '2a01:e30:d252:a2a7::/64',
+                'next_hop' => '',
             ],
         ],
     ];
@@ -57,7 +57,7 @@ private const array CONFOBJ = [
     private AuthSessionInterface $authSessionStub;
     private BoxInfoInterface $boxInfoStub;
     private HttpClient $httpClientStub;
-    private ConnectionConfiguration $connectionIPv6Configuration;
+    private ConnectionIPv6Configuration $connectionIPv6Configuration;
 
     protected function setUp(): void
     {
