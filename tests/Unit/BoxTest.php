@@ -41,7 +41,7 @@ class BoxTest extends TestCase
         $box = new Box(client: $this->guzzleClient);
 
         $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage('Method foobar Not found');
+        $this->expectExceptionMessage('Method foobar not found');
 
         $box->foobar();
     }
