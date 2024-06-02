@@ -55,7 +55,10 @@ class Language
 
         $response = $this->client->post(
             $this->boxInfo->apiUrl . '/lang',
-            ['json' => ['lang' => $lang]],
+            [
+                'headers' => $this->authHeader,
+                'json' => ['lang' => $lang],
+            ],
         );
 
         if (!$response['success']) {

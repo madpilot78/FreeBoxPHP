@@ -66,7 +66,10 @@ class ConnectionConfiguration
 
         $response = $this->client->post(
             $this->boxInfo->apiUrl . '/connection/config',
-            ['json' => $params],
+            [
+                'headers' => $this->authHeader,
+                'json' => $params,
+            ],
         );
 
         if (!$response['success']) {
