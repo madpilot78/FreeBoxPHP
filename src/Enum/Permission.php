@@ -6,6 +6,7 @@ namespace madpilot78\FreeBoxPHP\Enum;
 
 enum Permission: string
 {
+    case None = '';
     case Settings = 'settings';
     case Contacts = 'contacts';
     case Calls = 'calls';

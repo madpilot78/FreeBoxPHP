@@ -9,18 +9,18 @@ use madpilot78\FreeBoxPHP\Configuration;
 use madpilot78\FreeBoxPHP\HttpClient;
 use madpilot78\FreeBoxPHP\Exception\NotSupportedException;
 
-class Discover
+class Discover extends AbstractMethod implements MethodInterface
 {
     public function __construct(
-        private HttpClient $client,
-        private Configuration $config,
-        private BoxInfoInterface $boxInfo,
+        protected HttpClient $client,
+        protected Configuration $config,
+        protected BoxInfoInterface $boxInfo,
     ) {}
 
     /**
      * @throws NotSupportedException
      */
-    public function run(): void
+    public function run(string $action = 'get', array $params = []): null
     {
         $this->boxInfo->save($this->client->get(
             'http' . ($this->config->https ? 's' : '') . '://' .
@@ -31,5 +31,7 @@ class Discover
         if (!$this->boxInfo->https_available) {
             throw new NotSupportedException('Only https enabled boxes supported.');
         }
+
+        return null;
     }
 }

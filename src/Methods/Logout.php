@@ -5,21 +5,10 @@ declare(strict_types=1);
 namespace madpilot78\FreeBoxPHP\Methods;
 
 use madpilot78\FreeBoxPHP\Exception\ApiAuthException;
-use madpilot78\FreeBoxPHP\HttpClient;
-use madpilot78\FreeBoxPHP\Auth\SessionInterface as AuthSessionInterface;
-use madpilot78\FreeBoxPHP\BoxInfoInterface;
 
-class Logout
+class Logout extends AbstractMethod implements MethodInterface
 {
-    private array $authHeader;
-
-    public function __construct(
-        private AuthSessionInterface $authSession,
-        private BoxInfoInterface $boxInfo,
-        private HttpClient $client,
-    ) {}
-
-    public function run(): void
+    public function run(string $action = 'get', array $params = []): null
     {
         $response = $this->client->get(
             $this->boxInfo->apiUrl . '/login/logout',
@@ -29,5 +18,7 @@ class Logout
         if (!$response['success']) {
             throw new ApiAuthException('logout failed');
         }
+
+        return null;
     }
 }

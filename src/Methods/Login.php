@@ -6,12 +6,14 @@ namespace madpilot78\FreeBoxPHP\Methods;
 
 use madpilot78\FreeBoxPHP\Auth\SessionInterface as AuthSessionInterface;
 
-class Login
+class Login extends AbstractMethod implements MethodInterface
 {
-    public function __construct(private AuthSessionInterface $authSession) {}
+    public function __construct(protected AuthSessionInterface $authSession) {}
 
-    public function run(): void
+    public function run(string $action = 'get', array $params = []): null
     {
         $this->authSession->getAuthHeader();
+
+        return null;
     }
 }

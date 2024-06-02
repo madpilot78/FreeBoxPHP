@@ -4,24 +4,18 @@ declare(strict_types=1);
 
 namespace madpilot78\FreeBoxPHP\Methods;
 
-use madpilot78\FreeBoxPHP\Auth\SessionInterface as AuthSessionInterface;
-use madpilot78\FreeBoxPHP\BoxInfoInterface;
-use madpilot78\FreeBoxPHP\HttpClient;
+use madpilot78\FreeBoxPHP\Enum\Permission;
 
-class ConnectionStatus
+class ConnectionStatus extends AbstractMethod implements MethodInterface
 {
-    public function __construct(
-        private AuthSessionInterface $authSession,
-        private BoxInfoInterface $boxInfo,
-        private HttpClient $client,
-    ) {}
-
-    public function run(): array
-    {
-        return $this->client->get(
-            ['type', 'ipv4', 'ipv4_port_range', 'ipv6', 'state'],
-            $this->boxInfo->apiUrl . '/connection',
-            ['headers' => $this->authSession->getAuthHeader()],
-        );
-    }
+    protected const string API = '/connection';
+    protected const array ACTIONS = ['get'];
+    protected const array REQUIRED = [
+        'type',
+        'ipv4',
+        'ipv4_port_range',
+        'ipv6',
+        'state',
+    ];
+    protected const Permission PERM = Permission::None;
 }
