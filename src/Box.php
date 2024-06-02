@@ -78,7 +78,7 @@ class Box
         if (class_exists($fullName)) {
             $ret = $this->container->get($fullName)->run(...$arguments);
         } else {
-            throw new BadMethodCallException('Method ' . $name . ' Not found');
+            throw new BadMethodCallException('Method ' . $name . ' not found');
         }
 
         return $ret ?? $this;
