@@ -27,7 +27,7 @@ class Language
     /**
      * @throws InvalidArgumentException
      */
-    public function run(string $action, string $lang = 'eng'): ?array
+    public function run(string $action, array $params = []): ?array
     {
         if (!in_array($action, self::ACTIONS)) {
             throw new InvalidArgumentException('Unknown action ' . $action);
@@ -35,10 +35,10 @@ class Language
 
         $this->authHeader = $this->authSession->getAuthHeader();
 
-        return $this->$action($lang);
+        return $this->$action($params);
     }
 
-    private function get(string $lang): array
+    private function get(): array
     {
         return $this->client->get(
             ['lang', 'avalaible'],
@@ -47,7 +47,7 @@ class Language
         );
     }
 
-    private function set(string $lang): void
+    private function set(array $params): void
     {
         if (!$this->authSession->can(Permission::Settings)) {
             throw new AuthException(AuthSessionInterface::NO_PERM_MSG);
@@ -57,7 +57,7 @@ class Language
             $this->boxInfo->apiUrl . '/lang',
             [
                 'headers' => $this->authHeader,
-                'json' => ['lang' => $lang],
+                'json' => $params,
             ],
         );
 

@@ -49,7 +49,7 @@ class LanguageTest extends MethodTestCase
 
         $box = new Box(authToken: 'fakeToken', client: $this->guzzleClient);
 
-        $this->assertInstanceOf(Box::class, $box->language('set', 'eng'));
+        $this->assertInstanceOf(Box::class, $box->language('set', ['lang' => 'eng']));
     }
 
     public function testLanguageSetNoPerm(): void
@@ -61,7 +61,7 @@ class LanguageTest extends MethodTestCase
         $this->expectException(AuthException::class);
         $this->expectExceptionMessage('No permission');
 
-        $this->assertInstanceOf(Box::class, $box->language('set', 'eng'));
+        $this->assertInstanceOf(Box::class, $box->language('set', ['lang' => 'eng']));
     }
 
     public function testLanguageSetFail(): void
@@ -75,7 +75,7 @@ class LanguageTest extends MethodTestCase
         $this->expectException(ApiErrorException::class);
         $this->expectExceptionMessage('Failed to set language');
 
-        $box->language('set', 'eng');
+        $box->language('set', ['lang' => 'eng']);
     }
 
     public function testLanguageWrongMethod(): void
