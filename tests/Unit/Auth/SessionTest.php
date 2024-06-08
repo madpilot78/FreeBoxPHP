@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 use madpilot78\FreeBoxPHP\Auth\Manager as AuthManager;
 use madpilot78\FreeBoxPHP\Auth\Session as AuthSession;
 use madpilot78\FreeBoxPHP\BoxInfo;
@@ -37,6 +38,7 @@ class SessionTest extends TestCase
             $this->boxInfoStub,
             new Configuration(),
             $this->httpClientStub,
+            new NullLogger(),
         );
     }
 

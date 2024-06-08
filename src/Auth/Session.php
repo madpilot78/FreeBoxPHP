@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace madpilot78\FreeBoxPHP\Auth;
 
+use Psr\Log\LoggerInterface;
 use madpilot78\FreeBoxPHP\Auth\ManagerInterface as AuthManagerInterface;
 use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Configuration;
-use madpilot78\FreeBoxPHP\HttpClient;
 use madpilot78\FreeBoxPHP\Enum\Permission;
+use madpilot78\FreeBoxPHP\HttpClient;
 
 class Session implements SessionInterface
 {
@@ -17,10 +18,13 @@ class Session implements SessionInterface
         private BoxInfoInterface $boxInfo,
         private Configuration $config,
         private HttpClient $client,
+        private LoggerInterface $logger,
     ) {}
 
     private function login(): string
     {
+        $this->logger->debug('FreeBoxPHP starting Auth\Session::login()');
+
         if (!$this->authManager->hasChallenge()) {
             $result = $this->client->get(
                 ['challenge'],
@@ -45,6 +49,8 @@ class Session implements SessionInterface
             ->setChallenge($result['challenge'])
             ->setSessionToken($result['session_token'])
             ->setPermissions($result['permissions']);
+
+        $this->logger->debug('FreeBoxPHP ending Auth\Session::login()');
 
         return $result['session_token'];
     }

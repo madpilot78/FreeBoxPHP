@@ -70,7 +70,8 @@ class Box
             ->addArgument(AuthManagerInterface::class)
             ->addArgument(BoxInfoInterface::class)
             ->addArgument(Configuration::class)
-            ->addArgument(HttpClient::class);
+            ->addArgument(HttpClient::class)
+            ->addArgument(LoggerInterface::class);
 
         $this->logger->debug('FreeBoxPHP Initialization done');
     }
