@@ -16,7 +16,7 @@ use madpilot78\FreeBoxPHP\Methods\ConnectionIPv6Configuration;
 
 class ConnectionIPv6ConfigurationTest extends TestCase
 {
-private const array CONFOBJ = [
+    private const array CONFOBJ = [
         'ipv6_enabled' => true,
         'delegations' => [
             [

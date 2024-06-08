@@ -38,7 +38,7 @@ class RegisterTest extends TestCase
             $this->boxInfoStub,
             new Configuration(),
             $this->httpClientStub,
-            new NullLogger,
+            new NullLogger(),
         );
     }
 
