@@ -66,7 +66,7 @@ class LanguageTest extends TestCase
                 $this->equalTo([
                     ['lang', 'avalaible'],
                     $this->boxInfoStub->apiUrl . '/lang',
-                    ['headers' => $this->authSessionStub->getAuthHeader()]
+                    ['headers' => $this->authSessionStub->getAuthHeader()],
                 ]),
             )
             ->willReturn(self::LANGOBJ);

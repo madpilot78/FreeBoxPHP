@@ -12,7 +12,6 @@ use madpilot78\FreeBoxPHP\BoxInfo;
 use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Exception\AuthException;
 use madpilot78\FreeBoxPHP\HttpClient;
-use madpilot78\FreeBoxPHP\Methods\ConnectionConfiguration;
 
 class FwRedirTest extends TestCase
 {
@@ -38,7 +37,7 @@ class FwRedirTest extends TestCase
             'host' => [
                 'l2ident' => [
                     'id' => 'd0:23:db:36:15:aa',
-                    'type' => 'mac_address'
+                    'type' => 'mac_address',
                 ],
                 'active' => true,
                 'id' => 'ether-d0:23:db:36:15:aa',
@@ -47,8 +46,8 @@ class FwRedirTest extends TestCase
                 'names' => [
                     [
                         'name' => 'iPhone-r0ro',
-                        'source' => 'dhcp'
-                    ]
+                        'source' => 'dhcp',
+                    ],
                 ],
                 'vendor_name' => 'Apple, Inc.',
                 'l3connectivities' => [
@@ -58,13 +57,13 @@ class FwRedirTest extends TestCase
                         'af' => 'ipv4',
                         'reachable' => true,
                         'last_activity' => 1360669498,
-                        'last_time_reachable' => 1360669498
-                    ]
+                        'last_time_reachable' => 1360669498,
+                    ],
                 ],
                 'reachable' => true,
                 'last_activity' => 1360669498,
                 'primary_name_manual' => true,
-                'primary_name' => 'iPhone r0ro'
+                'primary_name' => 'iPhone r0ro',
             ],
             'hostname' => 'iPhone r0ro',
             'lan_port' => 69,
@@ -81,7 +80,7 @@ class FwRedirTest extends TestCase
             'host' => [
                 'l2ident' => [
                     'id' => 'd0:23:db:36:15:aa',
-                    'type' => 'mac_address'
+                    'type' => 'mac_address',
                 ],
                 'active' => true,
                 'id' => 'ether-d0:23:db:36:15:aa',
@@ -90,8 +89,8 @@ class FwRedirTest extends TestCase
                 'names' => [
                     [
                         'name' => 'iPhone-r0ro',
-                        'source' => 'dhcp'
-                    ]
+                        'source' => 'dhcp',
+                    ],
                 ],
                 'vendor_name' => 'Apple, Inc.',
                 'l3connectivities' => [
@@ -101,13 +100,13 @@ class FwRedirTest extends TestCase
                         'af' => 'ipv4',
                         'reachable' => true,
                         'last_activity' => 1360669498,
-                        'last_time_reachable' => 1360669498
-                    ]
+                        'last_time_reachable' => 1360669498,
+                    ],
                 ],
                 'reachable' => true,
                 'last_activity' => 1360669498,
                 'primary_name_manual' => true,
-                'primary_name' => 'iPhone r0ro'
+                'primary_name' => 'iPhone r0ro',
             ],
             'hostname' => 'iPhone r0ro',
             'lan_port' => 1337,
@@ -137,7 +136,7 @@ class FwRedirTest extends TestCase
         'host' => [
             'l2ident' => [
                 'id' => 'd0:23:db:36:15:aa',
-                'type' => 'mac_address'
+                'type' => 'mac_address',
             ],
             'active' => true,
             'id' => 'ether-d0:23:db:36:15:aa',
@@ -146,8 +145,8 @@ class FwRedirTest extends TestCase
             'names' => [
                 [
                     'name' => 'iPhone-r0ro',
-                    'source' => 'dhcp'
-                ]
+                    'source' => 'dhcp',
+                ],
             ],
             'vendor_name' => 'Apple, Inc.',
             'l3connectivities' => [
@@ -157,13 +156,13 @@ class FwRedirTest extends TestCase
                     'af' => 'ipv4',
                     'reachable' => true,
                     'last_activity' => 1360669498,
-                    'last_time_reachable' => 1360669498
-                ]
+                    'last_time_reachable' => 1360669498,
+                ],
             ],
             'reachable' => true,
             'last_activity' => 1360669498,
             'primary_name_manual' => true,
-            'primary_name' => 'iPhone r0ro'
+            'primary_name' => 'iPhone r0ro',
         ],
         'hostname' => 'Mac-mini-de-Romain',
         'lan_port' => 4242,
@@ -208,7 +207,7 @@ class FwRedirTest extends TestCase
                 $this->equalTo([
                     [''],
                     $this->boxInfoStub->apiUrl . '/fw/redir',
-                    ['headers' => $this->authSessionStub->getAuthHeader()]
+                    ['headers' => $this->authSessionStub->getAuthHeader()],
                 ]),
             )
             ->willReturn(self::FWLISTOBJ);
@@ -226,7 +225,7 @@ class FwRedirTest extends TestCase
                 $this->equalTo([
                     self::REQ,
                     $this->boxInfoStub->apiUrl . '/fw/redir/1',
-                    ['headers' => $this->authSessionStub->getAuthHeader()]
+                    ['headers' => $this->authSessionStub->getAuthHeader()],
                 ]),
             )
             ->willReturn(self::FWLISTOBJ[1]);
@@ -244,7 +243,7 @@ class FwRedirTest extends TestCase
                 $this->equalTo([
                     self::REQ,
                     $this->boxInfoStub->apiUrl . '/fw/redir',
-                    ['headers' => $this->authSessionStub->getAuthHeader()]
+                    ['headers' => $this->authSessionStub->getAuthHeader()],
                 ]),
             )
             ->willReturn(self::FWSETUPOBJ);
@@ -321,7 +320,7 @@ class FwRedirTest extends TestCase
                 $this->equalTo('delete'),
                 $this->equalTo([
                     $this->boxInfoStub->apiUrl . '/fw/redir/3',
-                    ['headers' => $this->authSessionStub->getAuthHeader()]
+                    ['headers' => $this->authSessionStub->getAuthHeader()],
                 ]),
             )
             ->willReturn(['success' => true]);
