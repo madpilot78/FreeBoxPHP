@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace madpilot78\FreeBoxPHP\Methods;
 
-use madpilot78\FreeBoxPHP\HttpClient;
+use Psr\Log\LoggerInterface;
 use madpilot78\FreeBoxPHP\Auth\ManagerInterface as AuthManagerInterface;
 use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Configuration;
 use madpilot78\FreeBoxPHP\Exception\AuthException;
+use madpilot78\FreeBoxPHP\HttpClient;
 
 class Register
 {
@@ -23,10 +24,12 @@ class Register
         private BoxInfoInterface $boxInfo,
         private Configuration $config,
         private HttpClient $client,
+        private LoggerInterface $logger,
     ) {}
 
     public function run(bool $quiet = true, bool $skipSleep = false): ?string
     {
+        $this->logger->notice('FreeBoxPHP Registration started');
         if (!$quiet) {
             echo 'Authorization request sent...Check router.' . PHP_EOL;
         }
@@ -48,6 +51,7 @@ class Register
         $this->trackId = $result['track_id'];
 
         return $this->poll($quiet, $skipSleep);
+        $this->logger->notice('FreeBoxPHP Registration ended');
     }
 
     /**
@@ -55,6 +59,8 @@ class Register
      */
     private function poll(bool $quiet = true, bool $skipSleep = false): string
     {
+        $this->logger->info('FreeBoxPHP Registration polling');
+
         if (!$quiet) {
             echo 'Polling: ';
         }
@@ -69,10 +75,12 @@ class Register
 
             switch ($result['status']) {
                 case 'unknown':
+                    $this->logger->alert('FreeBoxPHP Registration got invalid status');
                     throw new AuthException('app_token is invalid or has been revoked');
                     break;
 
                 case 'pending':
+                    $this->logger->info('FreeBoxPHP Registration still pending');
                     if (!$quiet) {
                         echo '.';
                     }
@@ -82,6 +90,7 @@ class Register
                     break;
 
                 case 'timeout':
+                    $this->logger->warning('FreeBoxPHP Registration timed out');
                     if (!$quiet) {
                         echo 'Timed out.' . PHP_EOL;
                         return '';
@@ -91,6 +100,7 @@ class Register
                     break;
 
                 case 'granted':
+                    $this->logger->info('FreeBoxPHP Registration granted');
                     if (!$quiet) {
                         echo 'Granted.' . PHP_EOL;
                     }
@@ -99,6 +109,7 @@ class Register
                     break;
 
                 case 'denied':
+                    $this->logger->error('FreeBoxPHP Registration denied');
                     if (!$quiet) {
                         echo 'Denied.' . PHP_EOL;
                         return '';
@@ -108,11 +119,13 @@ class Register
                     break;
 
                 default:
+                    $this->logger->alert('FreeBoxPHP Registration got unknown status');
                     throw new AuthException('Unknown authorization tracking status returned');
                     break;
             }
         }
 
+        $this->logger->warning('FreeBoxPHP Registration giving up');
         if (!$quiet) {
             echo 'Giving up.' . PHP_EOL;
         }

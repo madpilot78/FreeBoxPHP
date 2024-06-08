@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace madpilot78\FreeBoxPHP;
 
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use madpilot78\FreeBoxPHP\Enum\BoxType;
 
 final readonly class Configuration
@@ -30,6 +32,7 @@ final readonly class Configuration
         public bool $https = self::DEFAULT_HTTPS,
         public bool $localAccess = self::DEFAULT_LOCAL_ACCESS,
         public BoxType $boxType = self::DEFAULT_BOX_TYPE,
+        public LoggerInterface $logger = new NullLogger(),
         public int $timeout = self::DEFAULT_TIMEOUT,
         string $deviceName = self::DEFAULT_DEVICENAME,
         ?string $certFile = '',

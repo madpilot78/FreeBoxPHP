@@ -7,13 +7,17 @@ namespace madpilot78\FreeBoxPHP;
 use GuzzleHttp\Exception\ClientException;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 use madpilot78\FreeBoxPHP\Exception\ApiAuthException;
 use madpilot78\FreeBoxPHP\Exception\ApiErrorException;
 use madpilot78\FreeBoxPHP\Exception\NetworkErrorException;
 
 class HttpClient
 {
-    public function __construct(private ClientInterface $client) {}
+    public function __construct(
+        private ClientInterface $client,
+        private LoggerInterface $logger,
+    ) {}
 
     /**
      * @throws NetworkErrorException
@@ -84,11 +88,15 @@ class HttpClient
             $reqResults = array_shift($arguments);
         }
 
+        $this->logger->debug('FreeBoxPHP performing request', compact('name', 'arguments', 'reqResults'));
+
         try {
             $response = $this->client->$name(...$arguments);
+            $this->logger->debug('FreeBoxPHP got response', compact('response'));
         } catch (ClientException $e) {
             $response = $e->getResponse();
             $statusCode = $response->getStatusCode();
+            $this->logger->warning('FreeBoxPHP got ClientException', compact('response', 'statusCode'));
 
             switch ($statusCode) {
                 case 403:

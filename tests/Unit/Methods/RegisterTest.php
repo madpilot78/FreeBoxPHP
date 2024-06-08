@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Methods;
 
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 use madpilot78\FreeBoxPHP\Auth\Manager as AuthManager;
 use madpilot78\FreeBoxPHP\Auth\ManagerInterface as AuthManagerInterface;
 use madpilot78\FreeBoxPHP\BoxInfo;
@@ -37,6 +38,7 @@ class RegisterTest extends TestCase
             $this->boxInfoStub,
             new Configuration(),
             $this->httpClientStub,
+            new NullLogger,
         );
     }
 

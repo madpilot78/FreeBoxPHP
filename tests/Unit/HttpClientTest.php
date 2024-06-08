@@ -11,6 +11,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 use madpilot78\FreeBoxPHP\Exception\ApiAuthException;
 use madpilot78\FreeBoxPHP\Exception\ApiErrorException;
 use madpilot78\FreeBoxPHP\Exception\NetworkErrorException;
@@ -33,6 +34,7 @@ class HttpClientTest extends TestCase
             new Client([
                 'handler' => HandlerStack::create($this->mock),
             ]),
+            new NullLogger(),
         );
     }
 
