@@ -34,7 +34,7 @@ class LanguageTest extends TestCase
 
     private AuthSessionInterface $authSessionStub;
     private BoxInfoInterface $boxInfoStub;
-    private HttpClient $httpClientStub;
+    private HttpClient $httpClientMock;
     private Language $language;
 
     protected function setUp(): void
@@ -43,12 +43,12 @@ class LanguageTest extends TestCase
 
         $this->authSessionStub = $this->createStub(AuthSession::class);
         $this->boxInfoStub = $this->createStub(BoxInfo::class);
-        $this->httpClientStub = $this->createStub(HttpClient::class);
+        $this->httpClientMock = $this->createMock(HttpClient::class);
 
         $this->language = new Language(
             $this->authSessionStub,
             $this->boxInfoStub,
-            $this->httpClientStub,
+            $this->httpClientMock,
         );
 
         $this->authSessionStub
@@ -58,8 +58,17 @@ class LanguageTest extends TestCase
 
     public function testGetLanguage(): void
     {
-        $this->httpClientStub
+        $this->httpClientMock
+            ->expects($this->once())
             ->method('__call')
+            ->with(
+                $this->equalTo('get'),
+                $this->equalTo([
+                    ['lang', 'avalaible'],
+                    $this->boxInfoStub->apiUrl . '/lang',
+                    ['headers' => $this->authSessionStub->getAuthHeader()]
+                ]),
+            )
             ->willReturn(self::LANGOBJ);
 
         $this->assertEquals(self::LANGOBJ, $this->language->run('get'));
@@ -67,8 +76,19 @@ class LanguageTest extends TestCase
 
     public function testSetLanguage(): void
     {
-        $this->httpClientStub
+        $this->httpClientMock
+            ->expects($this->once())
             ->method('__call')
+            ->with(
+                $this->equalTo('post'),
+                $this->equalTo([
+                    $this->boxInfoStub->apiUrl . '/lang',
+                    [
+                        'headers' => $this->authSessionStub->getAuthHeader(),
+                        'json' => ['lang' => 'eng'],
+                    ],
+                ]),
+            )
             ->willReturn(['success' => true]);
         $this->authSessionStub
             ->method('can')
@@ -79,9 +99,9 @@ class LanguageTest extends TestCase
 
     public function testSetLanguageNoPerm(): void
     {
-        $this->httpClientStub
-            ->method('__call')
-            ->willReturn(['success' => true]);
+        $this->httpClientMock
+            ->expects($this->never())
+            ->method('__call');
         $this->authSessionStub
             ->method('can')
             ->willReturn(false);
@@ -94,8 +114,19 @@ class LanguageTest extends TestCase
 
     public function testSetLanguageFail(): void
     {
-        $this->httpClientStub
+        $this->httpClientMock
+            ->expects($this->once())
             ->method('__call')
+            ->with(
+                $this->equalTo('post'),
+                $this->equalTo([
+                    $this->boxInfoStub->apiUrl . '/lang',
+                    [
+                        'headers' => $this->authSessionStub->getAuthHeader(),
+                        'json' => ['lang' => 'eng'],
+                    ],
+                ]),
+            )
             ->willReturn(['success' => false]);
         $this->authSessionStub
             ->method('can')
