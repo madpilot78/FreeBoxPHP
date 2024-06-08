@@ -59,9 +59,11 @@ class HttpClient
                 throw new ApiErrorException(ApiErrorException::RESULT_MISSING);
             }
 
-            foreach ($reqResult as $req) {
-                if (!array_key_exists($req, $json['result'])) {
-                    throw new ApiErrorException(ApiErrorException::FIELD_MISSING . ': ' . $req);
+            if ($reqResult[0] !== '') {
+                foreach ($reqResult as $req) {
+                    if (!array_key_exists($req, $json['result'])) {
+                        throw new ApiErrorException(ApiErrorException::FIELD_MISSING . ': ' . $req);
+                    }
                 }
             }
 

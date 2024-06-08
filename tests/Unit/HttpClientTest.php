@@ -195,4 +195,33 @@ class HttpClientTest extends TestCase
         $this->assertArrayHasKey('foo', $content);
         $this->assertEquals('bar', $content['foo']);
     }
+
+    public function testHsonRequiredArray(): void
+    {
+        $this->mock->append(
+            new Response(
+                status: 200,
+                headers: ['Content-Type' => 'application/json'],
+                body: json_encode([
+                    'success' => true,
+                    'result' => [
+                        [
+                            'foo' => '1',
+                        ],
+                        [
+                            'bar' => '2',
+                        ],
+                    ],
+                ]),
+            ),
+        );
+
+        $content = $this->httpClient->post([''], self::URL);
+
+        $this->assertCount(2, $content);
+        $this->assertArrayHasKey('foo', $content[0]);
+        $this->assertEquals('1', $content[0]['foo']);
+        $this->assertArrayHasKey('bar', $content[1]);
+        $this->assertEquals('2', $content[1]['bar']);
+    }
 }
