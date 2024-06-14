@@ -31,42 +31,96 @@ abstract class AbstractMethod implements MethodInterface
     /**
      * @throws InvalidArgumentException
      */
-    public function run(string $action = 'get', array $params = []): ?array
+    public function run(string $action = 'get', array|int $id = [], array $params = []): ?array
     {
         if (!in_array($action, static::ACTIONS)) {
             throw new InvalidArgumentException('Unknown action ' . $action);
         }
 
+        if (is_array($id)) {
+            $params = $id;
+            $id = null;
+        }
+
         $this->authHeader = $this->authSession->getAuthHeader();
 
-        return $this->$action($params);
+        return $this->$action($id, $params);
     }
 
-    protected function get(): array
+    protected function get(?int $id, array $params): array
     {
+        $hasId = isset($id);
         return $this->client->get(
-            static::REQUIRED,
-            $this->boxInfo->apiUrl . static::API,
+            $hasId ? static::REQUIRED_GET_ID : static::REQUIRED_GET,
+            $this->boxInfo->apiUrl . static::API . ($hasId ? '/' . $id : ''),
             ['headers' => $this->authHeader],
         );
     }
 
-    protected function set(array $params): void
+    /**
+     * @throws AuthException
+     */
+    protected function set(?int $id, array $params): ?array
     {
         if (static::PERM != Permission::None && !$this->authSession->can(static::PERM)) {
             throw new AuthException(AuthSessionInterface::NO_PERM_MSG);
         }
 
-        $response = $this->client->post(
-            $this->boxInfo->apiUrl . static::API,
+        if (defined('static::REQUIRED_SET')) {
+            return $this->client->post(
+                static::REQUIRED_SET,
+                $this->boxInfo->apiUrl . static::API . (isset($id) ? '/' . $id : ''),
+                [
+                    'headers' => $this->authHeader,
+                    'json' => $params,
+                ],
+            );
+        } else {
+            $response = $this->client->post(
+                $this->boxInfo->apiUrl . static::API . (isset($id) ? '/' . $id : ''),
+                [
+                    'headers' => $this->authHeader,
+                    'json' => $params,
+                ],
+            );
+
+            if (!$response['success']) {
+                throw new ApiErrorException(static::FAIL_MESSAGE_SET);
+            }
+
+            return null;
+        }
+    }
+
+    protected function update(int $id, array $params): array
+    {
+        if (static::PERM != Permission::None && !$this->authSession->can(static::PERM)) {
+            throw new AuthException(AuthSessionInterface::NO_PERM_MSG);
+        }
+
+        return $this->client->put(
+            static::REQUIRED_PUT,
+            $this->boxInfo->apiUrl . static::API . '/' . $id,
             [
                 'headers' => $this->authHeader,
                 'json' => $params,
             ],
         );
+    }
+
+    protected function delete(int $id, array $params): void
+    {
+        if (static::PERM != Permission::None && !$this->authSession->can(static::PERM)) {
+            throw new AuthException(AuthSessionInterface::NO_PERM_MSG);
+        }
+
+        $response = $this->client->delete(
+            $this->boxInfo->apiUrl . static::API . '/' . $id,
+            ['headers' => $this->authHeader],
+        );
 
         if (!$response['success']) {
-            throw new ApiErrorException(static::FAIL_MESSAGE);
+            throw new ApiErrorException(static::FAIL_MESSAGE_DELETE);
         }
     }
 }

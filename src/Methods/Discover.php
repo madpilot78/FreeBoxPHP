@@ -20,7 +20,7 @@ class Discover extends AbstractMethod implements MethodInterface
     /**
      * @throws NotSupportedException
      */
-    public function run(string $action = 'get', array $params = []): null
+    public function run(string $action = 'get', array|int $id = [], array $params = []): null
     {
         $this->boxInfo->save($this->client->get(
             'http' . ($this->config->https ? 's' : '') . '://' .

@@ -10,7 +10,7 @@ class ConnectionStatus extends AbstractMethod implements MethodInterface
 {
     protected const string API = '/connection';
     protected const array ACTIONS = ['get'];
-    protected const array REQUIRED = [
+    protected const array REQUIRED_GET = [
         'type',
         'ipv4',
         'ipv4_port_range',

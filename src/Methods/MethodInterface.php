@@ -6,5 +6,5 @@ namespace madpilot78\FreeBoxPHP\Methods;
 
 interface MethodInterface
 {
-    public function run(string $action, array $params = []): ?array;
+    public function run(string $action = 'get', array|int $id = [], array $params = []): ?array;
 }

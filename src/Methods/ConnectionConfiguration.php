@@ -10,7 +10,7 @@ class ConnectionConfiguration extends AbstractMethod implements MethodInterface
 {
     protected const string API = '/connection/config';
     protected const array ACTIONS = ['get', 'set'];
-    protected const array REQUIRED = [
+    protected const array REQUIRED_GET = [
         'ping',
         'is_secure_pass',
         'remote_access_port',
@@ -23,5 +23,5 @@ class ConnectionConfiguration extends AbstractMethod implements MethodInterface
         'remote_access_ip',
     ];
     protected const Permission PERM = Permission::Settings;
-    protected const string FAIL_MESSAGE = 'Failed to set connection configuration';
+    protected const string FAIL_MESSAGE_SET = 'Failed to set connection configuration';
 }

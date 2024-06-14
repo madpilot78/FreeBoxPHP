@@ -10,10 +10,10 @@ class Language extends AbstractMethod implements MethodInterface
 {
     protected const string API = '/lang';
     protected const array ACTIONS = ['get', 'set'];
-    protected const array REQUIRED = [
+    protected const array REQUIRED_GET = [
         'lang',
         'avalaible',
     ];
     protected const Permission PERM = Permission::Settings;
-    protected const string FAIL_MESSAGE = 'Failed to set language';
+    protected const string FAIL_MESSAGE_SET = 'Failed to set language';
 }
