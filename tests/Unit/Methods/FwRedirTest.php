@@ -12,6 +12,7 @@ use madpilot78\FreeBoxPHP\BoxInfo;
 use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Exception\AuthException;
 use madpilot78\FreeBoxPHP\HttpClient;
+use madpilot78\FreeBoxPHP\Methods\FwRedir;
 
 class FwRedirTest extends TestCase
 {
@@ -243,7 +244,10 @@ class FwRedirTest extends TestCase
                 $this->equalTo([
                     self::REQ,
                     $this->boxInfoStub->apiUrl . '/fw/redir',
-                    ['headers' => $this->authSessionStub->getAuthHeader()],
+                    [
+                        'headers' => $this->authSessionStub->getAuthHeader(),
+                        'json' => self::FWREDIRSET,
+                    ],
                 ]),
             )
             ->willReturn(self::FWSETUPOBJ);
@@ -254,7 +258,7 @@ class FwRedirTest extends TestCase
         $this->assertEquals(self::FWSETUPOBJ, $this->fwRedir->run('set', self::FWREDIRSET));
     }
 
-    public function testSetFwRedirnoPerm(): void
+    public function testSetFwRedirNoPerm(): void
     {
         $this->httpClientMock
             ->expects($this->never())
@@ -296,7 +300,7 @@ class FwRedirTest extends TestCase
         $this->assertEquals($res, $this->fwRedir->run('update', 1, ['enabled' => false]));
     }
 
-    public function testUpdateFwRedirnoPerm(): void
+    public function testUpdateFwRedirNoPerm(): void
     {
         $this->httpClientMock
             ->expects($this->never())
@@ -331,14 +335,14 @@ class FwRedirTest extends TestCase
         $this->assertNull($this->fwRedir->run('delete', 3));
     }
 
-    public function testDeleteFwRedirnoPerm(): void
+    public function testDeleteFwRedirNoPerm(): void
     {
         $this->httpClientMock
             ->expects($this->never())
             ->method('__call');
         $this->authSessionStub
             ->method('can')
-            ->willReturn(true);
+            ->willReturn(false);
 
         $this->expectException(AuthException::class);
         $this->expectExceptionMessage('No permission');
