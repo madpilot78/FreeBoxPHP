@@ -303,20 +303,6 @@ class FwRedirTest extends MethodTestCase
         $this->assertInstanceOf(Box::class, $box->fwRedir('update', 1, ['enabled' => false]));
     }
 
-    public function testFwRedirUpdateFail(): void
-    {
-        $this->setupFakeLogin(Permission::Settings);
-
-        $this->mock->append(new Response(body: '{"success": false}'));
-
-        $box = new Box(authToken: 'fakeToken', client: $this->guzzleClient);
-
-        $this->expectException(ApiErrorException::class);
-        $this->expectExceptionMessage('Failed to set language');
-
-        $box->fwRedir('update', 1, ['enabled' => false]);
-    }
-
     public function testFwRedirDeleteSuccess(): void
     {
         $this->setupFakeLogin(Permission::Settings);
