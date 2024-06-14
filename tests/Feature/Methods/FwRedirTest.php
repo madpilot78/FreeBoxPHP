@@ -170,7 +170,7 @@ class FwRedirTest extends MethodTestCase
         JSON;
     private const string UPDATEREDIRJSON = <<<JSON
         {
-            "success": false,
+            "success": true,
             "result": {
                 "enabled": true,
                 "comment": "",
@@ -269,12 +269,12 @@ class FwRedirTest extends MethodTestCase
     {
         $this->setupFakeLogin(Permission::Settings);
 
-        $this->mock->append(new Response(body: '{"success": false}'));
+        $this->mock->append(new Response(body: '{"success": false, "msg": "got error"}'));
 
         $box = new Box(authToken: 'fakeToken', client: $this->guzzleClient);
 
         $this->expectException(ApiErrorException::class);
-        $this->expectExceptionMessage('Failed to create redirect');
+        $this->expectExceptionMessage('got error');
 
         $box->fwRedir('set', self::FWREDIRSET);
     }
