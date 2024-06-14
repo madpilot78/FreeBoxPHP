@@ -217,7 +217,7 @@ class FwRedirTest extends MethodTestCase
         }
         JSON;
 
-    public function testLanguageGetSuccess(): void
+    public function testFwRedirGetSuccess(): void
     {
         $this->setupFakeLogin();
 
@@ -229,7 +229,7 @@ class FwRedirTest extends MethodTestCase
         $this->assertEquals($decoded['result'], $box->fwRedir('get'));
     }
 
-    public function testLanguageGetOneSuccess(): void
+    public function testFwRedirGetOneSuccess(): void
     {
         $this->setupFakeLogin();
 
@@ -241,7 +241,7 @@ class FwRedirTest extends MethodTestCase
         $this->assertEquals($decoded['result'], $box->fwRedir('get', 1));
     }
 
-    public function testLanguageSetSuccess(): void
+    public function testFwRedirSetSuccess(): void
     {
         $this->setupFakeLogin(Permission::Settings);
 
@@ -253,7 +253,7 @@ class FwRedirTest extends MethodTestCase
         $this->assertEquals($decoded['result'], $box->fwRedir('set', self::FWREDIRSET));
     }
 
-    public function testLanguageSetNoPerm(): void
+    public function testFwRedirSetNoPerm(): void
     {
         $this->setupFakeLogin();
 
@@ -265,7 +265,7 @@ class FwRedirTest extends MethodTestCase
         $this->assertInstanceOf(Box::class, $box->fwRedir('set', self::FWREDIRSET));
     }
 
-    public function testLanguageSetFail(): void
+    public function testFwRedirSetFail(): void
     {
         $this->setupFakeLogin(Permission::Settings);
 
@@ -274,12 +274,12 @@ class FwRedirTest extends MethodTestCase
         $box = new Box(authToken: 'fakeToken', client: $this->guzzleClient);
 
         $this->expectException(ApiErrorException::class);
-        $this->expectExceptionMessage('Failed to set language');
+        $this->expectExceptionMessage('Failed to create redirect');
 
         $box->fwRedir('set', self::FWREDIRSET);
     }
 
-    public function testLanguageUpdateSuccess(): void
+    public function testFwRedirUpdateSuccess(): void
     {
         $this->setupFakeLogin(Permission::Settings);
 
@@ -291,7 +291,7 @@ class FwRedirTest extends MethodTestCase
         $this->assertEquals($decoded['result'], $box->fwRedir('update', 1, ['enabled' => false]));
     }
 
-    public function testLanguageUpdateNoPerm(): void
+    public function testFwRedirUpdateNoPerm(): void
     {
         $this->setupFakeLogin();
 
@@ -303,7 +303,7 @@ class FwRedirTest extends MethodTestCase
         $this->assertInstanceOf(Box::class, $box->fwRedir('update', 1, ['enabled' => false]));
     }
 
-    public function testLanguageUpdateFail(): void
+    public function testFwRedirUpdateFail(): void
     {
         $this->setupFakeLogin(Permission::Settings);
 
@@ -317,7 +317,7 @@ class FwRedirTest extends MethodTestCase
         $box->fwRedir('update', 1, ['enabled' => false]);
     }
 
-    public function testLanguageDeleteSuccess(): void
+    public function testFwRedirDeleteSuccess(): void
     {
         $this->setupFakeLogin(Permission::Settings);
 
@@ -328,7 +328,7 @@ class FwRedirTest extends MethodTestCase
         $this->assertInstanceOf(Box::class, $box->fwRedir('delete', 3));
     }
 
-    public function testLanguageDeleteNoPerm(): void
+    public function testFwRedirDeleteNoPerm(): void
     {
         $this->setupFakeLogin();
 
@@ -340,7 +340,7 @@ class FwRedirTest extends MethodTestCase
         $this->assertInstanceOf(Box::class, $box->fwRedir('delete', 3));
     }
 
-    public function testLanguageDeleteFail(): void
+    public function testFwRedirDeleteFail(): void
     {
         $this->setupFakeLogin(Permission::Settings);
 
@@ -349,12 +349,12 @@ class FwRedirTest extends MethodTestCase
         $box = new Box(authToken: 'fakeToken', client: $this->guzzleClient);
 
         $this->expectException(ApiErrorException::class);
-        $this->expectExceptionMessage('Failed to set language');
+        $this->expectExceptionMessage('Failed to delete redirect');
 
         $box->fwRedir('delete', 3);
     }
 
-    public function testLanguageWrongMethod(): void
+    public function testFwRedirWrongMethod(): void
     {
         $this->setupFakeLogin();
 
