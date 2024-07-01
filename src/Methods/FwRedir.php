@@ -8,7 +8,7 @@ use madpilot78\FreeBoxPHP\Enum\Permission;
 
 class FwRedir extends AbstractMethod implements MethodInterface
 {
-    protected const string API = '/fw/redir';
+    protected const string API = '/fw/redir/';
     protected const array ACTIONS = ['get', 'set', 'update', 'delete'];
     protected const array REQUIRED_GET = [''];
     protected const array REQUIRED_GET_ID = [

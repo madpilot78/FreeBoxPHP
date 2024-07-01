@@ -207,7 +207,7 @@ class FwRedirTest extends TestCase
                 $this->equalTo('get'),
                 $this->equalTo([
                     [''],
-                    $this->boxInfoStub->apiUrl . '/fw/redir',
+                    $this->boxInfoStub->apiUrl . '/fw/redir/',
                     ['headers' => $this->authSessionStub->getAuthHeader()],
                 ]),
             )
@@ -243,7 +243,7 @@ class FwRedirTest extends TestCase
                 $this->equalTo('post'),
                 $this->equalTo([
                     self::REQ,
-                    $this->boxInfoStub->apiUrl . '/fw/redir',
+                    $this->boxInfoStub->apiUrl . '/fw/redir/',
                     [
                         'headers' => $this->authSessionStub->getAuthHeader(),
                         'json' => self::FWREDIRSET,
