@@ -117,7 +117,7 @@ abstract class AbstractMethod implements MethodInterface
             );
 
             if (!$response['success']) {
-                throw new ApiErrorException(static::FAIL_MESSAGE_PUT);
+                throw new ApiErrorException(static::FAIL_MESSAGE_UPDATE);
             }
 
             return null;

@@ -15,5 +15,5 @@ class ConnectionIPv6Configuration extends AbstractMethod implements MethodInterf
         'delegations',
     ];
     protected const Permission PERM = Permission::Settings;
-    protected const string FAIL_MESSAGE_PUT = 'Failed to update connection IPv6 configuration';
+    protected const string FAIL_MESSAGE_UPDATE = 'Failed to update connection IPv6 configuration';
 }
