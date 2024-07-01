@@ -22,7 +22,7 @@ class ApiErrorException extends RuntimeException
             if (!array_key_exists('success', $apiResponse)) {
                 $message = self::SUCCESS_MISSING;
             } elseif (!$apiResponse['success']) {
-                if (array_key_exists('error_code', $apiResponse)) {
+                if (array_key_exists('error_code', $apiResponse) && is_int($apiResponse['error_code'])) {
                     $code = $apiResponse['error_code'];
                 }
 
