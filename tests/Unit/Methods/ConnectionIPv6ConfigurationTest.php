@@ -96,7 +96,7 @@ class ConnectionIPv6ConfigurationTest extends TestCase
             ->method('can')
             ->willReturn(true);
 
-        $this->assertNull($this->connectionIPv6Configuration->run('set', [
+        $this->assertNull($this->connectionIPv6Configuration->run('update', [
             'ipv6_firewall' => true,
         ]));
     }
@@ -113,7 +113,7 @@ class ConnectionIPv6ConfigurationTest extends TestCase
         $this->expectException(AuthException::class);
         $this->expectExceptionMessage('No permission');
 
-        $this->connectionIPv6Configuration->run('set', [
+        $this->connectionIPv6Configuration->run('update', [
             'ipv6_firewall' => true,
         ]);
     }

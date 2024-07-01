@@ -92,20 +92,36 @@ abstract class AbstractMethod implements MethodInterface
         }
     }
 
-    protected function update(int $id, array $params): array
+    protected function update(?int $id, array $params): ?array
     {
         if (static::PERM != Permission::None && !$this->authSession->can(static::PERM)) {
             throw new AuthException(AuthSessionInterface::NO_PERM_MSG);
         }
 
-        return $this->client->put(
-            static::REQUIRED_PUT,
-            $this->boxInfo->apiUrl . static::API . '/' . $id,
-            [
-                'headers' => $this->authHeader,
-                'json' => $params,
-            ],
-        );
+        if (defined('static::REQUIRED_PUT')) {
+            return $this->client->put(
+                static::REQUIRED_PUT,
+                $this->boxInfo->apiUrl . static::API . (isset($id) ? '/' . $id : ''),
+                [
+                    'headers' => $this->authHeader,
+                    'json' => $params,
+                ],
+            );
+        } else {
+            $response = $this->client->put(
+                $this->boxInfo->apiUrl . static::API . (isset($id) ? '/' . $id : ''),
+                [
+                    'headers' => $this->authHeader,
+                    'json' => $params,
+                ],
+            );
+
+            if (!$response['success']) {
+                throw new ApiErrorException(static::FAIL_MESSAGE_PUT);
+            }
+
+            return null;
+        }
     }
 
     protected function delete(int $id, array $params): void

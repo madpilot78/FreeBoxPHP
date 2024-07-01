@@ -78,7 +78,7 @@ class ConnectionIPv6ConfigurationTest extends MethodTestCase
 
         $box = new Box(authToken: 'fakeToken', client: $this->guzzleClient);
 
-        $this->assertInstanceOf(Box::class, $box->connectionIPv6Configuration('set', [
+        $this->assertInstanceOf(Box::class, $box->connectionIPv6Configuration('update', [
             'ipv6_firewall' => true,
         ]));
     }
@@ -92,7 +92,7 @@ class ConnectionIPv6ConfigurationTest extends MethodTestCase
         $this->expectException(AuthException::class);
         $this->expectExceptionMessage('No permission');
 
-        $this->assertInstanceOf(Box::class, $box->connectionIPv6Configuration('set', [
+        $this->assertInstanceOf(Box::class, $box->connectionIPv6Configuration('update', [
             'ipv6_firewall' => true,
         ]));
     }
@@ -106,9 +106,9 @@ class ConnectionIPv6ConfigurationTest extends MethodTestCase
         $box = new Box(authToken: 'fakeToken', client: $this->guzzleClient);
 
         $this->expectException(ApiErrorException::class);
-        $this->expectExceptionMessage('Failed to set connection IPv6 configuration');
+        $this->expectExceptionMessage('Failed to update connection IPv6 configuration');
 
-        $box->connectionIPv6Configuration('set', [
+        $box->connectionIPv6Configuration('update', [
             'ipv6_firewall' => true,
         ]);
     }

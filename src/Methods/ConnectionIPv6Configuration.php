@@ -9,11 +9,11 @@ use madpilot78\FreeBoxPHP\Enum\Permission;
 class ConnectionIPv6Configuration extends AbstractMethod implements MethodInterface
 {
     protected const string API = '/connection/ipv6/config';
-    protected const array ACTIONS = ['get', 'set'];
+    protected const array ACTIONS = ['get', 'update'];
     protected const array REQUIRED_GET = [
         'ipv6_enabled',
         'delegations',
     ];
     protected const Permission PERM = Permission::Settings;
-    protected const string FAIL_MESSAGE_SET = 'Failed to set connection IPv6 configuration';
+    protected const string FAIL_MESSAGE_PUT = 'Failed to update connection IPv6 configuration';
 }
