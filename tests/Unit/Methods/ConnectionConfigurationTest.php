@@ -71,7 +71,7 @@ class ConnectionConfigurationTest extends TestCase
             ->method('can')
             ->willReturn(true);
 
-        $this->assertNull($this->connectionConfiguration->run('set', [
+        $this->assertNull($this->connectionConfiguration->run('update', [
             'ping' => false,
             'wol' => true,
         ]));
@@ -89,7 +89,7 @@ class ConnectionConfigurationTest extends TestCase
         $this->expectException(AuthException::class);
         $this->expectExceptionMessage('No permission');
 
-        $this->connectionConfiguration->run('set', [
+        $this->connectionConfiguration->run('update', [
             'ping' => false,
             'wol' => true,
         ]);

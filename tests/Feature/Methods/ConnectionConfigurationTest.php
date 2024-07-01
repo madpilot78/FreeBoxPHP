@@ -53,7 +53,7 @@ class ConnectionConfigurationTest extends MethodTestCase
 
         $box = new Box(authToken: 'fakeToken', client: $this->guzzleClient);
 
-        $this->assertInstanceOf(Box::class, $box->connectionConfiguration('set', [
+        $this->assertInstanceOf(Box::class, $box->connectionConfiguration('update', [
             'ping' => false,
             'wol' => true,
         ]));
@@ -68,7 +68,7 @@ class ConnectionConfigurationTest extends MethodTestCase
         $this->expectException(AuthException::class);
         $this->expectExceptionMessage('No permission');
 
-        $this->assertInstanceOf(Box::class, $box->connectionConfiguration('set', [
+        $this->assertInstanceOf(Box::class, $box->connectionConfiguration('update', [
             'ping' => false,
             'wol' => true,
         ]));
@@ -83,9 +83,9 @@ class ConnectionConfigurationTest extends MethodTestCase
         $box = new Box(authToken: 'fakeToken', client: $this->guzzleClient);
 
         $this->expectException(ApiErrorException::class);
-        $this->expectExceptionMessage('Failed to set connection configuration');
+        $this->expectExceptionMessage('Failed to update connection configuration');
 
-        $box->connectionConfiguration('set', [
+        $box->connectionConfiguration('update', [
             'ping' => false,
             'wol' => true,
         ]);

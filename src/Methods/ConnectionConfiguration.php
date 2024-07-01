@@ -9,7 +9,7 @@ use madpilot78\FreeBoxPHP\Enum\Permission;
 class ConnectionConfiguration extends AbstractMethod implements MethodInterface
 {
     protected const string API = '/connection/config';
-    protected const array ACTIONS = ['get', 'set'];
+    protected const array ACTIONS = ['get', 'update'];
     protected const array REQUIRED_GET = [
         'ping',
         'is_secure_pass',
@@ -23,5 +23,5 @@ class ConnectionConfiguration extends AbstractMethod implements MethodInterface
         'remote_access_ip',
     ];
     protected const Permission PERM = Permission::Settings;
-    protected const string FAIL_MESSAGE_SET = 'Failed to set connection configuration';
+    protected const string FAIL_MESSAGE_UPDATE = 'Failed to update connection configuration';
 }
