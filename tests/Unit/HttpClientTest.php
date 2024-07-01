@@ -82,9 +82,19 @@ class HttpClientTest extends TestCase
 
     public function testNotFound(): void
     {
-        $this->mock->append(new Response(status: 404, body: 'Not found'));
+        $this->mock->append(
+            new Response(
+                status: 404,
+                headers: ['Content-Type' => 'application/json'],
+                body: json_encode([
+                    'msg' => 'Richiesta non valida (404)',
+                    'success' => false,
+                    'error_code' => 'invalid_request',
+                ]),
+            ),
+        );
 
-        $this->expectException(ClientException::class);
+        $this->expectException(ApiErrorException::class);
         $this->httpClient->get(self::URL);
     }
 
