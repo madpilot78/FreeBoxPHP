@@ -81,6 +81,7 @@ class HttpClient
      * is expected to be a method or an URL.
      *
      * @throws ApiAuthException
+     * @throws ApiErrorException
      * @throws ClientException
      */
     public function __call(string $name, array $arguments): array
@@ -103,7 +104,12 @@ class HttpClient
             switch ($statusCode) {
                 case 403:
                     $error = $this->bodyToJson($response, checkStatus: false);
-                    throw new ApiAuthException($error['msg'] ?? 'Unknown error', $statusCode, $e);
+                    throw new ApiAuthException($error['msg'] ?? 'Unknown error', $statusCode);
+                    break;
+
+                case 404:
+                    $decoded = $this->bodyToJson($response, checkStatus: false);
+                    throw new ApiErrorException('', $decoded, $statusCode);
                     break;
 
                 default:
