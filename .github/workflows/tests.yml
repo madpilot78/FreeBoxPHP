@@ -18,6 +18,7 @@ jobs:
         uses: php-actions/composer@v6
         with:
           php_version: ${{ matrix.php }}
+          php_extensions: xdebug
       - name: PHPUnit Tests
         uses: php-actions/phpunit@v4
         env:
