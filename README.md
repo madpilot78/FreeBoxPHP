@@ -1,9 +1,7 @@
 # FreeBox PHP
 
 [![codecov](https://codecov.io/github/madpilot78/FreeBoxPHP/graph/badge.svg?token=PAAARJT32F)](https://codecov.io/github/madpilot78/FreeBoxPHP)
-
 ![Packagist Version](https://img.shields.io/packagist/v/madpilot78/freebox-php)
-
 ![Actions Status](https://img.shields.io/github/actions/workflow/status/madpilot78/FreeBoxPHP/tests.yml)
 
 This is a small and simple PHP library to interface with Iliad FreeBox
