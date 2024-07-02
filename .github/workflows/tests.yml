@@ -8,16 +8,13 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php: [8.3]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
       - name: setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: ${{ matrix.php }}
+        php-version: 8.3
         tools: composer
         coverage: xdebug
       env:
