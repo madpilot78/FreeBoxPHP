@@ -20,8 +20,10 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: curl
           coverage: clover
-      - name: Install dependencies
-        run: composer self-update && composer install && composer dump-autoload
+      - name: Run composer
+        uses: php-actions/composer@v6
+        with:
+          php_version: ${{ matrix.php }}
       - name: Run tests and collect coverage
         run: vendor/bin/phpunit --coverage-clover coverage.xml .
       - name: Upload to Codecov
