@@ -1,5 +1,7 @@
 # FreeBox PHP
 
+[![codecov](https://codecov.io/github/madpilot78/FreeBoxPHP/graph/badge.svg?token=PAAARJT32F)](https://codecov.io/github/madpilot78/FreeBoxPHP)
+
 This is a small and simple PHP library to interface with Iliad FreeBox
 (IliadBox for the Italian market) provided broadband routers.
 
