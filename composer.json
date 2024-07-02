@@ -12,7 +12,8 @@
     "authors": [
         {
             "name": "Guido Falsi",
-            "email": "mad@madpilot.net"
+            "email": "mad@madpilot.net",
+            "role": "Developer"
         }
     ],
     "require": {
