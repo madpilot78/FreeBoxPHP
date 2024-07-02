@@ -13,25 +13,18 @@ jobs:
         php: [8.4, 8.3]
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
-
-      - name: Install composer and dependencies
-        uses: php-actions/composer@v6
-
-      - name: PHPUnit Tests
-        uses: php-actions/phpunit@v3
-        env:
-          XDEBUG_MODE: coverage
+        uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          php_version: ${{ matrix.php }}
-          php_extensions: xdebug
-          bootstrap: vendor/autoload.php
-          configuration: phpunit.xml
-          args: tests --coverage-clover ./coverage.xml
-
+          php-version: ${{ matrix.php }}
+          extensions: curl
+          coverage: clover
+      - name: Install dependencies
+        run: composer self-update && composer install && composer dump-autoload
+      - name: Run tests and collect coverage
+        run: vendor/bin/phpunit --coverage-clover coverage.xml .
       - name: Upload to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODE_COV_TOKEN }}
-          files: ./coverage.xml
-          verbose: true
