@@ -10,25 +10,22 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [8.4, 8.3]
+        php: [8.3]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-      - name: Install composer and dependencies
-        uses: php-actions/composer@v6
-        with:
-          php_version: ${{ matrix.php }}
-          php_extensions: xdebug
-      - name: PHPUnit Tests
-        uses: php-actions/phpunit@v4
-        env:
-          XDEBUG_MODE: coverage
-        with:
-          bootstrap: vendor/autoload.php
-          configuration: phpunit.xml
-          php_extensions: xdebug
-          php_version: ${{ matrix.php }}
-          args: tests --coverage-clover ./coverage.xml
+      - name: setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php }}
+        tools: composer
+        coverage: xdebug
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run composer
+        run: composer install --no-progress
+      - name: Run phpunit
+        run: vendor/bin/phpunit --coverage-clover ./coverage.xml
       - name: Upload to Codecov
         uses: codecov/codecov-action@v4
         with:
