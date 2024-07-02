@@ -19,7 +19,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: curl
-          coverage: clover
+          coverage: xdebug
       - name: Run composer
         uses: php-actions/composer@v6
         with:
