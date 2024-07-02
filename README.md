@@ -1,7 +1,7 @@
 # FreeBox PHP
 
-![Packagist Version](https://img.shields.io/packagist/v/madpilot78/freebox-php)
-![Actions Status](https://img.shields.io/github/actions/workflow/status/madpilot78/FreeBoxPHP/tests.yml)
+[![Packagist Version](https://img.shields.io/packagist/v/madpilot78/freebox-php)](https://packagist.org/packages/madpilot78/freebox-php)
+[![Actions Status](https://img.shields.io/github/actions/workflow/status/madpilot78/FreeBoxPHP/tests.yml)](https://github.com/madpilot78/FreeBoxPHP/actions/workflows/tests.yml)
 [![codecov](https://codecov.io/github/madpilot78/FreeBoxPHP/graph/badge.svg?token=PAAARJT32F)](https://codecov.io/github/madpilot78/FreeBoxPHP)
 
 This is a small and simple PHP library to interface with Iliad FreeBox
