@@ -24,7 +24,7 @@ This project works with PHP 8.3 and upper.
 I'm writing this library for my own needs. It handles discovery and
 authentication and then exposes some router APIs via methods.
 
-For a list of implemented methods look in `src/Methods`
+For a list of implemented methods look in `src/Methods`.
 
 NOTE: Since I'm in Italy I have tested this only with my router, an
 IliadBox (Italian version), configured with self provided certificate.
