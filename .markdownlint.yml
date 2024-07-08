@@ -1,0 +1,11 @@
+---
+
+default: true
+no-hard-tabs:
+  code_blocks: false
+line-length:
+  code_blocks: false
+no-bare-urls: false
+fenced-code-language: false
+no-duplicate-heading:
+  siblings_only: true
