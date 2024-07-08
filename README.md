@@ -87,7 +87,7 @@ $ret = $box->discover()->connectionIPv6Configuration('get');
 var_dump($ret);
 ```
 
-(NOTE: `discover()` needs to be called only once, results are cached in the instance)
+(NOTE: `discover()` needs to be called only once per instance, results are cached in the instance)
 
 The IPv6 firewall can be turned on with (this API will also return the new configuration):
 
