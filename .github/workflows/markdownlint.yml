@@ -1,6 +1,6 @@
 ---
 
-name: tests
+name: markdownlint
 
 on:
   - push
