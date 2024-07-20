@@ -37,12 +37,8 @@ class HttpClient
     /**
      * @throws ApiErrorException
      */
-    private function bodyToJson(ResponseInterface $response, array $reqResult = [], bool $checkStatus = true): array
+    private function bodyToJson(ResponseInterface $response, array $reqResult = []): array
     {
-        if ($checkStatus) {
-            $this->checkStatusCode($response);
-        }
-
         $rawBody = (string) $response->getBody();
         if (!json_validate($rawBody)) {
             throw new ApiErrorException('Invalid JSON in body');
@@ -103,12 +99,12 @@ class HttpClient
 
             switch ($statusCode) {
                 case 403:
-                    $error = $this->bodyToJson($response, checkStatus: false);
+                    $error = $this->bodyToJson($response);
                     throw new ApiAuthException($error['msg'] ?? 'Unknown error', $statusCode);
                     break;
 
                 case 404:
-                    $decoded = $this->bodyToJson($response, checkStatus: false);
+                    $decoded = $this->bodyToJson($response);
                     throw new ApiErrorException('', $decoded, $statusCode);
                     break;
 
