@@ -97,7 +97,7 @@ class BoxInfoTest extends TestCase
         $result = $this->boxInfo->foo;
     }
 
-    public function testBoxInfoGetApiUrl(): void
+    public function testBoxInfoGetApiUrlHttps(): void
     {
         $this->assertInstanceOf(
             BoxInfo::class,
@@ -107,6 +107,23 @@ class BoxInfoTest extends TestCase
 
         $this->assertEquals(
             'https://' . self::INFO['api_domain'] . self::INFO['api_base_url'] . 'v' . $major,
+            $this->boxInfo->apiUrl,
+        );
+    }
+
+    public function testBoxInfoGetApiUrlHttp(): void
+    {
+        $info = self::INFO;
+        $info['https_available'] = false;
+
+        $this->assertInstanceOf(
+            BoxInfo::class,
+            $this->boxInfo->save($info),
+        );
+        $major = substr($info['api_version'], 0, strpos($info['api_version'], '.'));
+
+        $this->assertEquals(
+            'http://' . $info['api_domain'] . $info['api_base_url'] . 'v' . $major,
             $this->boxInfo->apiUrl,
         );
     }
