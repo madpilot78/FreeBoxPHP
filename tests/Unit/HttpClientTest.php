@@ -97,6 +97,22 @@ class HttpClientTest extends TestCase
         $this->httpClient->get(self::URL);
     }
 
+    public function testUknownStatus(): void
+    {
+        $this->mock->append(
+            new Response(
+                status: 410,
+                headers: ['Content-Type' => 'application/json'],
+                body: json_encode([
+                    'msg' => 'Gone',
+                ]),
+            ),
+        );
+
+        $this->expectException(NetworkErrorException::class);
+        $this->httpClient->get(self::URL);
+    }
+
     public function testServerError(): void
     {
         $this->mock->append(new Response(status: 500, body: 'Server error'));

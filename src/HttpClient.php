@@ -109,7 +109,7 @@ class HttpClient
                     break;
 
                 default:
-                    throw $e;
+                    throw new NetworkErrorException($e->getMessage(), $e->getCode(), $e);
                     break;
             }
         }
