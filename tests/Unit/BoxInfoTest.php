@@ -72,7 +72,7 @@ class BoxInfoTest extends TestCase
         );
 
         $this->assertEquals(self::INFO['api_domain'], $this->boxInfo->api_domain);
-        $this->assertTrue(self::INFO['https_available']);
+        $this->assertTrue($this->boxInfo->https_available);
     }
 
     public function testBoxInfoGetValueNotSaved(): void
