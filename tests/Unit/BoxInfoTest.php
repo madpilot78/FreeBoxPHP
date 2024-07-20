@@ -75,6 +75,17 @@ class BoxInfoTest extends TestCase
         $this->assertTrue($this->boxInfo->https_available);
     }
 
+    public function testBoxInfoIsset(): void
+    {
+        $this->assertInstanceOf(
+            BoxInfo::class,
+            $this->boxInfo->save(self::INFO),
+        );
+
+        $this->assertTrue(isset($this->boxInfo->api_domain));
+        $this->assertFalse(isset($this->boxInfo->notset));
+    }
+
     public function testBoxInfoGetValueNotSaved(): void
     {
         $this->assertInstanceOf(
