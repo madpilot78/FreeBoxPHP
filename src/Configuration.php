@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace madpilot78\FreeBoxPHP;
 
+use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use madpilot78\FreeBoxPHP\Enum\BoxType;
@@ -33,6 +34,7 @@ final readonly class Configuration
         public bool $localAccess = self::DEFAULT_LOCAL_ACCESS,
         public BoxType $boxType = self::DEFAULT_BOX_TYPE,
         public LoggerInterface $logger = new NullLogger(),
+        public ?ContainerInterface $container = null,
         public int $timeout = self::DEFAULT_TIMEOUT,
         string $deviceName = self::DEFAULT_DEVICENAME,
         ?string $certFile = '',

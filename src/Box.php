@@ -8,6 +8,7 @@ use BadMethodCallException;
 use GuzzleHttp\Client as Guzzle;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Log\LoggerInterface;
 use madpilot78\FreeBoxPHP\Auth\Manager as AuthManager;
@@ -58,6 +59,9 @@ class Box
 
         $this->container = new Container();
         $this->container->delegate(new ReflectionContainer(true));
+        if (is_a($this->config->container, ContainerInterface::class)) {
+            $this->container->delegate($this->config->container);
+        }
         $this->container->add(Configuration::class, $this->config);
         $this->container->add(LoggerInterface::class, $this->logger);
         $this->container->add(ClientInterface::class, $this->client);
