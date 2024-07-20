@@ -102,7 +102,7 @@ class RegisterTest extends TestCase
         $this->assertEquals(self::APPTOKEN, $this->register->run(skipSleep: true));
     }
 
-    public function testRegisterPendingTimeout(): void
+    public function testRegisterPendingTimeoutQuiet(): void
     {
         $this->httpClientStub
             ->method('__call')
@@ -130,7 +130,40 @@ class RegisterTest extends TestCase
         $this->expectException(AuthException::class);
         $this->expectExceptionMessage('the user did not confirm the authorization within the given time');
 
-        $this->register->run(skipSleep: true);
+        $this->register->run(quiet: true, skipSleep: true);
+    }
+
+    public function testRegisterPendingTimeoutNoisy(): void
+    {
+        $this->httpClientStub
+            ->method('__call')
+            ->willReturn(
+                [
+                    'app_token' => self::APPTOKEN,
+                    'track_id' => 42,
+                ],
+                [
+                    'status' => 'pending',
+                    'challenge' => self::CHALLENGE,
+                ],
+                [
+                    'status' => 'timeout',
+                    'challenge' => self::CHALLENGE,
+                ],
+            );
+
+        $this->authManagerMock
+            ->expects($this->exactly(2))
+            ->method('setChallenge')
+            ->with($this->equalTo(self::CHALLENGE))
+            ->willReturnSelf();
+
+        ob_start();
+        $returned = $this->register->run(quiet: false, skipSleep: true);
+        $output = ob_get_clean();
+
+        $this->assertEquals('', $returned);
+        $this->assertEquals('Authorization request sent...Check router.' . PHP_EOL . 'Polling: .Timed out.' . PHP_EOL, $output);
     }
 
     public function testRegisterDenied(): void
