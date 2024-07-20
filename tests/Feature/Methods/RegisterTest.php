@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace Tests\Feature\Methods;
 
 use GuzzleHttp\Psr7\Response;
+use PHPUnit\Framework\Attributes\TestWith;
 use madpilot78\FreeBoxPHP\Box;
 use madpilot78\FreeBoxPHP\Exception\AuthException;
 
 class RegisterTest extends MethodTestCase
 {
-    public function testDiscoverSuccess(): void
+    #[TestWith([true])]
+    #[TestWith([false])]
+    public function testDiscoverSuccess(bool $quiet): void
     {
         $this->mock->append(
             new Response(
@@ -65,10 +68,14 @@ class RegisterTest extends MethodTestCase
 
         $box = new Box(client: $this->guzzleClient);
 
-        $this->assertEquals('AppTokenVal', $box->discover()->register(skipSleep: true));
+        ob_start();
+        $output = $box->discover()->register(quiet: $quiet, skipSleep: true);
+        ob_end_clean();
+
+        $this->assertEquals('AppTokenVal', $output);
     }
 
-    public function testDiscoverDenied(): void
+    private function mockDenied(): void
     {
         $this->mock->append(
             new Response(
@@ -120,12 +127,31 @@ class RegisterTest extends MethodTestCase
                     JSON,
             ),
         );
+    }
+
+    public function testDiscoverDeniedQuiet(): void
+    {
+        $this->mockDenied();
 
         $box = new Box(client: $this->guzzleClient);
 
         $this->expectException(AuthException::class);
         $this->expectExceptionMessage('the user denied the authorization request');
 
-        $box->discover()->register(skipSleep: true);
+        $box->discover()->register(quiet: true, skipSleep: true);
+    }
+
+    public function testDiscoverDeniedNoisy(): void
+    {
+        $this->mockDenied();
+
+        $box = new Box(client: $this->guzzleClient);
+
+        ob_start();
+        $returned = $box->discover()->register(quiet: false, skipSleep: true);
+        $output = ob_get_clean();
+
+        $this->assertEquals('', $returned);
+        $this->assertEquals('Authorization request sent...Check router.' . PHP_EOL . 'Polling: .Denied.' . PHP_EOL, $output);
     }
 }
