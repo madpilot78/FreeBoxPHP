@@ -16,7 +16,7 @@ use madpilot78\FreeBoxPHP\Methods\FwRedir;
 
 class FwRedirTest extends TestCase
 {
-    private const array REQ = [
+    private const array REQUIREDARGS = [
         'enabled',
         'comment',
         'id',
@@ -224,7 +224,7 @@ class FwRedirTest extends TestCase
             ->with(
                 $this->equalTo('get'),
                 $this->equalTo([
-                    self::REQ,
+                    self::REQUIREDARGS,
                     $this->boxInfoStub->apiUrl . '/fw/redir/1',
                     ['headers' => $this->authSessionStub->getAuthHeader()],
                 ]),
@@ -242,7 +242,7 @@ class FwRedirTest extends TestCase
             ->with(
                 $this->equalTo('post'),
                 $this->equalTo([
-                    self::REQ,
+                    self::REQUIREDARGS,
                     $this->boxInfoStub->apiUrl . '/fw/redir/',
                     [
                         'headers' => $this->authSessionStub->getAuthHeader(),
@@ -284,7 +284,7 @@ class FwRedirTest extends TestCase
             ->with(
                 $this->equalTo('put'),
                 $this->equalTo([
-                    self::REQ,
+                    self::REQUIREDARGS,
                     $this->boxInfoStub->apiUrl . '/fw/redir/1',
                     [
                         'headers' => $this->authSessionStub->getAuthHeader(),
