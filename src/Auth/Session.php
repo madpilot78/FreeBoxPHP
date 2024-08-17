@@ -71,12 +71,12 @@ class Session implements SessionInterface
         $this->cache->set(
             $this->config->cacheKeyBase . self::SESSION_KEY,
             $result['session_token'],
-            $this->config->tokenTTL
+            $this->config->tokenTTL,
         );
         $this->cache->set(
             $this->config->cacheKeyBase . self::PERMISSIONS_KEY,
             $result['permissions'],
-            $this->config->tokenTTL
+            $this->config->tokenTTL,
         );
 
         $this->logger->debug('FreeBoxPHP ending Auth\Session::login() after query');
