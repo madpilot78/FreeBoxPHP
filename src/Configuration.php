@@ -24,6 +24,7 @@ final readonly class Configuration
     public const BoxType DEFAULT_BOX_TYPE = BoxType::Free;
     public const int DEFAULT_TIMEOUT = 30;
     public const string CERT_PATH = '/data';
+    public const int TOKEN_TTL = 7200;
 
     public ?string $certFile;
     public string $deviceName;
@@ -39,6 +40,7 @@ final readonly class Configuration
         public LoggerInterface $logger = new NullLogger(),
         public ?ContainerInterface $container = null,
         public int $timeout = self::DEFAULT_TIMEOUT,
+        public int $tokenTTL = self::TOKEN_TTL,
         ?CacheInterface $cache = null,
         string $deviceName = self::DEFAULT_DEVICENAME,
         ?string $certFile = '',
