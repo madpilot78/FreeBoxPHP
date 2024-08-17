@@ -25,7 +25,7 @@ final readonly class Configuration
     public const int DEFAULT_TIMEOUT = 30;
     public const string CERT_PATH = '/data';
     public const string CACHE_KEY_BASE = 'madpilot78:FreeBoxPHP:';
-    public const int TOKEN_TTL = 300;
+    public const int TOKEN_TTL = 60;
 
     public ?string $certFile;
     public string $deviceName;
