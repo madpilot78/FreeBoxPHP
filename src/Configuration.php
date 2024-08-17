@@ -24,6 +24,7 @@ final readonly class Configuration
     public const BoxType DEFAULT_BOX_TYPE = BoxType::Free;
     public const int DEFAULT_TIMEOUT = 30;
     public const string CERT_PATH = '/data';
+    public const string CACHE_KEY_BASE = 'madpilot78:FreeBoxPHP:';
     public const int TOKEN_TTL = 7200;
 
     public ?string $certFile;
@@ -41,6 +42,7 @@ final readonly class Configuration
         public ?ContainerInterface $container = null,
         public int $timeout = self::DEFAULT_TIMEOUT,
         public int $tokenTTL = self::TOKEN_TTL,
+        public string $cacheKeyBase = self::CACHE_KEY_BASE,
         ?CacheInterface $cache = null,
         string $deviceName = self::DEFAULT_DEVICENAME,
         ?string $certFile = '',
