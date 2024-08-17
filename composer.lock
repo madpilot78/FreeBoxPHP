@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d284c457e03058a4ee0adff174d416bf",
+    "content-hash": "dcd6fd791adff401929b6de15686e82a",
     "packages": [
         {
             "name": "chillerlan/php-cache",
