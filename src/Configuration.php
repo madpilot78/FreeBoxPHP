@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace madpilot78\FreeBoxPHP;
 
+use chillerlan\SimpleCache\MemoryCache;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use madpilot78\FreeBoxPHP\Enum\BoxType;
+use Psr\SimpleCache\CacheInterface;
 
 final readonly class Configuration
 {
@@ -25,6 +27,7 @@ final readonly class Configuration
 
     public ?string $certFile;
     public string $deviceName;
+    public CacheInterface $cache;
 
     public function __construct(
         public string $appId = self::DEFAULT_APPID,
@@ -36,6 +39,7 @@ final readonly class Configuration
         public LoggerInterface $logger = new NullLogger(),
         public ?ContainerInterface $container = null,
         public int $timeout = self::DEFAULT_TIMEOUT,
+        ?CacheInterface $cache = null,
         string $deviceName = self::DEFAULT_DEVICENAME,
         ?string $certFile = '',
     ) {
@@ -47,6 +51,10 @@ final readonly class Configuration
         $this->deviceName = $deviceName === self::DEFAULT_DEVICENAME && strlen($machineHostname)
             ? $machineHostname
             : $deviceName;
+
+        $this->cache = is_null($cache)
+            ? new MemoryCache(logger: $this->logger)
+            : $cache;
     }
 
     public function isDefaulthostname(): bool

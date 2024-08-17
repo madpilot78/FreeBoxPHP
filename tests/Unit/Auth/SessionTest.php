@@ -12,6 +12,7 @@ use madpilot78\FreeBoxPHP\BoxInfo;
 use madpilot78\FreeBoxPHP\Configuration;
 use madpilot78\FreeBoxPHP\Enum\Permission;
 use madpilot78\FreeBoxPHP\HttpClient;
+use Psr\SimpleCache\CacheInterface;
 
 class SessionTest extends TestCase
 {
@@ -24,6 +25,7 @@ class SessionTest extends TestCase
     private AuthManager $authManagerMock;
     private BoxInfo $boxInfoStub;
     private HttpClient $httpClientStub;
+    private CacheInterface $cacheMock;
 
     protected function setUp(): void
     {
@@ -32,13 +34,15 @@ class SessionTest extends TestCase
         $this->authManagerMock = $this->createMock(AuthManager::class);
         $this->boxInfoStub = $this->createStub(BoxInfo::class);
         $this->httpClientStub = $this->createStub(HttpClient::class);
+        $this->cacheMock = $this->createMock(CacheInterface::class);
 
         $this->authSession = new AuthSession(
             $this->authManagerMock,
             $this->boxInfoStub,
-            new Configuration(),
+            new Configuration(cache: $this->cacheMock),
             $this->httpClientStub,
             new NullLogger(),
+            $this->cacheMock,
         );
     }
 
@@ -83,6 +87,14 @@ class SessionTest extends TestCase
                 'permissions' => self::PERMISSIONS,
             ],
         );
+        $this->cacheMock
+            ->expects($this->exactly(2))
+            ->method('get')
+            ->willReturn(null);
+        $this->cacheMock
+            ->expects($this->exactly(2))
+            ->method('set')
+            ->willReturn(true);
 
         $returned = $this->authSession->getAuthHeader();
 
@@ -125,6 +137,14 @@ class SessionTest extends TestCase
             'challenge' => self::CHALLENGE,
             'permissions' => self::PERMISSIONS,
         ]);
+        $this->cacheMock
+            ->expects($this->exactly(2))
+            ->method('get')
+            ->willReturn(null);
+        $this->cacheMock
+            ->expects($this->exactly(2))
+            ->method('set')
+            ->willReturn(true);
 
         $returned = $this->authSession->getAuthHeader();
 
@@ -147,6 +167,19 @@ class SessionTest extends TestCase
         $this->authManagerMock
             ->expects($this->never())
             ->method('setPermissions');
+
+        $returned = $this->authSession->getAuthHeader();
+
+        $this->assertIsArray($returned);
+        $this->assertSame(['X-Fbx-App-Auth' => self::SESSION_TOKEN], $returned);
+    }
+
+    public function testCached(): void
+    {
+        $this->cacheMock
+            ->expects($this->exactly(2))
+            ->method('get')
+            ->willReturn(self::SESSION_TOKEN, self::PERMISSIONS);
 
         $returned = $this->authSession->getAuthHeader();
 

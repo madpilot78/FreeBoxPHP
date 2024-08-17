@@ -10,20 +10,39 @@ use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Configuration;
 use madpilot78\FreeBoxPHP\Enum\Permission;
 use madpilot78\FreeBoxPHP\HttpClient;
+use Psr\SimpleCache\CacheInterface;
 
 class Session implements SessionInterface
 {
+    private const string SESSION_CACHE_KEY = 'madpilot78:FreeBoxPHP:SessionToken';
+    private const string PERMISSIONS_CACHE_KEY = 'madpilot78:FreeBoxPHP:Permissions';
+    private const int CACHE_TTL = 7200;
+
     public function __construct(
         private AuthManagerInterface $authManager,
         private BoxInfoInterface $boxInfo,
         private Configuration $config,
         private HttpClient $client,
         private LoggerInterface $logger,
+        private CacheInterface $cache,
     ) {}
 
     private function login(): string
     {
         $this->logger->debug('FreeBoxPHP starting Auth\Session::login()');
+
+        $session_token = $this->cache->get(self::SESSION_CACHE_KEY);
+        $permissions = $this->cache->get(self::PERMISSIONS_CACHE_KEY);
+
+        if (isset($session_token) && isset($permissions)) {
+            $this->authManager
+                ->setSessionToken($session_token)
+                ->setPermissions($permissions);
+
+            $this->logger->debug('FreeBoxPHP ending Auth\Session::login() from cache');
+
+            return $session_token;
+        }
 
         if (!$this->authManager->hasChallenge()) {
             $result = $this->client->get(
@@ -50,7 +69,10 @@ class Session implements SessionInterface
             ->setSessionToken($result['session_token'])
             ->setPermissions($result['permissions']);
 
-        $this->logger->debug('FreeBoxPHP ending Auth\Session::login()');
+        $this->cache->set(self::SESSION_CACHE_KEY, $result['session_token'], self::CACHE_TTL);
+        $this->cache->set(self::PERMISSIONS_CACHE_KEY, $result['permissions'], self::CACHE_TTL);
+
+        $this->logger->debug('FreeBoxPHP ending Auth\Session::login() after query');
 
         return $result['session_token'];
     }

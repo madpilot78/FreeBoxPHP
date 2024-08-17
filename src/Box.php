@@ -15,6 +15,7 @@ use madpilot78\FreeBoxPHP\Auth\Manager as AuthManager;
 use madpilot78\FreeBoxPHP\Auth\ManagerInterface as AuthManagerInterface;
 use madpilot78\FreeBoxPHP\Auth\Session as AuthSession;
 use madpilot78\FreeBoxPHP\Auth\SessionInterface as AuthSessionInterface;
+use Psr\SimpleCache\CacheInterface;
 
 class Box
 {
@@ -25,6 +26,7 @@ class Box
     private ?Configuration $config;
     private Container $container;
     private LoggerInterface $logger;
+    private CacheInterface $cache;
     private ?Guzzle $client;
 
     public function __construct(
@@ -46,6 +48,8 @@ class Box
         $this->logger = $this->config->logger;
         $this->logger->debug('FreeBoxPHP Intializing');
 
+        $this->cache = $this->config->cache;
+
         $this->client = $client;
         if (is_null($this->client)) {
             $this->client = new Guzzle([
@@ -64,6 +68,7 @@ class Box
         }
         $this->container->add(Configuration::class, $this->config);
         $this->container->add(LoggerInterface::class, $this->logger);
+        $this->container->add(CacheInterface::class, $this->cache);
         $this->container->add(ClientInterface::class, $this->client);
         $this->container->add(HttpClient::class)
             ->addArgument(ClientInterface::class)
@@ -75,7 +80,8 @@ class Box
             ->addArgument(BoxInfoInterface::class)
             ->addArgument(Configuration::class)
             ->addArgument(HttpClient::class)
-            ->addArgument(LoggerInterface::class);
+            ->addArgument(LoggerInterface::class)
+            ->addArgument(CacheInterface::class);
 
         $this->logger->debug('FreeBoxPHP Initialization done');
     }
