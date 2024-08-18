@@ -16,7 +16,7 @@ class ApiErrorException extends RuntimeException
     public const string FIELD_MISSING = 'Expected field missing in API response';
     public const string RESULT_MISSING = 'Result missing in API response';
 
-    public function __construct(string $message, array $apiResponse = [], int $code = 0, ?Throwable $previous = null)
+    public function __construct(string $message, array $apiResponse = [], int $code = 0, ?\Throwable $previous = null)
     {
         if (strlen($message) === 0) {
             if (!array_key_exists('success', $apiResponse)) {
