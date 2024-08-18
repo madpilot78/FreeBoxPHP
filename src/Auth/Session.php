@@ -42,14 +42,12 @@ class Session implements SessionInterface
             return $session_token;
         }
 
-        if (!$this->authManager->hasChallenge()) {
-            $result = $this->client->get(
-                ['challenge'],
-                $this->boxInfo->apiUrl . '/login/',
-            );
+        $result = $this->client->get(
+            ['challenge'],
+            $this->boxInfo->apiUrl . '/login/',
+        );
 
-            $this->authManager->setChallenge($result['challenge']);
-        }
+        $this->authManager->setChallenge($result['challenge']);
 
         $result = $this->client->post(
             ['session_token', 'challenge', 'permissions'],
