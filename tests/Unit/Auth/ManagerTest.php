@@ -28,6 +28,10 @@ class ManagerTest extends TestCase
 
     public function testWithAuthTokenNoChallenge(): void
     {
+        $this->assertInstanceOf(
+            AuthManager::class,
+            $this->authManager->setAuthToken('token'),
+        );
         $this->expectException(MissingAuthException::class);
         $this->authManager->getPassword();
     }
