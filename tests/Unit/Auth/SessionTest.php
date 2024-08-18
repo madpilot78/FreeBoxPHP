@@ -50,10 +50,6 @@ class SessionTest extends TestCase
     {
         $this->authManagerMock
             ->expects($this->once())
-            ->method('getSessionToken')
-            ->willReturn(null);
-        $this->authManagerMock
-            ->expects($this->once())
             ->method('hasChallenge')
             ->willReturn(false);
         $this->authManagerMock
@@ -65,11 +61,6 @@ class SessionTest extends TestCase
             ->expects($this->once())
             ->method('getPassword')
             ->willReturn('pwd');
-        $this->authManagerMock
-            ->expects($this->once())
-            ->method('setSessionToken')
-            ->with($this->equalTo(self::SESSION_TOKEN))
-            ->willReturnSelf();
         $this->authManagerMock
             ->expects($this->once())
             ->method('setPermissions')
@@ -106,10 +97,6 @@ class SessionTest extends TestCase
     {
         $this->authManagerMock
             ->expects($this->once())
-            ->method('getSessionToken')
-            ->willReturn(null);
-        $this->authManagerMock
-            ->expects($this->once())
             ->method('hasChallenge')
             ->willReturn(true);
         $this->authManagerMock
@@ -120,11 +107,6 @@ class SessionTest extends TestCase
             ->expects($this->once())
             ->method('setChallenge')
             ->with($this->equalTo(self::CHALLENGE))
-            ->willReturnSelf();
-        $this->authManagerMock
-            ->expects($this->once())
-            ->method('setSessionToken')
-            ->with($this->equalTo(self::SESSION_TOKEN))
             ->willReturnSelf();
         $this->authManagerMock
             ->expects($this->once())
@@ -145,28 +127,6 @@ class SessionTest extends TestCase
             ->expects($this->exactly(2))
             ->method('set')
             ->willReturn(true);
-
-        $returned = $this->authSession->getAuthHeader();
-
-        $this->assertIsArray($returned);
-        $this->assertSame(['X-Fbx-App-Auth' => self::SESSION_TOKEN], $returned);
-    }
-
-    public function testHasSessionToken(): void
-    {
-        $this->authManagerMock
-            ->expects($this->once())
-            ->method('getSessionToken')
-            ->willReturn(self::SESSION_TOKEN);
-        $this->authManagerMock
-            ->expects($this->never())
-            ->method('setChallenge');
-        $this->authManagerMock
-            ->expects($this->never())
-            ->method('setSessionToken');
-        $this->authManagerMock
-            ->expects($this->never())
-            ->method('setPermissions');
 
         $returned = $this->authSession->getAuthHeader();
 

@@ -9,7 +9,6 @@ use madpilot78\FreeBoxPHP\Exception\MissingAuthException;
 class Manager implements ManagerInterface
 {
     private ?string $authToken = null;
-    private ?string $sessionToken = null;
     private ?string $currentChallenge = null;
     private array $permissions = [];
 
@@ -18,18 +17,6 @@ class Manager implements ManagerInterface
         $this->authToken = $token;
 
         return $this;
-    }
-
-    public function setSessionToken(string $token): self
-    {
-        $this->sessionToken = $token;
-
-        return $this;
-    }
-
-    public function getSessionToken(): ?string
-    {
-        return $this->sessionToken;
     }
 
     public function setChallenge(string $challenge): self

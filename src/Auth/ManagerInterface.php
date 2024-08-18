@@ -8,10 +8,6 @@ interface ManagerInterface
 {
     public function setAuthToken(string $token): self;
 
-    public function setSessionToken(string $token): self;
-
-    public function getSessionToken(): ?string;
-
     public function setChallenge(string $challenge): self;
 
     public function hasChallenge(): bool;

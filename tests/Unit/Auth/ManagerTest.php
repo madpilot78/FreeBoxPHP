@@ -28,10 +28,6 @@ class ManagerTest extends TestCase
 
     public function testWithAuthTokenNoChallenge(): void
     {
-        $this->assertInstanceOf(
-            AuthManager::class,
-            $this->authManager->setAuthToken('token'),
-        );
         $this->expectException(MissingAuthException::class);
         $this->authManager->getPassword();
     }
@@ -66,18 +62,6 @@ class ManagerTest extends TestCase
         $result = $this->authManager->getPassword();
 
         $this->assertEquals(self::HASH, $result);
-    }
-
-    public function testSetGetSessionToken(): void
-    {
-        $this->assertNull($this->authManager->getSessionToken());
-
-        $this->assertInstanceOf(
-            AuthManager::class,
-            $this->authManager->setSessionToken('sesstok'),
-        );
-
-        $this->assertEquals('sesstok', $this->authManager->getSessionToken());
     }
 
     public function testSetHasPermission(): void

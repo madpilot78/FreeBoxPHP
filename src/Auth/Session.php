@@ -35,7 +35,6 @@ class Session implements SessionInterface
 
         if (isset($session_token) && isset($permissions)) {
             $this->authManager
-                ->setSessionToken($session_token)
                 ->setPermissions($permissions);
 
             $this->logger->debug('FreeBoxPHP ending Auth\Session::login() from cache');
@@ -65,7 +64,6 @@ class Session implements SessionInterface
 
         $this->authManager
             ->setChallenge($result['challenge'])
-            ->setSessionToken($result['session_token'])
             ->setPermissions($result['permissions']);
 
         $this->cache->set(
@@ -86,7 +84,7 @@ class Session implements SessionInterface
 
     public function getAuthHeader(): array
     {
-        return ['X-Fbx-App-Auth' => $this->authManager->getSessionToken() ?? $this->login()];
+        return ['X-Fbx-App-Auth' => $this->login()];
     }
 
     public function can(Permission $perm): bool
