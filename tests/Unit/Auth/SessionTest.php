@@ -49,10 +49,6 @@ class SessionTest extends TestCase
     public function testGetAuthMissingChallenge(): void
     {
         $this->authManagerMock
-            ->expects($this->once())
-            ->method('hasChallenge')
-            ->willReturn(false);
-        $this->authManagerMock
             ->expects($this->exactly(2))
             ->method('setChallenge')
             ->with($this->equalTo(self::CHALLENGE))
@@ -97,16 +93,11 @@ class SessionTest extends TestCase
     {
         $this->authManagerMock
             ->expects($this->once())
-            ->method('hasChallenge')
-            ->willReturn(true);
-        $this->authManagerMock
-            ->expects($this->once())
             ->method('getPassword')
             ->willReturn('pwd');
         $this->authManagerMock
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('setChallenge')
-            ->with($this->equalTo(self::CHALLENGE))
             ->willReturnSelf();
         $this->authManagerMock
             ->expects($this->once())
