@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.0.3] - 2024-08-19
+
+- Removed saving challenge value
+
+## [1.0.2] - 2024-08-18
+
+- Removed sabing session token in property
+
+## [1.0.1] - 2024-08-18
+
+- Changed cache default TTL to a much lower value
+
+## [1.0.0] - 2024-08-17
+
+- Added support for caching authorization token
+- Update dependencies
+
 ## [0.0.2] - 2024-07-20
 
 ### Changed
@@ -12,5 +29,9 @@
 
 _Initial release._
 
+[1.0.3]: https://github.com/madpilot78/FreeBoxPHP/releases/tag/v1.0.3
+[1.0.2]: https://github.com/madpilot78/FreeBoxPHP/releases/tag/v1.0.2
+[1.0.1]: https://github.com/madpilot78/FreeBoxPHP/releases/tag/v1.0.1
+[1.0.0]: https://github.com/madpilot78/FreeBoxPHP/releases/tag/v1.0.0
 [0.0.2]: https://github.com/madpilot78/FreeBoxPHP/releases/tag/v0.0.2
 [0.0.1]: https://github.com/madpilot78/FreeBoxPHP/releases/tag/v0.0.1
