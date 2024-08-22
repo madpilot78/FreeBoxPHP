@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Removed bundled composer.lock
+- Fix accessing undefined static consts from abstract class
 - Minor code improvements
 
 ## [1.0.3] - 2024-08-19
