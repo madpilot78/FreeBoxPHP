@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.0.4] - 2024-08-22
 
 - Removed bundled composer.lock
 - Fix accessing undefined static consts from abstract class
@@ -35,6 +35,7 @@
 
 _Initial release._
 
+[1.0.3]: https://github.com/madpilot78/FreeBoxPHP/releases/tag/v1.0.4
 [1.0.3]: https://github.com/madpilot78/FreeBoxPHP/releases/tag/v1.0.3
 [1.0.2]: https://github.com/madpilot78/FreeBoxPHP/releases/tag/v1.0.2
 [1.0.1]: https://github.com/madpilot78/FreeBoxPHP/releases/tag/v1.0.1
