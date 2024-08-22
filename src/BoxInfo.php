@@ -93,9 +93,7 @@ class BoxInfo implements BoxInfoInterface
     public function __get(string $name): null|bool|int|string
     {
         if ($name === 'apiUrl') {
-            if (is_null($this->apiUrl)) {
-                $this->apiUrl = $this->makeApiUrl();
-            }
+            $this->apiUrl ??= $this->makeApiUrl();
 
             return $this->apiUrl;
         }
