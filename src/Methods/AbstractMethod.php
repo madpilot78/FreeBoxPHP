@@ -16,9 +16,15 @@ abstract class AbstractMethod implements MethodInterface
 {
     protected const string API = '';
     protected const array ACTIONS = [];
-    protected const array REQUIRED = [];
     protected const Permission PERM = Permission::None;
     protected const string FAIL_MESSAGE = '';
+    protected const array REQUIRED_GET = [];
+    protected const array REQUIRED_GET_ID = [];
+    protected const array REQUIRED_SET = [];
+    protected const array REQUIRED_PUT = [];
+    protected const string FAIL_MESSAGE_SET = '';
+    protected const string FAIL_MESSAGE_UPDATE = '';
+    protected const string FAIL_MESSAGE_DELETE = '';
 
     protected array $authHeader;
 
@@ -72,16 +78,7 @@ abstract class AbstractMethod implements MethodInterface
             throw new AuthException(AuthSessionInterface::NO_PERM_MSG);
         }
 
-        if (defined('static::REQUIRED_SET')) {
-            return $this->client->post(
-                static::REQUIRED_SET,
-                $this->boxInfo->apiUrl . static::API . (isset($id) ? $this->separator . $id : ''),
-                [
-                    'headers' => $this->authHeader,
-                    'json' => $params,
-                ],
-            );
-        } else {
+        if (empty(static::REQUIRED_SET)) {
             $response = $this->client->post(
                 $this->boxInfo->apiUrl . static::API . (isset($id) ? $this->separator . $id : ''),
                 [
@@ -95,6 +92,15 @@ abstract class AbstractMethod implements MethodInterface
             }
 
             return null;
+        } else {
+            return $this->client->post(
+                static::REQUIRED_SET,
+                $this->boxInfo->apiUrl . static::API . (isset($id) ? $this->separator . $id : ''),
+                [
+                    'headers' => $this->authHeader,
+                    'json' => $params,
+                ],
+            );
         }
     }
 
@@ -104,16 +110,7 @@ abstract class AbstractMethod implements MethodInterface
             throw new AuthException(AuthSessionInterface::NO_PERM_MSG);
         }
 
-        if (defined('static::REQUIRED_PUT')) {
-            return $this->client->put(
-                static::REQUIRED_PUT,
-                $this->boxInfo->apiUrl . static::API . (isset($id) ? $this->separator . $id : ''),
-                [
-                    'headers' => $this->authHeader,
-                    'json' => $params,
-                ],
-            );
-        } else {
+        if (empty(static::REQUIRED_PUT)) {
             $response = $this->client->put(
                 $this->boxInfo->apiUrl . static::API . (isset($id) ? $this->separator . $id : ''),
                 [
@@ -127,6 +124,15 @@ abstract class AbstractMethod implements MethodInterface
             }
 
             return null;
+        } else {
+            return $this->client->put(
+                static::REQUIRED_PUT,
+                $this->boxInfo->apiUrl . static::API . (isset($id) ? $this->separator . $id : ''),
+                [
+                    'headers' => $this->authHeader,
+                    'json' => $params,
+                ],
+            );
         }
     }
 
