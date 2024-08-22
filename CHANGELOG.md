@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
+- Removed bundled composer.lock
+- Minor code improvements
+
 ## [1.0.3] - 2024-08-19
 
 - Removed saving challenge value
