@@ -38,9 +38,9 @@ developer documentation, accessible through the WebUI.
 
 ## How to use
 
-There is a Configuration object that can be used to customize the library.
+There is a `Configuration` object that can be used to customize the library.
 
-First one needs to register with the Box, for example:
+First one needs to register with the `Box`, for example:
 
 ```php
 use madpilot78\FreeBoxPHP\Configuration;
@@ -62,10 +62,10 @@ echo $token . PHP_EOL;
 
 (check the FreeBox/IliadBox display to authorize the client)
 
-Once the client ha been authorized its permissions can be configured in
+Once the client has been authorized its permissions can be configured in
 the FreeBox/IliadBox UI.
 
-With the token it is possible to access the full functionality.
+With the token it is possible to access all the provided functionality.
 
 For example to display IPv6 configuration:
 
@@ -93,7 +93,7 @@ in the instance)
 The IPv6 firewall can be turned on with (this API will also return the new configuration):
 
 ```php
-$ret = $box->connectionIPv6Configuration(set', ['ipv6_firewall' => true]);
+$ret = $box->connectionIPv6Configuration('set', ['ipv6_firewall' => true]);
 
 var_dump($ret);
 ```
@@ -106,7 +106,7 @@ $ret = $box->fwRedir('get', 1));
 var_dump($ret);
 ```
 
-And a disable redirect can be modified (for example enabled) like this:
+And a disabled redirect can be modified (for example enabled) like this:
 
 ```php
 $ret = $box->fwRedir('update', 1, ['enabled' => true]));
