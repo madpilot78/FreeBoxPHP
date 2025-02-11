@@ -16,11 +16,9 @@ jobs:
       matrix:
         php:
           - '8.3'
+          - '8.4'
         experimental:
           - false
-#        include:
-#          - php: '8.4'
-#            experimental: true
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
