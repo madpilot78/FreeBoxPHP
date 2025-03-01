@@ -125,13 +125,11 @@ class Register
             }
         }
 
-        // @codeCoverageIgnoreStart
         $this->logger->warning('FreeBoxPHP Registration giving up');
         if (!$quiet) {
             echo 'Giving up.' . PHP_EOL;
         }
 
         return '';
-        // @codeCoverageIgnoreEnd
     }
 }
