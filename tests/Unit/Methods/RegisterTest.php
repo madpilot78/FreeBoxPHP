@@ -18,7 +18,7 @@ use madpilot78\FreeBoxPHP\Methods\Register;
 class RegisterTest extends TestCase
 {
     private const string CHALLENGE = 'challengeVal';
-    private const string APPTOKEN = 'apptokenVal';
+    private const string APPTOKEN = 'appTokenVal';
 
     private AuthManagerInterface $authManagerMock;
     private BoxInfoInterface $boxInfoStub;
