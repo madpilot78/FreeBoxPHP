@@ -42,7 +42,7 @@ class ConnectionStatusTest extends MethodTestCase
         $this->setupFakeLogin();
     }
 
-    public function testLogin(): void
+    public function testConnectionStatus(): void
     {
         $this->mock->append(new Response(body: self::STATUSJSON));
 
