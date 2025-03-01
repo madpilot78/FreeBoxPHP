@@ -219,4 +219,42 @@ class RegisterTest extends TestCase
 
         $this->register->run();
     }
+
+    public static function pendingTimeout(): array
+    {
+        static $firstCall = true;
+
+        if ($firstCall) {
+            $firstCall = false;
+            return [
+                'app_token' => self::APPTOKEN,
+                'track_id' => 42,
+            ];
+        } else {
+            return [
+                'status' => 'pending',
+                'challenge' => self::CHALLENGE,
+            ];
+        }
+    }
+
+    public function testRegisterTimeout(): void
+    {
+        $this->httpClientStub
+            ->method('__call')
+            ->willReturnCallback([__CLASS__, 'pendingTimeout']);
+
+        $this->authManagerMock
+            ->expects($this->atLeastOnce())
+            ->method('setChallenge')
+            ->with($this->equalTo(self::CHALLENGE))
+            ->willReturnSelf();
+
+        ob_start();
+        $returned = $this->register->run(quiet: false, skipSleep: true);
+        $output = ob_get_clean();
+
+        $this->assertEquals('', $returned);
+        $this->assertEquals('Authorization request sent...Check router.' . PHP_EOL . 'Polling: ............................................................Giving up.' . PHP_EOL, $output);
+    }
 }
