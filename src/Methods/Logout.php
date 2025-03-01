@@ -8,7 +8,7 @@ use madpilot78\FreeBoxPHP\Exception\ApiAuthException;
 
 class Logout extends AbstractMethod implements MethodInterface
 {
-    public function run(string $action = 'get', array|int $id = [], array $params = []): ?array
+    public function run(string $action = 'get', array|int|string $id = [], array $params = []): ?array
     {
         $response = $this->client->get(
             $this->boxInfo->apiUrl . '/login/logout',

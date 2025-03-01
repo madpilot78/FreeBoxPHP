@@ -43,7 +43,7 @@ abstract class AbstractMethod implements MethodInterface
     /**
      * @throws InvalidArgumentException
      */
-    public function run(string $action = 'get', array|int $id = [], array $params = []): ?array
+    public function run(string $action = 'get', array|int|string $id = [], array $params = []): ?array
     {
         if (!in_array($action, static::ACTIONS)) {
             throw new InvalidArgumentException('Unknown action ' . $action);
@@ -72,7 +72,7 @@ abstract class AbstractMethod implements MethodInterface
     /**
      * @throws AuthException
      */
-    protected function set(?int $id, array $params): ?array
+    protected function set(int|string|null $id, array $params): ?array
     {
         if (static::PERM != Permission::None && !$this->authSession->can(static::PERM)) {
             throw new AuthException(AuthSessionInterface::NO_PERM_MSG);
