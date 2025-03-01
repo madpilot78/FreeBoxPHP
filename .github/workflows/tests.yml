@@ -22,11 +22,6 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-      - name: Cache dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.composer/cache/files
-          key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
       - name: setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -36,7 +31,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Run composer
-        run: composer install --no-progress
+        uses: ramsey/composer-install@v3
       - name: Run phpunit
         run: vendor/bin/phpunit --coverage-clover ./coverage.xml
       - name: Upload to Codecov
