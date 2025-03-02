@@ -25,7 +25,7 @@ class Box implements BoxInterface
     private Container $container;
     private LoggerInterface $logger;
     private CacheInterface $cache;
-    private ?Guzzle $client;
+    private ?ClientInterface $client;
 
     public function __construct(
         ?string $authToken = null,
