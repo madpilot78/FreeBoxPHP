@@ -34,6 +34,11 @@ jobs:
         uses: ramsey/composer-install@v3
         with:
           dependency-versions: highest
+      - name: Run phpstan
+        uses: php-actions/phpstan@v3
+        with:
+          php_version: ${{ matrix.php }}
+          memory_limit: 512M
       - name: Run phpunit
         run: vendor/bin/phpunit --coverage-clover ./coverage.xml
       - name: Upload to Codecov
