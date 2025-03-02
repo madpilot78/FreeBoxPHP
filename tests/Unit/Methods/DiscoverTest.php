@@ -6,7 +6,6 @@ namespace Tests\Unit\Methods;
 
 use PHPUnit\Framework\TestCase;
 use madpilot78\FreeBoxPHP\BoxInfo;
-use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Configuration;
 use madpilot78\FreeBoxPHP\Exception\NotSupportedException;
 use madpilot78\FreeBoxPHP\HttpClient;
