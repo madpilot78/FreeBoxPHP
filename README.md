@@ -101,7 +101,7 @@ var_dump($ret);
 APIs requiring an ID take it as an argument, for example to fetch an existing redirect:
 
 ```php
-$ret = $box->fwRedir('get', 1));
+$ret = $box->fwRedir('get', 1);
 
 var_dump($ret);
 ```
@@ -109,7 +109,7 @@ var_dump($ret);
 And a disabled redirect can be modified (for example enabled) like this:
 
 ```php
-$ret = $box->fwRedir('update', 1, ['enabled' => true]));
+$ret = $box->fwRedir('update', 1, ['enabled' => true]);
 
 var_dump($ret);
 ```
