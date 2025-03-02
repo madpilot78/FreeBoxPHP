@@ -7,10 +7,6 @@ namespace Tests\Unit\Methods;
 use PHPUnit\Framework\TestCase;
 use madpilot78\FreeBoxPHP\Auth\Session as AuthSession;
 use madpilot78\FreeBoxPHP\Auth\SessionInterface as AuthSessionInterface;
-use madpilot78\FreeBoxPHP\BoxInfo;
-use madpilot78\FreeBoxPHP\BoxInfoInterface;
-use madpilot78\FreeBoxPHP\Configuration;
-use madpilot78\FreeBoxPHP\HttpClient;
 use madpilot78\FreeBoxPHP\Methods\Login;
 
 class LoginTest extends TestCase
