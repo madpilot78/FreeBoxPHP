@@ -10,6 +10,7 @@ use madpilot78\FreeBoxPHP\Auth\SessionInterface as AuthSessionInterface;
 use madpilot78\FreeBoxPHP\BoxInfo;
 use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\HttpClient;
+use madpilot78\FreeBoxPHP\HttpClientInterface;
 use madpilot78\FreeBoxPHP\Methods\ConnectionStatus;
 use PHPUnit\Framework\MockObject\Stub;
 
@@ -35,7 +36,7 @@ class ConnectionStatusTest extends TestCase
 
     private AuthSessionInterface&Stub $authSessionStub;
     private BoxInfoInterface&Stub $boxInfoStub;
-    private HttpClient&Stub $httpClientStub;
+    private HttpClientInterface&Stub $httpClientStub;
     private ConnectionStatus $connectionStatus;
 
     protected function setUp(): void
@@ -60,7 +61,7 @@ class ConnectionStatusTest extends TestCase
     public function testGetConnectionStatus(): void
     {
         $this->httpClientStub
-            ->method('__call')
+            ->method('get')
             ->willReturn(self::STATUSOBJ);
 
         $this->assertEquals(self::STATUSOBJ, $this->connectionStatus->run());

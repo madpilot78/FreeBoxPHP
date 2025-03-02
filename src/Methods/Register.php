@@ -9,7 +9,7 @@ use madpilot78\FreeBoxPHP\Auth\ManagerInterface as AuthManagerInterface;
 use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Configuration;
 use madpilot78\FreeBoxPHP\Exception\AuthException;
-use madpilot78\FreeBoxPHP\HttpClient;
+use madpilot78\FreeBoxPHP\HttpClientInterface;
 
 class Register
 {
@@ -23,7 +23,7 @@ class Register
         private AuthManagerInterface $authManager,
         private BoxInfoInterface $boxInfo,
         private Configuration $config,
-        private HttpClient $client,
+        private HttpClientInterface $client,
         private LoggerInterface $logger,
     ) {}
 
@@ -35,8 +35,8 @@ class Register
         }
 
         $result = $this->client->post(
-            ['app_token', 'track_id'],
             $this->boxInfo->getApiUrl() . '/login/authorize',
+            ['app_token', 'track_id'],
             [
                 'json' => [
                     'app_id' => $this->config->appId,
@@ -67,8 +67,8 @@ class Register
 
         for ($i = 0; $i < self::POLL_MAX; $i++) {
             $result = $this->client->get(
-                ['status', 'challenge'],
                 $this->boxInfo->getApiUrl() . '/login/authorize/' . $this->trackId,
+                ['status', 'challenge'],
             );
 
             $this->authManager->setChallenge($result['challenge']);

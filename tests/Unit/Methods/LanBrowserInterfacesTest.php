@@ -10,6 +10,7 @@ use madpilot78\FreeBoxPHP\Auth\SessionInterface as AuthSessionInterface;
 use madpilot78\FreeBoxPHP\BoxInfo;
 use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\HttpClient;
+use madpilot78\FreeBoxPHP\HttpClientInterface;
 use madpilot78\FreeBoxPHP\Methods\LanBrowserInterfaces;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
@@ -31,7 +32,7 @@ class LanBrowserInterfacesTest extends TestCase
 
     private AuthSessionInterface&Stub $authSessionStub;
     private BoxInfoInterface&Stub $boxInfoStub;
-    private HttpClient&MockObject $httpClientMock;
+    private HttpClientInterface&MockObject $httpClientMock;
     private LanBrowserInterfaces $lanBrowserInterfaces;
 
     protected function setUp(): void
@@ -57,14 +58,11 @@ class LanBrowserInterfacesTest extends TestCase
     {
         $this->httpClientMock
             ->expects($this->once())
-            ->method('__call')
+            ->method('get')
             ->with(
-                $this->equalTo('get'),
-                $this->equalTo([
-                    [''],
-                    $this->boxInfoStub->getApiUrl() . '/lan/browser/interfaces/',
-                    ['headers' => $this->authSessionStub->getAuthHeader()],
-                ]),
+                $this->equalTo($this->boxInfoStub->getApiUrl() . '/lan/browser/interfaces/'),
+                $this->equalTo(['']),
+                $this->equalTo(['headers' => $this->authSessionStub->getAuthHeader()]),
             )
             ->willReturn(self::LANINTERFACES);
 

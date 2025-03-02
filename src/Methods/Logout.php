@@ -12,6 +12,7 @@ class Logout extends AbstractMethod implements MethodInterface
     {
         $response = $this->client->get(
             $this->boxInfo->getApiUrl() . '/login/logout',
+            [],
             ['headers' => $this->authSession->getAuthHeader()],
         );
 

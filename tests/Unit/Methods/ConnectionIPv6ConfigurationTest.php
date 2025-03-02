@@ -12,6 +12,7 @@ use madpilot78\FreeBoxPHP\BoxInfo;
 use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Exception\AuthException;
 use madpilot78\FreeBoxPHP\HttpClient;
+use madpilot78\FreeBoxPHP\HttpClientInterface;
 use madpilot78\FreeBoxPHP\Methods\ConnectionIPv6Configuration;
 use PHPUnit\Framework\MockObject\Stub;
 
@@ -57,7 +58,7 @@ class ConnectionIPv6ConfigurationTest extends TestCase
 
     private AuthSessionInterface&Stub $authSessionStub;
     private BoxInfoInterface&Stub $boxInfoStub;
-    private HttpClient&Stub $httpClientStub;
+    private HttpClientInterface&Stub $httpClientStub;
     private ConnectionIPv6Configuration $connectionIPv6Configuration;
 
     protected function setUp(): void
@@ -82,7 +83,7 @@ class ConnectionIPv6ConfigurationTest extends TestCase
     public function testGetConnectionIPv6Configuration(): void
     {
         $this->httpClientStub
-            ->method('__call')
+            ->method('get')
             ->willReturn(self::CONFOBJ);
 
         $this->assertEquals(self::CONFOBJ, $this->connectionIPv6Configuration->run('get'));
@@ -91,7 +92,7 @@ class ConnectionIPv6ConfigurationTest extends TestCase
     public function testSetConnectionIPv6Configuration(): void
     {
         $this->httpClientStub
-            ->method('__call')
+            ->method('put')
             ->willReturn(['success' => true]);
         $this->authSessionStub
             ->method('can')
@@ -105,7 +106,7 @@ class ConnectionIPv6ConfigurationTest extends TestCase
     public function testSetConnectionIPv6ConfigurationNoPerm(): void
     {
         $this->httpClientStub
-            ->method('__call')
+            ->method('put')
             ->willReturn(['success' => true]);
         $this->authSessionStub
             ->method('can')

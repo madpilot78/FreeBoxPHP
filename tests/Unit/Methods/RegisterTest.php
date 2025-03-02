@@ -13,6 +13,7 @@ use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Configuration;
 use madpilot78\FreeBoxPHP\Exception\AuthException;
 use madpilot78\FreeBoxPHP\HttpClient;
+use madpilot78\FreeBoxPHP\HttpClientInterface;
 use madpilot78\FreeBoxPHP\Methods\Register;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
@@ -24,7 +25,7 @@ class RegisterTest extends TestCase
 
     private AuthManagerInterface&MockObject $authManagerMock;
     private BoxInfoInterface&Stub $boxInfoStub;
-    private HttpClient&Stub $httpClientStub;
+    private HttpClientInterface&Stub $httpClientStub;
     private Register $register;
 
     protected function setUp(): void
@@ -47,17 +48,17 @@ class RegisterTest extends TestCase
     public function testRegisterUnknown(): void
     {
         $this->httpClientStub
-            ->method('__call')
-            ->willReturn(
-                [
-                    'app_token' => 'Token',
-                    'track_id' => 42,
-                ],
-                [
-                    'status' => 'unknown',
-                    'challenge' => self::CHALLENGE,
-                ],
-            );
+            ->method('post')
+            ->willReturn([
+                'app_token' => 'Token',
+                'track_id' => 42,
+            ]);
+        $this->httpClientStub
+            ->method('get')
+            ->willReturn([
+                'status' => 'unknown',
+                'challenge' => self::CHALLENGE,
+            ]);
 
         $this->authManagerMock
             ->expects($this->once())
@@ -74,12 +75,14 @@ class RegisterTest extends TestCase
     public function testRegisterPendingGranted(): void
     {
         $this->httpClientStub
-            ->method('__call')
+            ->method('post')
+            ->willReturn([
+                'app_token' => self::APPTOKEN,
+                'track_id' => 42,
+            ]);
+        $this->httpClientStub
+            ->method('get')
             ->willReturn(
-                [
-                    'app_token' => self::APPTOKEN,
-                    'track_id' => 42,
-                ],
                 [
                     'status' => 'pending',
                     'challenge' => self::CHALLENGE,
@@ -87,7 +90,7 @@ class RegisterTest extends TestCase
                 [
                     'status' => 'granted',
                     'challenge' => self::CHALLENGE,
-                ],
+                ]
             );
 
         $this->authManagerMock
@@ -107,12 +110,14 @@ class RegisterTest extends TestCase
     public function testRegisterPendingTimeoutQuiet(): void
     {
         $this->httpClientStub
-            ->method('__call')
+            ->method('post')
+            ->willReturn([
+                'app_token' => self::APPTOKEN,
+                'track_id' => 42,
+            ]);
+        $this->httpClientStub
+            ->method('get')
             ->willReturn(
-                [
-                    'app_token' => self::APPTOKEN,
-                    'track_id' => 42,
-                ],
                 [
                     'status' => 'pending',
                     'challenge' => self::CHALLENGE,
@@ -120,7 +125,7 @@ class RegisterTest extends TestCase
                 [
                     'status' => 'timeout',
                     'challenge' => self::CHALLENGE,
-                ],
+                ]
             );
 
         $this->authManagerMock
@@ -138,12 +143,14 @@ class RegisterTest extends TestCase
     public function testRegisterPendingTimeoutNoisy(): void
     {
         $this->httpClientStub
-            ->method('__call')
+            ->method('post')
+            ->willReturn([
+                'app_token' => self::APPTOKEN,
+                'track_id' => 42,
+            ]);
+        $this->httpClientStub
+            ->method('get')
             ->willReturn(
-                [
-                    'app_token' => self::APPTOKEN,
-                    'track_id' => 42,
-                ],
                 [
                     'status' => 'pending',
                     'challenge' => self::CHALLENGE,
@@ -151,7 +158,7 @@ class RegisterTest extends TestCase
                 [
                     'status' => 'timeout',
                     'challenge' => self::CHALLENGE,
-                ],
+                ]
             );
 
         $this->authManagerMock
@@ -171,17 +178,17 @@ class RegisterTest extends TestCase
     public function testRegisterDenied(): void
     {
         $this->httpClientStub
-            ->method('__call')
-            ->willReturn(
-                [
-                    'app_token' => self::APPTOKEN,
-                    'track_id' => 42,
-                ],
-                [
-                    'status' => 'denied',
-                    'challenge' => self::CHALLENGE,
-                ],
-            );
+            ->method('post')
+            ->willReturn([
+                'app_token' => self::APPTOKEN,
+                'track_id' => 42,
+            ]);
+        $this->httpClientStub
+            ->method('get')
+            ->willReturn([
+                'status' => 'denied',
+                'challenge' => self::CHALLENGE,
+            ]);
 
         $this->authManagerMock
             ->expects($this->once())
@@ -198,17 +205,17 @@ class RegisterTest extends TestCase
     public function testRegisterOther(): void
     {
         $this->httpClientStub
-            ->method('__call')
-            ->willReturn(
-                [
-                    'app_token' => self::APPTOKEN,
-                    'track_id' => 42,
-                ],
-                [
-                    'status' => 'unexpected value',
-                    'challenge' => self::CHALLENGE,
-                ],
-            );
+            ->method('post')
+            ->willReturn([
+                'app_token' => self::APPTOKEN,
+                'track_id' => 42,
+            ]);
+        $this->httpClientStub
+            ->method('get')
+            ->willReturn([
+                'status' => 'unexpected value',
+                'challenge' => self::CHALLENGE,
+            ]);
 
         $this->authManagerMock
             ->expects($this->once())
@@ -243,8 +250,17 @@ class RegisterTest extends TestCase
     public function testRegisterTimeout(): void
     {
         $this->httpClientStub
-            ->method('__call')
-            ->willReturnCallback([__CLASS__, 'pendingTimeout']);
+            ->method('post')
+            ->willReturn([
+                'app_token' => self::APPTOKEN,
+                'track_id' => 42,
+            ]);
+        $this->httpClientStub
+            ->method('get')
+            ->willReturn([
+                'status' => 'pending',
+                'challenge' => self::CHALLENGE,
+            ]);
 
         $this->authManagerMock
             ->expects($this->atLeastOnce())

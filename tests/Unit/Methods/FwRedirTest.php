@@ -12,6 +12,7 @@ use madpilot78\FreeBoxPHP\BoxInfo;
 use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Exception\AuthException;
 use madpilot78\FreeBoxPHP\HttpClient;
+use madpilot78\FreeBoxPHP\HttpClientInterface;
 use madpilot78\FreeBoxPHP\Methods\FwRedir;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
@@ -178,7 +179,7 @@ class FwRedirTest extends TestCase
 
     private AuthSessionInterface&Stub $authSessionStub;
     private BoxInfoInterface&Stub $boxInfoStub;
-    private HttpClient&MockObject $httpClientMock;
+    private HttpClientInterface&MockObject $httpClientMock;
     private FwRedir $fwRedir;
 
     protected function setUp(): void
@@ -204,14 +205,11 @@ class FwRedirTest extends TestCase
     {
         $this->httpClientMock
             ->expects($this->once())
-            ->method('__call')
+            ->method('get')
             ->with(
-                $this->equalTo('get'),
-                $this->equalTo([
-                    [''],
-                    $this->boxInfoStub->getApiUrl() . '/fw/redir/',
-                    ['headers' => $this->authSessionStub->getAuthHeader()],
-                ]),
+                $this->equalTo($this->boxInfoStub->getApiUrl() . '/fw/redir/'),
+                $this->equalTo(['']),
+                $this->equalTo(['headers' => $this->authSessionStub->getAuthHeader()]),
             )
             ->willReturn(self::FWLISTOBJ);
 
@@ -222,14 +220,11 @@ class FwRedirTest extends TestCase
     {
         $this->httpClientMock
             ->expects($this->once())
-            ->method('__call')
+            ->method('get')
             ->with(
-                $this->equalTo('get'),
-                $this->equalTo([
-                    self::REQUIREDARGS,
-                    $this->boxInfoStub->getApiUrl() . '/fw/redir/1',
-                    ['headers' => $this->authSessionStub->getAuthHeader()],
-                ]),
+                $this->equalTo($this->boxInfoStub->getApiUrl() . '/fw/redir/1'),
+                $this->equalTo(self::REQUIREDARGS),
+                $this->equalTo(['headers' => $this->authSessionStub->getAuthHeader()]),
             )
             ->willReturn(self::FWLISTOBJ[1]);
 
@@ -240,16 +235,13 @@ class FwRedirTest extends TestCase
     {
         $this->httpClientMock
             ->expects($this->once())
-            ->method('__call')
+            ->method('post')
             ->with(
-                $this->equalTo('post'),
+                $this->equalTo($this->boxInfoStub->getApiUrl() . '/fw/redir/'),
+                $this->equalTo(self::REQUIREDARGS),
                 $this->equalTo([
-                    self::REQUIREDARGS,
-                    $this->boxInfoStub->getApiUrl() . '/fw/redir/',
-                    [
-                        'headers' => $this->authSessionStub->getAuthHeader(),
-                        'json' => self::FWREDIRSET,
-                    ],
+                    'headers' => $this->authSessionStub->getAuthHeader(),
+                    'json' => self::FWREDIRSET,
                 ]),
             )
             ->willReturn(self::FWSETUPOBJ);
@@ -264,7 +256,7 @@ class FwRedirTest extends TestCase
     {
         $this->httpClientMock
             ->expects($this->never())
-            ->method('__call');
+            ->method('post');
         $this->authSessionStub
             ->method('can')
             ->willReturn(false);
@@ -282,16 +274,13 @@ class FwRedirTest extends TestCase
 
         $this->httpClientMock
             ->expects($this->once())
-            ->method('__call')
+            ->method('put')
             ->with(
-                $this->equalTo('put'),
+                $this->equalTo($this->boxInfoStub->getApiUrl() . '/fw/redir/1'),
+                $this->equalTo(self::REQUIREDARGS),
                 $this->equalTo([
-                    self::REQUIREDARGS,
-                    $this->boxInfoStub->getApiUrl() . '/fw/redir/1',
-                    [
-                        'headers' => $this->authSessionStub->getAuthHeader(),
-                        'json' => ['enabled' => false],
-                    ],
+                    'headers' => $this->authSessionStub->getAuthHeader(),
+                    'json' => ['enabled' => false],
                 ]),
             )
             ->willReturn($res);
@@ -306,7 +295,7 @@ class FwRedirTest extends TestCase
     {
         $this->httpClientMock
             ->expects($this->never())
-            ->method('__call');
+            ->method('put');
         $this->authSessionStub
             ->method('can')
             ->willReturn(false);
@@ -321,13 +310,10 @@ class FwRedirTest extends TestCase
     {
         $this->httpClientMock
             ->expects($this->once())
-            ->method('__call')
+            ->method('delete')
             ->with(
-                $this->equalTo('delete'),
-                $this->equalTo([
-                    $this->boxInfoStub->getApiUrl() . '/fw/redir/3',
-                    ['headers' => $this->authSessionStub->getAuthHeader()],
-                ]),
+                $this->equalTo($this->boxInfoStub->getApiUrl() . '/fw/redir/3'),
+                $this->equalTo(['headers' => $this->authSessionStub->getAuthHeader()]),
             )
             ->willReturn(['success' => true]);
         $this->authSessionStub
@@ -341,7 +327,7 @@ class FwRedirTest extends TestCase
     {
         $this->httpClientMock
             ->expects($this->never())
-            ->method('__call');
+            ->method('delete');
         $this->authSessionStub
             ->method('can')
             ->willReturn(false);

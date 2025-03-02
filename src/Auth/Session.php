@@ -9,7 +9,7 @@ use madpilot78\FreeBoxPHP\Auth\ManagerInterface as AuthManagerInterface;
 use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Configuration;
 use madpilot78\FreeBoxPHP\Enum\Permission;
-use madpilot78\FreeBoxPHP\HttpClient;
+use madpilot78\FreeBoxPHP\HttpClientInterface;
 use Psr\SimpleCache\CacheInterface;
 
 class Session implements SessionInterface
@@ -21,7 +21,7 @@ class Session implements SessionInterface
         private AuthManagerInterface $authManager,
         private BoxInfoInterface $boxInfo,
         private Configuration $config,
-        private HttpClient $client,
+        private HttpClientInterface $client,
         private LoggerInterface $logger,
         private CacheInterface $cache,
     ) {}
@@ -43,15 +43,15 @@ class Session implements SessionInterface
         }
 
         $result = $this->client->get(
-            ['challenge'],
             $this->boxInfo->getApiUrl() . '/login/',
+            ['challenge'],
         );
 
         $this->authManager->setChallenge($result['challenge']);
 
         $result = $this->client->post(
-            ['session_token', 'challenge', 'permissions'],
             $this->boxInfo->getApiUrl() . '/login/session/',
+            ['session_token', 'challenge', 'permissions'],
             [
                 'json' => [
                     'app_id' => $this->config->appId,

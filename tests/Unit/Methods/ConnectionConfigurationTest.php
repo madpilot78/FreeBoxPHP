@@ -12,6 +12,7 @@ use madpilot78\FreeBoxPHP\BoxInfo;
 use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Exception\AuthException;
 use madpilot78\FreeBoxPHP\HttpClient;
+use madpilot78\FreeBoxPHP\HttpClientInterface;
 use madpilot78\FreeBoxPHP\Methods\ConnectionConfiguration;
 use PHPUnit\Framework\MockObject\Stub;
 
@@ -32,7 +33,7 @@ class ConnectionConfigurationTest extends TestCase
 
     private AuthSessionInterface&Stub $authSessionStub;
     private BoxInfoInterface&Stub $boxInfoStub;
-    private HttpClient&Stub $httpClientStub;
+    private HttpClientInterface&Stub $httpClientStub;
     private ConnectionConfiguration $connectionConfiguration;
 
     protected function setUp(): void
@@ -57,7 +58,7 @@ class ConnectionConfigurationTest extends TestCase
     public function testGetConnectionConfiguration(): void
     {
         $this->httpClientStub
-            ->method('__call')
+            ->method('get')
             ->willReturn(self::CONFOBJ);
 
         $this->assertEquals(self::CONFOBJ, $this->connectionConfiguration->run('get'));
@@ -66,7 +67,7 @@ class ConnectionConfigurationTest extends TestCase
     public function testSetConnectionConfiguration(): void
     {
         $this->httpClientStub
-            ->method('__call')
+            ->method('put')
             ->willReturn(['success' => true]);
         $this->authSessionStub
             ->method('can')
@@ -81,7 +82,7 @@ class ConnectionConfigurationTest extends TestCase
     public function testSetConnectionConfigurationNoPerm(): void
     {
         $this->httpClientStub
-            ->method('__call')
+            ->method('put')
             ->willReturn(['success' => true]);
         $this->authSessionStub
             ->method('can')

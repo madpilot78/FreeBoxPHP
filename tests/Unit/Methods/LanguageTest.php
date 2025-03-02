@@ -13,6 +13,7 @@ use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Exception\ApiErrorException;
 use madpilot78\FreeBoxPHP\Exception\AuthException;
 use madpilot78\FreeBoxPHP\HttpClient;
+use madpilot78\FreeBoxPHP\HttpClientInterface;
 use madpilot78\FreeBoxPHP\Methods\Language;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
@@ -29,7 +30,7 @@ class LanguageTest extends TestCase
 
     private AuthSessionInterface&Stub $authSessionStub;
     private BoxInfoInterface&Stub $boxInfoStub;
-    private HttpClient&MockObject $httpClientMock;
+    private HttpClientInterface&MockObject $httpClientMock;
     private Language $language;
 
     protected function setUp(): void
@@ -55,14 +56,11 @@ class LanguageTest extends TestCase
     {
         $this->httpClientMock
             ->expects($this->once())
-            ->method('__call')
+            ->method('get')
             ->with(
-                $this->equalTo('get'),
-                $this->equalTo([
-                    ['lang', 'avalaible'],
-                    $this->boxInfoStub->getApiUrl() . '/lang',
-                    ['headers' => $this->authSessionStub->getAuthHeader()],
-                ]),
+                $this->equalTo($this->boxInfoStub->getApiUrl() . '/lang'),
+                $this->equalTo(['lang', 'avalaible']),
+                $this->equalTo(['headers' => $this->authSessionStub->getAuthHeader()]),
             )
             ->willReturn(self::LANGOBJ);
 
@@ -73,15 +71,13 @@ class LanguageTest extends TestCase
     {
         $this->httpClientMock
             ->expects($this->once())
-            ->method('__call')
+            ->method('post')
             ->with(
-                $this->equalTo('post'),
+                $this->equalTo($this->boxInfoStub->getApiUrl() . '/lang'),
+                $this->equalTo([]),
                 $this->equalTo([
-                    $this->boxInfoStub->getApiUrl() . '/lang',
-                    [
-                        'headers' => $this->authSessionStub->getAuthHeader(),
-                        'json' => ['lang' => 'eng'],
-                    ],
+                    'headers' => $this->authSessionStub->getAuthHeader(),
+                    'json' => ['lang' => 'eng'],
                 ]),
             )
             ->willReturn(['success' => true]);
@@ -96,7 +92,7 @@ class LanguageTest extends TestCase
     {
         $this->httpClientMock
             ->expects($this->never())
-            ->method('__call');
+            ->method('post');
         $this->authSessionStub
             ->method('can')
             ->willReturn(false);
@@ -111,15 +107,13 @@ class LanguageTest extends TestCase
     {
         $this->httpClientMock
             ->expects($this->once())
-            ->method('__call')
+            ->method('post')
             ->with(
-                $this->equalTo('post'),
+                $this->equalTo($this->boxInfoStub->getApiUrl() . '/lang'),
+                $this->equalTo([]),
                 $this->equalTo([
-                    $this->boxInfoStub->getApiUrl() . '/lang',
-                    [
-                        'headers' => $this->authSessionStub->getAuthHeader(),
-                        'json' => ['lang' => 'eng'],
-                    ],
+                    'headers' => $this->authSessionStub->getAuthHeader(),
+                    'json' => ['lang' => 'eng'],
                 ]),
             )
             ->willReturn(['success' => false]);

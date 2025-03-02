@@ -11,6 +11,7 @@ use madpilot78\FreeBoxPHP\Auth\SessionInterface as AuthSessionInterface;
 use madpilot78\FreeBoxPHP\BoxInfo;
 use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\HttpClient;
+use madpilot78\FreeBoxPHP\HttpClientInterface;
 use madpilot78\FreeBoxPHP\Methods\Logout;
 use PHPUnit\Framework\MockObject\Stub;
 
@@ -18,7 +19,7 @@ class LogoutTest extends TestCase
 {
     private AuthSessionInterface&Stub $authSessionStub;
     private BoxInfoInterface&Stub $boxInfoStub;
-    private HttpClient&Stub $httpClientStub;
+    private HttpClientInterface&Stub $httpClientStub;
     private Logout $logout;
 
     protected function setUp(): void
@@ -43,7 +44,7 @@ class LogoutTest extends TestCase
     public function testLogout(): void
     {
         $this->httpClientStub
-            ->method('__call')
+            ->method('get')
             ->willReturn(['success' => true]);
 
         $this->assertNull($this->logout->run());
@@ -52,7 +53,7 @@ class LogoutTest extends TestCase
     public function testLogoutFail(): void
     {
         $this->httpClientStub
-            ->method('__call')
+            ->method('get')
             ->willReturn(['success' => false]);
 
         $this->expectException(ApiAuthException::class);

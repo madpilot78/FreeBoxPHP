@@ -6,13 +6,13 @@ namespace madpilot78\FreeBoxPHP\Methods;
 
 use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Configuration;
-use madpilot78\FreeBoxPHP\HttpClient;
+use madpilot78\FreeBoxPHP\HttpClientInterface;
 use madpilot78\FreeBoxPHP\Exception\NotSupportedException;
 
 class Discover extends AbstractMethod implements MethodInterface
 {
     public function __construct(
-        protected HttpClient $client,
+        protected HttpClientInterface $client,
         protected Configuration $config,
         protected BoxInfoInterface $boxInfo,
     ) {}
@@ -26,6 +26,7 @@ class Discover extends AbstractMethod implements MethodInterface
             'http' . ($this->config->https ? 's' : '') . '://' .
             $this->config->hostname .
             '/api_version',
+            []
         ));
 
         if (!$this->boxInfo->getProperty('https_available')) {

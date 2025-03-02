@@ -10,7 +10,7 @@ use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Enum\Permission;
 use madpilot78\FreeBoxPHP\Exception\ApiErrorException;
 use madpilot78\FreeBoxPHP\Exception\AuthException;
-use madpilot78\FreeBoxPHP\HttpClient;
+use madpilot78\FreeBoxPHP\HttpClientInterface;
 
 abstract class AbstractMethod implements MethodInterface
 {
@@ -33,7 +33,7 @@ abstract class AbstractMethod implements MethodInterface
     public function __construct(
         protected AuthSessionInterface $authSession,
         protected BoxInfoInterface $boxInfo,
-        protected HttpClient $client,
+        protected HttpClientInterface $client,
     ) {
         if (str_ends_with(static::API, '/')) {
             $this->separator = '';
@@ -63,8 +63,8 @@ abstract class AbstractMethod implements MethodInterface
     {
         $hasId = isset($id);
         return $this->client->get(
-            $hasId ? static::REQUIRED_GET_ID : static::REQUIRED_GET,
             $this->boxInfo->getApiUrl() . static::API . ($hasId ? $this->separator . $id : ''),
+            $hasId ? static::REQUIRED_GET_ID : static::REQUIRED_GET,
             ['headers' => $this->authHeader],
         );
     }
@@ -81,6 +81,7 @@ abstract class AbstractMethod implements MethodInterface
         if (empty(static::REQUIRED_SET)) {
             $response = $this->client->post(
                 $this->boxInfo->getApiUrl() . static::API . (isset($id) ? $this->separator . $id : ''),
+                [],
                 [
                     'headers' => $this->authHeader,
                     'json' => $params,
@@ -94,8 +95,8 @@ abstract class AbstractMethod implements MethodInterface
             return null;
         } else {
             return $this->client->post(
-                static::REQUIRED_SET,
                 $this->boxInfo->getApiUrl() . static::API . (isset($id) ? $this->separator . $id : ''),
+                static::REQUIRED_SET,
                 [
                     'headers' => $this->authHeader,
                     'json' => $params,
@@ -113,6 +114,7 @@ abstract class AbstractMethod implements MethodInterface
         if (empty(static::REQUIRED_PUT)) {
             $response = $this->client->put(
                 $this->boxInfo->getApiUrl() . static::API . (isset($id) ? $this->separator . $id : ''),
+                [],
                 [
                     'headers' => $this->authHeader,
                     'json' => $params,
@@ -126,8 +128,8 @@ abstract class AbstractMethod implements MethodInterface
             return null;
         } else {
             return $this->client->put(
-                static::REQUIRED_PUT,
                 $this->boxInfo->getApiUrl() . static::API . (isset($id) ? $this->separator . $id : ''),
+                static::REQUIRED_PUT,
                 [
                     'headers' => $this->authHeader,
                     'json' => $params,

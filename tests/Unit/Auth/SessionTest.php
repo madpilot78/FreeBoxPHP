@@ -12,6 +12,7 @@ use madpilot78\FreeBoxPHP\BoxInfo;
 use madpilot78\FreeBoxPHP\Configuration;
 use madpilot78\FreeBoxPHP\Enum\Permission;
 use madpilot78\FreeBoxPHP\HttpClient;
+use madpilot78\FreeBoxPHP\HttpClientInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use Psr\SimpleCache\CacheInterface;
@@ -26,7 +27,7 @@ class SessionTest extends TestCase
     private AuthSession $authSession;
     private AuthManager&MockObject $authManagerMock;
     private BoxInfo&Stub $boxInfoStub;
-    private HttpClient&Stub $httpClientStub;
+    private HttpClientInterface&Stub $httpClientStub;
     private CacheInterface&MockObject $cacheMock;
 
     protected function setUp(): void
@@ -65,17 +66,19 @@ class SessionTest extends TestCase
             ->with($this->equalTo(self::PERMISSIONS))
             ->willReturnSelf();
         $this->boxInfoStub->method('getApiUrl')->willReturn(self::MOCK_URL);
-        $this->httpClientStub->method('__call')->willReturn(
-            [
+        $this->httpClientStub
+            ->method('get')
+            ->willReturn([
                 'logged_in' => false,
                 'challenge' => self::CHALLENGE,
-            ],
-            [
+            ]);
+        $this->httpClientStub
+            ->method('post')
+            ->willReturn([
                 'session_token' => self::SESSION_TOKEN,
                 'challenge' => self::CHALLENGE,
                 'permissions' => self::PERMISSIONS,
-            ],
-        );
+            ]);
         $this->cacheMock
             ->expects($this->exactly(2))
             ->method('get')
@@ -107,11 +110,18 @@ class SessionTest extends TestCase
             ->with($this->equalTo(self::PERMISSIONS))
             ->willReturnSelf();
         $this->boxInfoStub->method('getApiUrl')->willReturn(self::MOCK_URL);
-        $this->httpClientStub->method('__call')->willReturn([
-            'session_token' => self::SESSION_TOKEN,
-            'challenge' => self::CHALLENGE,
-            'permissions' => self::PERMISSIONS,
-        ]);
+        $this->httpClientStub
+            ->method('get')
+            ->willReturn([
+                'challenge' => self::CHALLENGE,
+            ]);
+        $this->httpClientStub
+            ->method('post')
+            ->willReturn([
+                'session_token' => self::SESSION_TOKEN,
+                'challenge' => self::CHALLENGE,
+                'permissions' => self::PERMISSIONS,
+            ]);
         $this->cacheMock
             ->expects($this->exactly(2))
             ->method('get')

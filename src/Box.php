@@ -6,16 +6,16 @@ namespace madpilot78\FreeBoxPHP;
 
 use BadMethodCallException;
 use GuzzleHttp\Client as Guzzle;
+use GuzzleHttp\ClientInterface;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
 use Psr\Container\ContainerInterface;
-use Psr\Http\Client\ClientInterface;
 use Psr\Log\LoggerInterface;
+use Psr\SimpleCache\CacheInterface;
 use madpilot78\FreeBoxPHP\Auth\Manager as AuthManager;
 use madpilot78\FreeBoxPHP\Auth\ManagerInterface as AuthManagerInterface;
 use madpilot78\FreeBoxPHP\Auth\Session as AuthSession;
 use madpilot78\FreeBoxPHP\Auth\SessionInterface as AuthSessionInterface;
-use Psr\SimpleCache\CacheInterface;
 
 class Box
 {
@@ -70,7 +70,7 @@ class Box
         $this->container->add(LoggerInterface::class, $this->logger);
         $this->container->add(CacheInterface::class, $this->cache);
         $this->container->add(ClientInterface::class, $this->client);
-        $this->container->add(HttpClient::class)
+        $this->container->add(HttpClientInterface::class, HttpClient::class)
             ->addArgument(ClientInterface::class)
             ->addArgument(LoggerInterface::class);
         $this->container->add(BoxInfoInterface::class, $this->boxInfo);
@@ -79,7 +79,7 @@ class Box
             ->addArgument(AuthManagerInterface::class)
             ->addArgument(BoxInfoInterface::class)
             ->addArgument(Configuration::class)
-            ->addArgument(HttpClient::class)
+            ->addArgument(HttpClientInterface::class)
             ->addArgument(LoggerInterface::class)
             ->addArgument(CacheInterface::class);
 

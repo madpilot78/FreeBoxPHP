@@ -9,6 +9,7 @@ use madpilot78\FreeBoxPHP\BoxInfo;
 use madpilot78\FreeBoxPHP\Configuration;
 use madpilot78\FreeBoxPHP\Exception\NotSupportedException;
 use madpilot78\FreeBoxPHP\HttpClient;
+use madpilot78\FreeBoxPHP\HttpClientInterface;
 use madpilot78\FreeBoxPHP\Methods\Discover;
 use PHPUnit\Framework\MockObject\Stub;
 
@@ -16,7 +17,7 @@ class DiscoverTest extends TestCase
 {
     private BoxInfo&Stub $boxInfoStub;
     private Discover $discover;
-    private HttpClient&Stub $httpClientStub;
+    private HttpClientInterface&Stub $httpClientStub;
 
     protected function setUp(): void
     {
@@ -32,7 +33,7 @@ class DiscoverTest extends TestCase
         );
 
         $this->httpClientStub
-            ->method('__call')
+            ->method('get')
             ->willReturn([]);
         $this->boxInfoStub
             ->method('save')

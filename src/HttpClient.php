@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace madpilot78\FreeBoxPHP;
 
 use GuzzleHttp\Exception\ClientException;
-use Psr\Http\Client\ClientInterface;
+use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use madpilot78\FreeBoxPHP\Exception\ApiAuthException;
 use madpilot78\FreeBoxPHP\Exception\ApiErrorException;
 use madpilot78\FreeBoxPHP\Exception\NetworkErrorException;
 
-class HttpClient
+class HttpClient implements HttpClientInterface
 {
     public function __construct(
         private ClientInterface $client,
@@ -70,27 +70,41 @@ class HttpClient
         return $json;
     }
 
+    public function get(string $url, array $required = [], array $options = []): array
+    {
+        return $this->doRequest(__FUNCTION__, $url, $required, $options);
+    }
+
+    public function post(string $url, array $required = [], array $options = []): array
+    {
+        return $this->doRequest(__FUNCTION__, $url, $required, $options);
+    }
+
+    public function put(string $url, array $required = [], array $options = []): array
+    {
+        return $this->doRequest(__FUNCTION__, $url, $required, $options);
+    }
+
+    public function delete(string $url, array $options = []): array
+    {
+        return $this->doRequest(__FUNCTION__, $url, [], $options);
+    }
+
     /**
      * Wrap Guzzle client.
      *
-     * If first argument is an Array grab it for own use. Otherwise it
-     * is expected to be a method or an URL.
+     * If first argument is an Array grab it for own use as required parameters in response.
+     * Otherwise it is expected to be the UR>L argument to Guzzle.
      *
      * @throws ApiAuthException
      * @throws ApiErrorException
-     * @throws ClientException
      */
-    public function __call(string $name, array $arguments): array
+    private function doRequest(string $method, string $url, array $reqResults = [], array $options = []): array
     {
-        $reqResults = [];
-        if (is_array($arguments[0])) {
-            $reqResults = array_shift($arguments);
-        }
-
-        $this->logger->debug('FreeBoxPHP performing request', compact('name', 'arguments', 'reqResults'));
+        $this->logger->debug('FreeBoxPHP performing request', compact('method', 'url', 'options', 'reqResults'));
 
         try {
-            $response = $this->client->$name(...$arguments);
+            $response = $this->client->request($method, $url, $options);
             $this->logger->debug('FreeBoxPHP got response', compact('response'));
         } catch (ClientException $e) {
             $response = $e->getResponse();

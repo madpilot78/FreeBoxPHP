@@ -163,7 +163,7 @@ class HttpClientTest extends TestCase
         );
 
         $this->expectException(ApiErrorException::class);
-        $this->httpClient->get(['baz'], self::URL);
+        $this->httpClient->get(self::URL, ['baz']);
     }
 
     public function testJsonRequiredNoResult(): void
@@ -179,7 +179,7 @@ class HttpClientTest extends TestCase
         );
 
         $this->expectException(ApiErrorException::class);
-        $this->httpClient->get(['foo'], self::URL);
+        $this->httpClient->get(self::URL, ['foo']);
     }
 
     public function testJsonRequiredNoSuccess(): void
@@ -197,7 +197,7 @@ class HttpClientTest extends TestCase
         );
 
         $this->expectException(ApiErrorException::class);
-        $this->httpClient->get(['foo'], self::URL);
+        $this->httpClient->get(self::URL, ['foo']);
     }
 
     public function testJsonRequiredGood(): void
@@ -215,7 +215,7 @@ class HttpClientTest extends TestCase
             ),
         );
 
-        $content = $this->httpClient->post(['foo'], self::URL);
+        $content = $this->httpClient->post(self::URL, ['foo']);
 
         $this->assertArrayHasKey('foo', $content);
         $this->assertEquals('bar', $content['foo']);
@@ -241,7 +241,7 @@ class HttpClientTest extends TestCase
             ),
         );
 
-        $content = $this->httpClient->post([''], self::URL);
+        $content = $this->httpClient->post(self::URL, ['']);
 
         $this->assertCount(2, $content);
         $this->assertArrayHasKey('foo', $content[0]);
