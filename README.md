@@ -124,3 +124,5 @@ var_dump($ret);
 - ConnectionConfiguration
 - ConnectionIPv6Configuration
 - ConnectionStatus (r/o)
+- LanBrowserInterface (r/o)
+- LAN WOL
