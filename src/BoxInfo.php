@@ -87,17 +87,18 @@ class BoxInfo implements BoxInfoInterface
         return $this->info;
     }
 
+    public function getApiUrl(): string
+    {
+        $this->apiUrl ??= $this->makeApiUrl();
+
+        return $this->apiUrl ?? '';
+    }
+
     /**
      * @throws OutOfBoundsException
      */
-    public function __get(string $name): null|bool|int|string
+    public function getProperty(string $name): null|bool|int|string
     {
-        if ($name === 'apiUrl') {
-            $this->apiUrl ??= $this->makeApiUrl();
-
-            return $this->apiUrl;
-        }
-
         if (array_key_exists($name, $this->info)) {
             return $this->info[$name];
         }
@@ -105,7 +106,7 @@ class BoxInfo implements BoxInfoInterface
         throw new OutOfBoundsException('Property ' . $name . ' not found', 101);
     }
 
-    public function __isset(string $name): bool
+    public function isPropertySet(string $name): bool
     {
         return isset($this->info[$name]);
     }

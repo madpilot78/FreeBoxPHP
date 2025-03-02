@@ -11,7 +11,7 @@ class Logout extends AbstractMethod implements MethodInterface
     public function run(string $action = 'get', array|int|string $id = [], array $params = []): ?array
     {
         $response = $this->client->get(
-            $this->boxInfo->apiUrl . '/login/logout',
+            $this->boxInfo->getApiUrl() . '/login/logout',
             ['headers' => $this->authSession->getAuthHeader()],
         );
 

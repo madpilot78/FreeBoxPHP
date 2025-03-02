@@ -62,7 +62,7 @@ class LanBrowserInterfacesTest extends TestCase
                 $this->equalTo('get'),
                 $this->equalTo([
                     [''],
-                    $this->boxInfoStub->apiUrl . '/lan/browser/interfaces/',
+                    $this->boxInfoStub->getApiUrl() . '/lan/browser/interfaces/',
                     ['headers' => $this->authSessionStub->getAuthHeader()],
                 ]),
             )

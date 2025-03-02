@@ -36,7 +36,7 @@ class Register
 
         $result = $this->client->post(
             ['app_token', 'track_id'],
-            $this->boxInfo->apiUrl . '/login/authorize',
+            $this->boxInfo->getApiUrl() . '/login/authorize',
             [
                 'json' => [
                     'app_id' => $this->config->appId,
@@ -68,7 +68,7 @@ class Register
         for ($i = 0; $i < self::POLL_MAX; $i++) {
             $result = $this->client->get(
                 ['status', 'challenge'],
-                $this->boxInfo->apiUrl . '/login/authorize/' . $this->trackId,
+                $this->boxInfo->getApiUrl() . '/login/authorize/' . $this->trackId,
             );
 
             $this->authManager->setChallenge($result['challenge']);

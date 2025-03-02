@@ -64,7 +64,7 @@ abstract class AbstractMethod implements MethodInterface
         $hasId = isset($id);
         return $this->client->get(
             $hasId ? static::REQUIRED_GET_ID : static::REQUIRED_GET,
-            $this->boxInfo->apiUrl . static::API . ($hasId ? $this->separator . $id : ''),
+            $this->boxInfo->getApiUrl() . static::API . ($hasId ? $this->separator . $id : ''),
             ['headers' => $this->authHeader],
         );
     }
@@ -80,7 +80,7 @@ abstract class AbstractMethod implements MethodInterface
 
         if (empty(static::REQUIRED_SET)) {
             $response = $this->client->post(
-                $this->boxInfo->apiUrl . static::API . (isset($id) ? $this->separator . $id : ''),
+                $this->boxInfo->getApiUrl() . static::API . (isset($id) ? $this->separator . $id : ''),
                 [
                     'headers' => $this->authHeader,
                     'json' => $params,
@@ -95,7 +95,7 @@ abstract class AbstractMethod implements MethodInterface
         } else {
             return $this->client->post(
                 static::REQUIRED_SET,
-                $this->boxInfo->apiUrl . static::API . (isset($id) ? $this->separator . $id : ''),
+                $this->boxInfo->getApiUrl() . static::API . (isset($id) ? $this->separator . $id : ''),
                 [
                     'headers' => $this->authHeader,
                     'json' => $params,
@@ -112,7 +112,7 @@ abstract class AbstractMethod implements MethodInterface
 
         if (empty(static::REQUIRED_PUT)) {
             $response = $this->client->put(
-                $this->boxInfo->apiUrl . static::API . (isset($id) ? $this->separator . $id : ''),
+                $this->boxInfo->getApiUrl() . static::API . (isset($id) ? $this->separator . $id : ''),
                 [
                     'headers' => $this->authHeader,
                     'json' => $params,
@@ -127,7 +127,7 @@ abstract class AbstractMethod implements MethodInterface
         } else {
             return $this->client->put(
                 static::REQUIRED_PUT,
-                $this->boxInfo->apiUrl . static::API . (isset($id) ? $this->separator . $id : ''),
+                $this->boxInfo->getApiUrl() . static::API . (isset($id) ? $this->separator . $id : ''),
                 [
                     'headers' => $this->authHeader,
                     'json' => $params,
@@ -143,7 +143,7 @@ abstract class AbstractMethod implements MethodInterface
         }
 
         $response = $this->client->delete(
-            $this->boxInfo->apiUrl . static::API . $this->separator . $id,
+            $this->boxInfo->getApiUrl() . static::API . $this->separator . $id,
             ['headers' => $this->authHeader],
         );
 

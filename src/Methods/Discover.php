@@ -28,7 +28,7 @@ class Discover extends AbstractMethod implements MethodInterface
             '/api_version',
         ));
 
-        if (!$this->boxInfo->https_available) {
+        if (!$this->boxInfo->getProperty('https_available')) {
             throw new NotSupportedException('Only https enabled boxes supported.');
         }
 

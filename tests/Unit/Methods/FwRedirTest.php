@@ -209,7 +209,7 @@ class FwRedirTest extends TestCase
                 $this->equalTo('get'),
                 $this->equalTo([
                     [''],
-                    $this->boxInfoStub->apiUrl . '/fw/redir/',
+                    $this->boxInfoStub->getApiUrl() . '/fw/redir/',
                     ['headers' => $this->authSessionStub->getAuthHeader()],
                 ]),
             )
@@ -227,7 +227,7 @@ class FwRedirTest extends TestCase
                 $this->equalTo('get'),
                 $this->equalTo([
                     self::REQUIREDARGS,
-                    $this->boxInfoStub->apiUrl . '/fw/redir/1',
+                    $this->boxInfoStub->getApiUrl() . '/fw/redir/1',
                     ['headers' => $this->authSessionStub->getAuthHeader()],
                 ]),
             )
@@ -245,7 +245,7 @@ class FwRedirTest extends TestCase
                 $this->equalTo('post'),
                 $this->equalTo([
                     self::REQUIREDARGS,
-                    $this->boxInfoStub->apiUrl . '/fw/redir/',
+                    $this->boxInfoStub->getApiUrl() . '/fw/redir/',
                     [
                         'headers' => $this->authSessionStub->getAuthHeader(),
                         'json' => self::FWREDIRSET,
@@ -287,7 +287,7 @@ class FwRedirTest extends TestCase
                 $this->equalTo('put'),
                 $this->equalTo([
                     self::REQUIREDARGS,
-                    $this->boxInfoStub->apiUrl . '/fw/redir/1',
+                    $this->boxInfoStub->getApiUrl() . '/fw/redir/1',
                     [
                         'headers' => $this->authSessionStub->getAuthHeader(),
                         'json' => ['enabled' => false],
@@ -325,7 +325,7 @@ class FwRedirTest extends TestCase
             ->with(
                 $this->equalTo('delete'),
                 $this->equalTo([
-                    $this->boxInfoStub->apiUrl . '/fw/redir/3',
+                    $this->boxInfoStub->getApiUrl() . '/fw/redir/3',
                     ['headers' => $this->authSessionStub->getAuthHeader()],
                 ]),
             )

@@ -64,29 +64,29 @@ class BoxInfoTest extends TestCase
         $this->boxInfo->save($info);
     }
 
-    public function testBoxInfoGetValue(): void
+    public function testBoxInfoGetProperty(): void
     {
         $this->assertInstanceOf(
             BoxInfo::class,
             $this->boxInfo->save(self::INFO),
         );
 
-        $this->assertEquals(self::INFO['api_domain'], $this->boxInfo->api_domain);
-        $this->assertTrue($this->boxInfo->https_available);
+        $this->assertEquals(self::INFO['api_domain'], $this->boxInfo->getProperty('api_domain'));
+        $this->assertTrue($this->boxInfo->getProperty('https_available'));
     }
 
-    public function testBoxInfoIsset(): void
+    public function testBoxInfoIsPropertySet(): void
     {
         $this->assertInstanceOf(
             BoxInfo::class,
             $this->boxInfo->save(self::INFO),
         );
 
-        $this->assertTrue(isset($this->boxInfo->api_domain));
-        $this->assertFalse(isset($this->boxInfo->notset));
+        $this->assertTrue($this->boxInfo->isPropertySet('api_domain'));
+        $this->assertFalse($this->boxInfo->isPropertySet('notset'));
     }
 
-    public function testBoxInfoGetValueNotSaved(): void
+    public function testBoxInfoGetPropertyNotSaved(): void
     {
         $this->assertInstanceOf(
             BoxInfo::class,
@@ -94,7 +94,7 @@ class BoxInfoTest extends TestCase
         );
 
         $this->expectException(OutOfBoundsException::class);
-        $result = $this->boxInfo->foo;
+        $result = $this->boxInfo->getProperty('foo');
     }
 
     public function testBoxInfoGetApiUrlHttps(): void
@@ -107,7 +107,7 @@ class BoxInfoTest extends TestCase
 
         $this->assertEquals(
             'https://' . self::INFO['api_domain'] . self::INFO['api_base_url'] . 'v' . $major,
-            $this->boxInfo->apiUrl,
+            $this->boxInfo->getApiUrl(),
         );
     }
 
@@ -124,7 +124,7 @@ class BoxInfoTest extends TestCase
 
         $this->assertEquals(
             'http://' . $info['api_domain'] . $info['api_base_url'] . 'v' . $major,
-            $this->boxInfo->apiUrl,
+            $this->boxInfo->getApiUrl(),
         );
     }
 
@@ -139,7 +139,7 @@ class BoxInfoTest extends TestCase
 
         $this->assertEquals(
             'https://' . self::INFO['api_domain'] . ':' . self::INFO['https_port'] . self::INFO['api_base_url'] . 'v' . $major,
-            $this->boxInfo->apiUrl,
+            $this->boxInfo->getApiUrl(),
         );
     }
 
@@ -152,7 +152,7 @@ class BoxInfoTest extends TestCase
             $this->boxInfo->save(self::INFO),
         );
 
-        $this->assertEquals($custom, $this->boxInfo->api_domain);
+        $this->assertEquals($custom, $this->boxInfo->getProperty('api_domain'));
     }
 
     public function testBoxInfoGetInfo(): void

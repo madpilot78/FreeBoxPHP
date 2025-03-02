@@ -64,7 +64,7 @@ class SessionTest extends TestCase
             ->method('setPermissions')
             ->with($this->equalTo(self::PERMISSIONS))
             ->willReturnSelf();
-        $this->boxInfoStub->method('__get')->willReturn(self::MOCK_URL);
+        $this->boxInfoStub->method('getApiUrl')->willReturn(self::MOCK_URL);
         $this->httpClientStub->method('__call')->willReturn(
             [
                 'logged_in' => false,
@@ -106,7 +106,7 @@ class SessionTest extends TestCase
             ->method('setPermissions')
             ->with($this->equalTo(self::PERMISSIONS))
             ->willReturnSelf();
-        $this->boxInfoStub->method('__get')->willReturn(self::MOCK_URL);
+        $this->boxInfoStub->method('getApiUrl')->willReturn(self::MOCK_URL);
         $this->httpClientStub->method('__call')->willReturn([
             'session_token' => self::SESSION_TOKEN,
             'challenge' => self::CHALLENGE,

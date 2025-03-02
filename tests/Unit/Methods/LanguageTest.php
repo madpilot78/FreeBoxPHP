@@ -60,7 +60,7 @@ class LanguageTest extends TestCase
                 $this->equalTo('get'),
                 $this->equalTo([
                     ['lang', 'avalaible'],
-                    $this->boxInfoStub->apiUrl . '/lang',
+                    $this->boxInfoStub->getApiUrl() . '/lang',
                     ['headers' => $this->authSessionStub->getAuthHeader()],
                 ]),
             )
@@ -77,7 +77,7 @@ class LanguageTest extends TestCase
             ->with(
                 $this->equalTo('post'),
                 $this->equalTo([
-                    $this->boxInfoStub->apiUrl . '/lang',
+                    $this->boxInfoStub->getApiUrl() . '/lang',
                     [
                         'headers' => $this->authSessionStub->getAuthHeader(),
                         'json' => ['lang' => 'eng'],
@@ -115,7 +115,7 @@ class LanguageTest extends TestCase
             ->with(
                 $this->equalTo('post'),
                 $this->equalTo([
-                    $this->boxInfoStub->apiUrl . '/lang',
+                    $this->boxInfoStub->getApiUrl() . '/lang',
                     [
                         'headers' => $this->authSessionStub->getAuthHeader(),
                         'json' => ['lang' => 'eng'],

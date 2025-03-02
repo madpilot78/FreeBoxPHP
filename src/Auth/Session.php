@@ -44,14 +44,14 @@ class Session implements SessionInterface
 
         $result = $this->client->get(
             ['challenge'],
-            $this->boxInfo->apiUrl . '/login/',
+            $this->boxInfo->getApiUrl() . '/login/',
         );
 
         $this->authManager->setChallenge($result['challenge']);
 
         $result = $this->client->post(
             ['session_token', 'challenge', 'permissions'],
-            $this->boxInfo->apiUrl . '/login/session/',
+            $this->boxInfo->getApiUrl() . '/login/session/',
             [
                 'json' => [
                     'app_id' => $this->config->appId,

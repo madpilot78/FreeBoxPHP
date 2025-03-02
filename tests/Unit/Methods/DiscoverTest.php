@@ -42,7 +42,7 @@ class DiscoverTest extends TestCase
     public function testDiscoverSuccess(): void
     {
         $this->boxInfoStub
-            ->method('__get')
+            ->method('getProperty')
             ->willReturn(true);
 
         $this->assertNull($this->discover->run());
@@ -51,7 +51,7 @@ class DiscoverTest extends TestCase
     public function testDiscoverNoHttps(): void
     {
         $this->boxInfoStub
-            ->method('__get')
+            ->method('getProperty')
             ->willReturn(false);
 
         $this->expectException(NotSupportedException::class);

@@ -53,7 +53,7 @@ class LanWolTest extends TestCase
             ->with(
                 $this->equalTo('post'),
                 $this->equalTo([
-                    $this->boxInfoStub->apiUrl . '/lan/wol/pub',
+                    $this->boxInfoStub->getApiUrl() . '/lan/wol/pub',
                     [
                         'headers' => $this->authSessionStub->getAuthHeader(),
                         'json' => self::LANWOLSET,
