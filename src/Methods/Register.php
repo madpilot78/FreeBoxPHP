@@ -50,8 +50,10 @@ class Register
         $this->unauthToken = $result['app_token'];
         $this->trackId = $result['track_id'];
 
-        return $this->poll($quiet, $skipSleep);
+        $ret = $this->poll($quiet, $skipSleep);
         $this->logger->notice('FreeBoxPHP Registration ended');
+
+        return $ret;
     }
 
     /**
