@@ -11,12 +11,13 @@ use madpilot78\FreeBoxPHP\Configuration;
 use madpilot78\FreeBoxPHP\Exception\NotSupportedException;
 use madpilot78\FreeBoxPHP\HttpClient;
 use madpilot78\FreeBoxPHP\Methods\Discover;
+use PHPUnit\Framework\MockObject\Stub;
 
 class DiscoverTest extends TestCase
 {
-    private BoxInfoInterface $boxInfoStub;
+    private BoxInfo&Stub $boxInfoStub;
     private Discover $discover;
-    private HttpClient $httpClientStub;
+    private HttpClient&Stub $httpClientStub;
 
     protected function setUp(): void
     {

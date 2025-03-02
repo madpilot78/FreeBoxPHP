@@ -11,6 +11,8 @@ use madpilot78\FreeBoxPHP\BoxInfo;
 use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\HttpClient;
 use madpilot78\FreeBoxPHP\Methods\LanWol;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 
 class LanWolTest extends TestCase
 {
@@ -19,9 +21,9 @@ class LanWolTest extends TestCase
         'password' => '',
     ];
 
-    private AuthSessionInterface $authSessionStub;
-    private BoxInfoInterface $boxInfoStub;
-    private HttpClient $httpClientMock;
+    private AuthSessionInterface&Stub $authSessionStub;
+    private BoxInfoInterface&Stub $boxInfoStub;
+    private HttpClient&MockObject $httpClientMock;
     private LanWol $lanWol;
 
     protected function setUp(): void

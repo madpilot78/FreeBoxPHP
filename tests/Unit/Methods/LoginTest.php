@@ -8,10 +8,11 @@ use PHPUnit\Framework\TestCase;
 use madpilot78\FreeBoxPHP\Auth\Session as AuthSession;
 use madpilot78\FreeBoxPHP\Auth\SessionInterface as AuthSessionInterface;
 use madpilot78\FreeBoxPHP\Methods\Login;
+use PHPUnit\Framework\MockObject\Stub;
 
 class LoginTest extends TestCase
 {
-    private AuthSessionInterface $authSessionStub;
+    private AuthSessionInterface&Stub $authSessionStub;
     private Login $login;
 
     protected function setUp(): void

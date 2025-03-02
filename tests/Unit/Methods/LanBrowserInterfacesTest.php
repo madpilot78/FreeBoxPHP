@@ -11,6 +11,8 @@ use madpilot78\FreeBoxPHP\BoxInfo;
 use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\HttpClient;
 use madpilot78\FreeBoxPHP\Methods\LanBrowserInterfaces;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 
 class LanBrowserInterfacesTest extends TestCase
 {
@@ -27,9 +29,9 @@ class LanBrowserInterfacesTest extends TestCase
         ]
     ];
 
-    private AuthSessionInterface $authSessionStub;
-    private BoxInfoInterface $boxInfoStub;
-    private HttpClient $httpClientMock;
+    private AuthSessionInterface&Stub $authSessionStub;
+    private BoxInfoInterface&Stub $boxInfoStub;
+    private HttpClient&MockObject $httpClientMock;
     private LanBrowserInterfaces $lanBrowserInterfaces;
 
     protected function setUp(): void

@@ -13,6 +13,7 @@ use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Exception\AuthException;
 use madpilot78\FreeBoxPHP\HttpClient;
 use madpilot78\FreeBoxPHP\Methods\ConnectionConfiguration;
+use PHPUnit\Framework\MockObject\Stub;
 
 class ConnectionConfigurationTest extends TestCase
 {
@@ -29,9 +30,9 @@ class ConnectionConfigurationTest extends TestCase
         'remote_access_ip' => '312.13.37.42',
     ];
 
-    private AuthSessionInterface $authSessionStub;
-    private BoxInfoInterface $boxInfoStub;
-    private HttpClient $httpClientStub;
+    private AuthSessionInterface&Stub $authSessionStub;
+    private BoxInfoInterface&Stub $boxInfoStub;
+    private HttpClient&Stub $httpClientStub;
     private ConnectionConfiguration $connectionConfiguration;
 
     protected function setUp(): void

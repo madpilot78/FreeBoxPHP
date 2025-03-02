@@ -12,12 +12,13 @@ use madpilot78\FreeBoxPHP\BoxInfo;
 use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\HttpClient;
 use madpilot78\FreeBoxPHP\Methods\Logout;
+use PHPUnit\Framework\MockObject\Stub;
 
 class LogoutTest extends TestCase
 {
-    private AuthSessionInterface $authSessionStub;
-    private BoxInfoInterface $boxInfoStub;
-    private HttpClient $httpClientStub;
+    private AuthSessionInterface&Stub $authSessionStub;
+    private BoxInfoInterface&Stub $boxInfoStub;
+    private HttpClient&Stub $httpClientStub;
     private Logout $logout;
 
     protected function setUp(): void

@@ -12,6 +12,8 @@ use madpilot78\FreeBoxPHP\BoxInfo;
 use madpilot78\FreeBoxPHP\Configuration;
 use madpilot78\FreeBoxPHP\Enum\Permission;
 use madpilot78\FreeBoxPHP\HttpClient;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use Psr\SimpleCache\CacheInterface;
 
 class SessionTest extends TestCase
@@ -22,10 +24,10 @@ class SessionTest extends TestCase
     private const array PERMISSIONS = ['downloader' => true];
 
     private AuthSession $authSession;
-    private AuthManager $authManagerMock;
-    private BoxInfo $boxInfoStub;
-    private HttpClient $httpClientStub;
-    private CacheInterface $cacheMock;
+    private AuthManager&MockObject $authManagerMock;
+    private BoxInfo&Stub $boxInfoStub;
+    private HttpClient&Stub $httpClientStub;
+    private CacheInterface&MockObject $cacheMock;
 
     protected function setUp(): void
     {

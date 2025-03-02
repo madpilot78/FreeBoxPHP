@@ -14,6 +14,8 @@ use madpilot78\FreeBoxPHP\Exception\ApiErrorException;
 use madpilot78\FreeBoxPHP\Exception\AuthException;
 use madpilot78\FreeBoxPHP\HttpClient;
 use madpilot78\FreeBoxPHP\Methods\Language;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 
 class LanguageTest extends TestCase
 {
@@ -32,9 +34,9 @@ class LanguageTest extends TestCase
         ],
     ];
 
-    private AuthSessionInterface $authSessionStub;
-    private BoxInfoInterface $boxInfoStub;
-    private HttpClient $httpClientMock;
+    private AuthSessionInterface&Stub $authSessionStub;
+    private BoxInfoInterface&Stub $boxInfoStub;
+    private HttpClient&MockObject $httpClientMock;
     private Language $language;
 
     protected function setUp(): void

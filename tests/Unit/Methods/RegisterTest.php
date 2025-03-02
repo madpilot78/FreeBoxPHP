@@ -14,15 +14,17 @@ use madpilot78\FreeBoxPHP\Configuration;
 use madpilot78\FreeBoxPHP\Exception\AuthException;
 use madpilot78\FreeBoxPHP\HttpClient;
 use madpilot78\FreeBoxPHP\Methods\Register;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 
 class RegisterTest extends TestCase
 {
     private const string CHALLENGE = 'challengeVal';
     private const string APPTOKEN = 'appTokenVal';
 
-    private AuthManagerInterface $authManagerMock;
-    private BoxInfoInterface $boxInfoStub;
-    private HttpClient $httpClientStub;
+    private AuthManagerInterface&MockObject $authManagerMock;
+    private BoxInfoInterface&Stub $boxInfoStub;
+    private HttpClient&Stub $httpClientStub;
     private Register $register;
 
     protected function setUp(): void

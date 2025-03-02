@@ -11,6 +11,7 @@ use madpilot78\FreeBoxPHP\BoxInfo;
 use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\HttpClient;
 use madpilot78\FreeBoxPHP\Methods\ConnectionStatus;
+use PHPUnit\Framework\MockObject\Stub;
 
 class ConnectionStatusTest extends TestCase
 {
@@ -32,9 +33,9 @@ class ConnectionStatusTest extends TestCase
         'media' => 'ftth',
     ];
 
-    private AuthSessionInterface $authSessionStub;
-    private BoxInfoInterface $boxInfoStub;
-    private HttpClient $httpClientStub;
+    private AuthSessionInterface&Stub $authSessionStub;
+    private BoxInfoInterface&Stub $boxInfoStub;
+    private HttpClient&Stub $httpClientStub;
     private ConnectionStatus $connectionStatus;
 
     protected function setUp(): void

@@ -13,6 +13,8 @@ use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Exception\AuthException;
 use madpilot78\FreeBoxPHP\HttpClient;
 use madpilot78\FreeBoxPHP\Methods\FwRedir;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 
 class FwRedirTest extends TestCase
 {
@@ -174,9 +176,9 @@ class FwRedirTest extends TestCase
         'src_ip' => '0.0.0.0',
     ];
 
-    private AuthSessionInterface $authSessionStub;
-    private BoxInfoInterface $boxInfoStub;
-    private HttpClient $httpClientMock;
+    private AuthSessionInterface&Stub $authSessionStub;
+    private BoxInfoInterface&Stub $boxInfoStub;
+    private HttpClient&MockObject $httpClientMock;
     private FwRedir $fwRedir;
 
     protected function setUp(): void

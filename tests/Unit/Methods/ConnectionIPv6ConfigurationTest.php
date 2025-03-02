@@ -13,6 +13,7 @@ use madpilot78\FreeBoxPHP\BoxInfoInterface;
 use madpilot78\FreeBoxPHP\Exception\AuthException;
 use madpilot78\FreeBoxPHP\HttpClient;
 use madpilot78\FreeBoxPHP\Methods\ConnectionIPv6Configuration;
+use PHPUnit\Framework\MockObject\Stub;
 
 class ConnectionIPv6ConfigurationTest extends TestCase
 {
@@ -54,9 +55,9 @@ class ConnectionIPv6ConfigurationTest extends TestCase
         ],
     ];
 
-    private AuthSessionInterface $authSessionStub;
-    private BoxInfoInterface $boxInfoStub;
-    private HttpClient $httpClientStub;
+    private AuthSessionInterface&Stub $authSessionStub;
+    private BoxInfoInterface&Stub $boxInfoStub;
+    private HttpClient&Stub $httpClientStub;
     private ConnectionIPv6Configuration $connectionIPv6Configuration;
 
     protected function setUp(): void
