@@ -32,7 +32,8 @@
         "madpilot78/php-cs-fixer-config": "^1.0",
         "phpunit/phpunit": "^11 || ^12",
         "symfony/var-dumper": "^7.0",
-        "phpstan/phpstan": "^2.1"
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-phpunit": "^2.0"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
