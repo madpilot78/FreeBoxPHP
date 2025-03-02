@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit;
 
 use BadMethodCallException;
+use ErrorException;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
@@ -42,15 +43,5 @@ class BoxTest extends TestCase
         $container = $this->createStub(ContainerInterface::class);
 
         $this->assertInstanceOf(Box::class, new Box(null, new Configuration(container: $container)));
-    }
-
-    public function testBoxBadMethodCall(): void
-    {
-        $box = new Box(client: $this->guzzleClient);
-
-        $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage('Method foobar not found');
-
-        $box->foobar();
     }
 }

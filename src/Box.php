@@ -17,10 +17,8 @@ use madpilot78\FreeBoxPHP\Auth\ManagerInterface as AuthManagerInterface;
 use madpilot78\FreeBoxPHP\Auth\Session as AuthSession;
 use madpilot78\FreeBoxPHP\Auth\SessionInterface as AuthSessionInterface;
 
-class Box
+class Box implements BoxInterface
 {
-    private const string METHODS_BASE = 'madpilot78\\FreeBoxPHP\\Methods\\';
-
     private AuthManagerInterface $authManager;
     private BoxInfoInterface $boxInfo;
     private ?Configuration $config;
@@ -91,18 +89,84 @@ class Box
         return $this->boxInfo->getInfo();
     }
 
-    public function __call(string $name, array $arguments): mixed
+    public function connectionConfiguration(string $action = 'get', array|int|string $id = [], array $params = []): array|BoxInterface
     {
-        $fullName = self::METHODS_BASE . ucfirst($name);
+        return $this->runMethod(__FUNCTION__, $action, $id, $params);
+    }
+
+    public function connectionIPv6Configuration(string $action = 'get', array|int|string $id = [], array $params = []): array|BoxInterface
+    {
+        return $this->runMethod(__FUNCTION__, $action, $id, $params);
+    }
+
+    public function connectionStatus(string $action = 'get', array|int|string $id = [], array $params = []): array
+    {
+        return $this->runMethod(__FUNCTION__, $action, $id, $params);
+    }
+
+    public function discover(string $action = 'get', array|int|string $id = [], array $params = []): BoxInterface
+    {
+        return $this->runMethod(__FUNCTION__, $action, $id, $params);
+    }
+
+    public function fwRedir(string $action = 'get', array|int|string $id = [], array $params = []): array|BoxInterface
+    {
+        return $this->runMethod(__FUNCTION__, $action, $id, $params);
+    }
+
+    public function lanBrowserInterfaces(string $action = 'get', array|int|string $id = [], array $params = []): array
+    {
+        return $this->runMethod(__FUNCTION__, $action, $id, $params);
+    }
+
+    public function language(string $action = 'get', array|int|string $id = [], array $params = []): array|BoxInterface
+    {
+        return $this->runMethod(__FUNCTION__, $action, $id, $params);
+    }
+
+    public function lanWol(string $action = 'get', array|int|string $id = [], array $params = []): BoxInterface
+    {
+        return $this->runMethod(__FUNCTION__, $action, $id, $params);
+    }
+
+    public function login(string $action = 'get', array|int|string $id = [], array $params = []): BoxInterface
+    {
+        return $this->runMethod(__FUNCTION__, $action, $id, $params);
+    }
+
+    public function logout(string $action = 'get', array|int|string $id = [], array $params = []): BoxInterface
+    {
+        return $this->runMethod(__FUNCTION__, $action, $id, $params);
+    }
+
+    public function register(bool $quiet = true, bool $skipSleep = false): string
+    {
+        $fullName = $this->getFullMethod(__FUNCTION__);
+
+        $this->logger->info('FreeBoxPHP Calling method', ['name' => __FUNCTION__, 'quiet' => $quiet, 'skipSleep' => $skipSleep]);
+        return $this->container->get($fullName)->run($quiet, $skipSleep);
+    }
+
+    /**
+     * @throws BadMethodCallException
+     */
+    private function runMethod(string $name, string $action = 'get', array|int|string $id = [], array $params = []): array|string|BoxInterface
+    {
+        $fullName = $this->getFullMethod($name);
 
         if (class_exists($fullName)) {
-            $this->logger->info('FreeBoxPHP Calling method', compact('name', 'arguments'));
-            $ret = $this->container->get($fullName)->run(...$arguments);
+            $this->logger->info('FreeBoxPHP Calling method', compact('name', 'action', 'id', 'params'));
+            $ret = $this->container->get($fullName)->run($action, $id, $params);
         } else {
-            $this->logger->error('FreeBoxPHP Method not found', compact('name', 'arguments'));
+            $this->logger->error('FreeBoxPHP Method not found', compact('name', 'action', 'id', 'params'));
             throw new BadMethodCallException('Method ' . $name . ' not found');
         }
 
         return $ret ?? $this;
+    }
+
+    private function getFullMethod(string $method): string
+    {
+        return 'madpilot78\\FreeBoxPHP\\Methods\\' . ucfirst($method);
     }
 }
