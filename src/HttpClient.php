@@ -116,6 +116,6 @@ class HttpClient
 
         $this->checkStatusCode($response);
 
-        return $this->bodyToJson($response, $reqResults, false);
+        return $this->bodyToJson($response, $reqResults);
     }
 }

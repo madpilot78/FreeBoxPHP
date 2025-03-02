@@ -16,8 +16,6 @@ use madpilot78\FreeBoxPHP\Methods\Login;
 class LoginTest extends TestCase
 {
     private AuthSessionInterface $authSessionStub;
-    private BoxInfoInterface $boxInfoStub;
-    private HttpClient $httpClientStub;
     private Login $login;
 
     protected function setUp(): void
@@ -25,15 +23,8 @@ class LoginTest extends TestCase
         parent::setUp();
 
         $this->authSessionStub = $this->createStub(AuthSession::class);
-        $this->boxInfoStub = $this->createStub(BoxInfo::class);
-        $this->httpClientStub = $this->createStub(HttpClient::class);
 
-        $this->login = new Login(
-            $this->authSessionStub,
-            $this->boxInfoStub,
-            new Configuration(),
-            $this->httpClientStub,
-        );
+        $this->login = new Login($this->authSessionStub);
 
         $this->authSessionStub
             ->method('getAuthHeader')
