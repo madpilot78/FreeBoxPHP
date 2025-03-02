@@ -72,7 +72,7 @@ abstract class AbstractMethod implements MethodInterface
     /**
      * @throws AuthException
      */
-    protected function set(int|string|null $id, array $params): ?array
+    protected function set(null|int|string $id, array $params): ?array
     {
         if (static::PERM != Permission::None && !$this->authSession->can(static::PERM)) {
             throw new AuthException(AuthSessionInterface::NO_PERM_MSG);

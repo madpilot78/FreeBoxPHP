@@ -7,28 +7,26 @@ namespace Tests\Feature\Methods;
 use GuzzleHttp\Psr7\Response;
 use Tests\Feature\NeedsLogin;
 use madpilot78\FreeBoxPHP\Box;
-use madpilot78\FreeBoxPHP\Enum\Permission;
-use madpilot78\FreeBoxPHP\Exception\AuthException;
 
 class LanBrowserInterfacesTest extends MethodTestCase
 {
     use NeedsLogin;
 
     private const string INTERFACESJSON = <<<JSON
-        {
-            "success": true,
-            "result": [
-                {
-                    "name": "pub",
-                    "host_count": 3
-                },
-                {
-                    "name": "test",
-                    "host_count": 0
-                }
-            ]
-        }
-    JSON;
+            {
+                "success": true,
+                "result": [
+                    {
+                        "name": "pub",
+                        "host_count": 3
+                    },
+                    {
+                        "name": "test",
+                        "host_count": 0
+                    }
+                ]
+            }
+        JSON;
 
     public function testLanBrowserInterfacesGet(): void
     {

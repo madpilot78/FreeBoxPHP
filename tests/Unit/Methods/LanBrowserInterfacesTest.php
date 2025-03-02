@@ -25,8 +25,8 @@ class LanBrowserInterfacesTest extends TestCase
             [
                 'name' => 'test',
                 'host_count' => 0,
-            ]
-        ]
+            ],
+        ],
     ];
 
     private AuthSessionInterface&Stub $authSessionStub;

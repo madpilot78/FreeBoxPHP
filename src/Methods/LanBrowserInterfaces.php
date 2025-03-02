@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace madpilot78\FreeBoxPHP\Methods;
 
-use madpilot78\FreeBoxPHP\Enum\Permission;
-
 class LanBrowserInterfaces extends AbstractMethod implements MethodInterface
 {
     protected const string API = '/lan/browser/interfaces/';
