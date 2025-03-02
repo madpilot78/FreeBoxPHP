@@ -26,13 +26,6 @@ class LanguageTest extends TestCase
             'eng',
         ],
     ];
-    private const array POSTRESPONSEOBJ = [
-        'lang' => 'eng',
-        'avalaible' => [
-            'fra',
-            'eng',
-        ],
-    ];
 
     private AuthSessionInterface&Stub $authSessionStub;
     private BoxInfoInterface&Stub $boxInfoStub;
