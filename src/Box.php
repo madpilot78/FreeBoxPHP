@@ -147,22 +147,11 @@ class Box implements BoxInterface
         return $this->container->get($fullName)->run($quiet, $skipSleep);
     }
 
-    /**
-     * @throws BadMethodCallException
-     */
     private function runMethod(string $name, string $action = 'get', array|int|string $id = [], array $params = []): array|string|BoxInterface
     {
-        $fullName = $this->getFullMethod($name);
+        $this->logger->info('FreeBoxPHP Calling method', compact('name', 'action', 'id', 'params'));
 
-        if (class_exists($fullName)) {
-            $this->logger->info('FreeBoxPHP Calling method', compact('name', 'action', 'id', 'params'));
-            $ret = $this->container->get($fullName)->run($action, $id, $params);
-        } else {
-            $this->logger->error('FreeBoxPHP Method not found', compact('name', 'action', 'id', 'params'));
-            throw new BadMethodCallException('Method ' . $name . ' not found');
-        }
-
-        return $ret ?? $this;
+        return $this->container->get($this->getFullMethod($name))->run($action, $id, $params) ?? $this;
     }
 
     private function getFullMethod(string $method): string
