@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace madpilot78\FreeBoxPHP;
 
-use BadMethodCallException;
 use GuzzleHttp\Client as Guzzle;
 use GuzzleHttp\ClientInterface;
 use League\Container\Container;
@@ -147,7 +146,7 @@ class Box implements BoxInterface
         return $this->container->get($fullName)->run($quiet, $skipSleep);
     }
 
-    private function runMethod(string $name, string $action = 'get', array|int|string $id = [], array $params = []): array|string|BoxInterface
+    private function runMethod(string $name, string $action = 'get', array|int|string $id = [], array $params = []): array|BoxInterface|string
     {
         $this->logger->info('FreeBoxPHP Calling method', compact('name', 'action', 'id', 'params'));
 

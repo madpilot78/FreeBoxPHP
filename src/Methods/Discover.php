@@ -26,7 +26,7 @@ class Discover extends AbstractMethod implements MethodInterface
             'http' . ($this->config->https ? 's' : '') . '://' .
             $this->config->hostname .
             '/api_version',
-            []
+            [],
         ));
 
         if (!$this->boxInfo->getProperty('https_available')) {

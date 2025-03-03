@@ -90,7 +90,7 @@ class RegisterTest extends TestCase
                 [
                     'status' => 'granted',
                     'challenge' => self::CHALLENGE,
-                ]
+                ],
             );
 
         $this->authManagerMock
@@ -125,7 +125,7 @@ class RegisterTest extends TestCase
                 [
                     'status' => 'timeout',
                     'challenge' => self::CHALLENGE,
-                ]
+                ],
             );
 
         $this->authManagerMock
@@ -158,7 +158,7 @@ class RegisterTest extends TestCase
                 [
                     'status' => 'timeout',
                     'challenge' => self::CHALLENGE,
-                ]
+                ],
             );
 
         $this->authManagerMock
