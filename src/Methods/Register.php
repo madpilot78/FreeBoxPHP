@@ -87,7 +87,7 @@ class Register
                         echo '.';
                     }
                     if (!$skipSleep) {
-                        sleep(self::POLL_WAIT); // @codeCoverageIgnore
+                        sleep(self::POLL_WAIT);
                     }
                     break;
 
@@ -123,7 +123,7 @@ class Register
                 default:
                     $this->logger->alert('FreeBoxPHP Registration got unknown status');
                     throw new AuthException('Unknown authorization tracking status returned');
-                    break; // @codeCoverageIgnore
+                    break;
             }
         }
 
