@@ -98,6 +98,7 @@ class Register
                     } else {
                         throw new AuthException('the user did not confirm the authorization within the given time');
                     }
+                    // no break
 
                 case 'granted':
                     $this->logger->info('FreeBoxPHP Registration granted');
@@ -115,6 +116,7 @@ class Register
                     } else {
                         throw new AuthException('the user denied the authorization request');
                     }
+                    // no break
 
                 default:
                     $this->logger->alert('FreeBoxPHP Registration got unknown status');
