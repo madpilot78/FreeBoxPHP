@@ -79,7 +79,6 @@ class Register
                 case 'unknown':
                     $this->logger->alert('FreeBoxPHP Registration got invalid status');
                     throw new AuthException('app_token is invalid or has been revoked');
-                    break;
 
                 case 'pending':
                     $this->logger->info('FreeBoxPHP Registration still pending');
@@ -99,7 +98,6 @@ class Register
                     } else {
                         throw new AuthException('the user did not confirm the authorization within the given time');
                     }
-                    break;
 
                 case 'granted':
                     $this->logger->info('FreeBoxPHP Registration granted');
@@ -108,7 +106,6 @@ class Register
                     }
                     $this->authManager->setAuthToken($this->unauthToken);
                     return $this->unauthToken;
-                    break;
 
                 case 'denied':
                     $this->logger->error('FreeBoxPHP Registration denied');
@@ -118,12 +115,10 @@ class Register
                     } else {
                         throw new AuthException('the user denied the authorization request');
                     }
-                    break;
 
                 default:
                     $this->logger->alert('FreeBoxPHP Registration got unknown status');
                     throw new AuthException('Unknown authorization tracking status returned');
-                    break;
             }
         }
 

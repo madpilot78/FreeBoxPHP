@@ -115,16 +115,13 @@ class HttpClient implements HttpClientInterface
                 case 403:
                     $error = $this->bodyToJson($response);
                     throw new ApiAuthException($error['msg'] ?? 'Unknown error', $statusCode);
-                    break;
 
                 case 404:
                     $decoded = $this->bodyToJson($response);
                     throw new ApiErrorException('', $decoded, $statusCode);
-                    break;
 
                 default:
                     throw new NetworkErrorException($e->getMessage(), $e->getCode(), $e);
-                    break;
             }
         }
 
