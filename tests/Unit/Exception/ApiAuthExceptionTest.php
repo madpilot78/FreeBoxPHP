@@ -14,7 +14,6 @@ class ApiAuthExceptionTest extends TestCase
     {
         $exception = new ApiAuthException('Test exception');
 
-        $this->assertInstanceOf(ApiAuthException::class, $exception);
         $this->assertEquals('Test exception', $exception->getMessage());
     }
 

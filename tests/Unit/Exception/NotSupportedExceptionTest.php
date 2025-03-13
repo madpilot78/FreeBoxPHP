@@ -13,7 +13,6 @@ class NotSupportedExceptionTest extends TestCase
     {
         $exception = new NotSupportedException('Test exception');
 
-        $this->assertInstanceOf(NotSupportedException::class, $exception);
         $this->assertEquals('Test exception', $exception->getMessage());
     }
 }

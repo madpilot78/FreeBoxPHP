@@ -13,7 +13,6 @@ class AuthExceptionTest extends TestCase
     {
         $exception = new AuthException('Test exception');
 
-        $this->assertInstanceOf(AuthException::class, $exception);
         $this->assertEquals('Test exception', $exception->getMessage());
     }
 }

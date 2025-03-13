@@ -13,7 +13,6 @@ class NetworkErrorExceptionTest extends TestCase
     {
         $exception = new NetworkErrorException('Test exception');
 
-        $this->assertInstanceOf(NetworkErrorException::class, $exception);
         $this->assertEquals('Test exception', $exception->getMessage());
     }
 }

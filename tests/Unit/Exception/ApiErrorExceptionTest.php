@@ -13,7 +13,6 @@ class ApiErrorExceptionTest extends TestCase
     {
         $exception = new ApiErrorException('API Error');
 
-        $this->assertInstanceOf(ApiErrorException::class, $exception);
         $this->assertEquals('API Error', $exception->getMessage());
     }
 
@@ -21,7 +20,6 @@ class ApiErrorExceptionTest extends TestCase
     {
         $exception = new ApiErrorException('', ['foo' => 'bar']);
 
-        $this->assertInstanceOf(ApiErrorException::class, $exception);
         $this->assertEquals(ApiErrorException::SUCCESS_MISSING, $exception->getMessage());
     }
 
@@ -33,7 +31,6 @@ class ApiErrorExceptionTest extends TestCase
             'msg' => 'Oh no, not again!',
         ], 99);
 
-        $this->assertInstanceOf(ApiErrorException::class, $exception);
         $this->assertEquals(42, $exception->getCode());
         $this->assertEquals('Oh no, not again!', $exception->getMessage());
     }

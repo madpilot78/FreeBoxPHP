@@ -90,7 +90,6 @@ class SessionTest extends TestCase
 
         $returned = $this->authSession->getAuthHeader();
 
-        $this->assertIsArray($returned);
         $this->assertSame(['X-Fbx-App-Auth' => self::SESSION_TOKEN], $returned);
     }
 
@@ -133,7 +132,6 @@ class SessionTest extends TestCase
 
         $returned = $this->authSession->getAuthHeader();
 
-        $this->assertIsArray($returned);
         $this->assertSame(['X-Fbx-App-Auth' => self::SESSION_TOKEN], $returned);
     }
 
@@ -146,7 +144,6 @@ class SessionTest extends TestCase
 
         $returned = $this->authSession->getAuthHeader();
 
-        $this->assertIsArray($returned);
         $this->assertSame(['X-Fbx-App-Auth' => self::SESSION_TOKEN], $returned);
     }
 
