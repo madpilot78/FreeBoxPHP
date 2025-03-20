@@ -250,7 +250,7 @@ class FwRedirTest extends MethodTestCase
 
         $box = new Box(authToken: 'fakeToken', client: $this->guzzleClient);
 
-        $this->assertEquals($decoded['result'], $box->fwRedir('set', self::FWREDIRSET));
+        $this->assertEquals($decoded['result'], $box->fwRedir('set', null, self::FWREDIRSET));
     }
 
     public function testFwRedirSetNoPerm(): void
@@ -262,7 +262,7 @@ class FwRedirTest extends MethodTestCase
         $this->expectException(AuthException::class);
         $this->expectExceptionMessage('No permission');
 
-        $this->assertInstanceOf(Box::class, $box->fwRedir('set', self::FWREDIRSET));
+        $this->assertInstanceOf(Box::class, $box->fwRedir('set', null, self::FWREDIRSET));
     }
 
     public function testFwRedirSetFail(): void
@@ -276,7 +276,7 @@ class FwRedirTest extends MethodTestCase
         $this->expectException(ApiErrorException::class);
         $this->expectExceptionMessage('got error');
 
-        $box->fwRedir('set', self::FWREDIRSET);
+        $box->fwRedir('set', null, self::FWREDIRSET);
     }
 
     public function testFwRedirUpdateSuccess(): void

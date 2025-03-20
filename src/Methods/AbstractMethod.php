@@ -43,15 +43,10 @@ abstract class AbstractMethod implements MethodInterface
     /**
      * @throws InvalidArgumentException
      */
-    public function run(string $action = 'get', array|int|string $id = [], array $params = []): ?array
+    public function run(string $action = 'get', null|int|string $id = null, array $params = []): ?array
     {
         if (!in_array($action, static::ACTIONS)) {
             throw new InvalidArgumentException('Unknown action ' . $action);
-        }
-
-        if (is_array($id)) {
-            $params = $id;
-            $id = null;
         }
 
         $this->authHeader = $this->authSession->getAuthHeader();

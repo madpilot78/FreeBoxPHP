@@ -88,54 +88,54 @@ class Box implements BoxInterface
         return $this->boxInfo->getInfo();
     }
 
-    public function connectionConfiguration(string $action = 'get', array|int|string $id = [], array $params = []): array|BoxInterface
+    public function connectionConfiguration(string $action = 'get', array $params = []): array|BoxInterface
+    {
+        return $this->runMethod(__FUNCTION__, $action, null, $params);
+    }
+
+    public function connectionIPv6Configuration(string $action = 'get', array $params = []): array|BoxInterface
+    {
+        return $this->runMethod(__FUNCTION__, $action, null, $params);
+    }
+
+    public function connectionStatus(): array
+    {
+        return $this->runMethod(__FUNCTION__);
+    }
+
+    public function discover(): BoxInterface
+    {
+        return $this->runMethod(__FUNCTION__);
+    }
+
+    public function fwRedir(string $action = 'get', null|int|string $id = null, array $params = []): array|BoxInterface
     {
         return $this->runMethod(__FUNCTION__, $action, $id, $params);
     }
 
-    public function connectionIPv6Configuration(string $action = 'get', array|int|string $id = [], array $params = []): array|BoxInterface
+    public function lanBrowserInterfaces(): array
     {
-        return $this->runMethod(__FUNCTION__, $action, $id, $params);
+        return $this->runMethod(__FUNCTION__);
     }
 
-    public function connectionStatus(string $action = 'get', array|int|string $id = [], array $params = []): array
+    public function language(string $action = 'get', array $params = []): array|BoxInterface
     {
-        return $this->runMethod(__FUNCTION__, $action, $id, $params);
+        return $this->runMethod(__FUNCTION__, $action, null, $params);
     }
 
-    public function discover(string $action = 'get', array|int|string $id = [], array $params = []): BoxInterface
+    public function lanWol(array|int|string $id = [], array $params = []): BoxInterface
     {
-        return $this->runMethod(__FUNCTION__, $action, $id, $params);
+        return $this->runMethod(__FUNCTION__, 'set', null, $params);
     }
 
-    public function fwRedir(string $action = 'get', array|int|string $id = [], array $params = []): array|BoxInterface
+    public function login(): BoxInterface
     {
-        return $this->runMethod(__FUNCTION__, $action, $id, $params);
+        return $this->runMethod(__FUNCTION__);
     }
 
-    public function lanBrowserInterfaces(string $action = 'get', array|int|string $id = [], array $params = []): array
+    public function logout(): BoxInterface
     {
-        return $this->runMethod(__FUNCTION__, $action, $id, $params);
-    }
-
-    public function language(string $action = 'get', array|int|string $id = [], array $params = []): array|BoxInterface
-    {
-        return $this->runMethod(__FUNCTION__, $action, $id, $params);
-    }
-
-    public function lanWol(string $action = 'get', array|int|string $id = [], array $params = []): BoxInterface
-    {
-        return $this->runMethod(__FUNCTION__, $action, $id, $params);
-    }
-
-    public function login(string $action = 'get', array|int|string $id = [], array $params = []): BoxInterface
-    {
-        return $this->runMethod(__FUNCTION__, $action, $id, $params);
-    }
-
-    public function logout(string $action = 'get', array|int|string $id = [], array $params = []): BoxInterface
-    {
-        return $this->runMethod(__FUNCTION__, $action, $id, $params);
+        return $this->runMethod(__FUNCTION__);
     }
 
     public function register(bool $quiet = true, bool $skipSleep = false): string
@@ -146,7 +146,7 @@ class Box implements BoxInterface
         return $this->container->get($fullName)->run($quiet, $skipSleep);
     }
 
-    private function runMethod(string $name, string $action = 'get', array|int|string $id = [], array $params = []): array|BoxInterface|string
+    private function runMethod(string $name, string $action = 'get', null|int|string $id = null, array $params = []): array|BoxInterface|string
     {
         $this->logger->info('FreeBoxPHP Calling method', compact('name', 'action', 'id', 'params'));
 

@@ -10,7 +10,7 @@ class Login extends AbstractMethod implements MethodInterface
 {
     public function __construct(protected AuthSessionInterface $authSession) {}
 
-    public function run(string $action = 'get', array|int|string $id = [], array $params = []): null
+    public function run(string $action = 'get', null|int|string $id = null, array $params = []): null
     {
         $this->authSession->getAuthHeader();
 

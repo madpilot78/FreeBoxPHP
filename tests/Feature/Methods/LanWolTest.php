@@ -22,7 +22,7 @@ class LanWolTest extends MethodTestCase
 
         $box = new Box(authToken: 'fakeToken', client: $this->guzzleClient);
 
-        $this->assertInstanceOf(Box::class, $box->lanWol('set', 'pub', [
+        $this->assertInstanceOf(Box::class, $box->lanWol('pub', [
             'mac' => '00:24:d4:7e:00:4c',
             'password' => '',
         ]));
@@ -37,7 +37,7 @@ class LanWolTest extends MethodTestCase
         $this->expectException(AuthException::class);
         $this->expectExceptionMessage('No permission');
 
-        $this->assertInstanceOf(Box::class, $box->lanWol('set', 'pub', [
+        $this->assertInstanceOf(Box::class, $box->lanWol('pub', [
             'mac' => '00:24:d4:7e:00:4c',
             'password' => '',
         ]));

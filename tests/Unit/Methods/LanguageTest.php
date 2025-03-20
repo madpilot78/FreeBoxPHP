@@ -85,7 +85,7 @@ class LanguageTest extends TestCase
             ->method('can')
             ->willReturn(true);
 
-        $this->assertNull($this->language->run('set', ['lang' => 'eng']));
+        $this->assertNull($this->language->run('set', null, ['lang' => 'eng']));
     }
 
     public function testSetLanguageNoPerm(): void
@@ -100,7 +100,7 @@ class LanguageTest extends TestCase
         $this->expectException(AuthException::class);
         $this->expectExceptionMessage('No permission');
 
-        $this->assertNull($this->language->run('set', ['lang' => 'eng']));
+        $this->assertNull($this->language->run('set', null, ['lang' => 'eng']));
     }
 
     public function testSetLanguageFail(): void
@@ -124,7 +124,7 @@ class LanguageTest extends TestCase
         $this->expectException(ApiErrorException::class);
         $this->expectExceptionMessage('Failed to set language');
 
-        $this->language->run('set', ['lang' => 'eng']);
+        $this->language->run('set', null, ['lang' => 'eng']);
     }
 
     public function testWrongMethod(): void

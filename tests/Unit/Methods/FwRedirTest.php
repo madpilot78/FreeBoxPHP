@@ -249,7 +249,7 @@ class FwRedirTest extends TestCase
             ->method('can')
             ->willReturn(true);
 
-        $this->assertEquals(self::FWSETUPOBJ, $this->fwRedir->run('set', self::FWREDIRSET));
+        $this->assertEquals(self::FWSETUPOBJ, $this->fwRedir->run('set', null, self::FWREDIRSET));
     }
 
     public function testSetFwRedirNoPerm(): void
@@ -264,7 +264,7 @@ class FwRedirTest extends TestCase
         $this->expectException(AuthException::class);
         $this->expectExceptionMessage('No permission');
 
-        $this->fwRedir->run('set', self::FWREDIRSET);
+        $this->fwRedir->run('set', null, self::FWREDIRSET);
     }
 
     public function testUpdateFwRedir(): void

@@ -37,6 +37,6 @@ class LanBrowserInterfacesTest extends MethodTestCase
 
         $box = new Box(authToken: 'fakeToken', client: $this->guzzleClient);
 
-        $this->assertEquals($decoded['result'], $box->lanBrowserInterfaces('get'));
+        $this->assertEquals($decoded['result'], $box->lanBrowserInterfaces());
     }
 }
