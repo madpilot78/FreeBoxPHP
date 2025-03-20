@@ -44,7 +44,7 @@ jobs:
           php_version: ${{ matrix.php }}
           memory_limit: 512M
       - name: Run phpunit
-        run: vendor/bin/phpunit --coverage-clover ./coverage.xml
+        run: vendor/bin/phpunit --cache-directory "$RUNNER_TEMP" --coverage-clover ./coverage.xml
       - name: Upload to Codecov
         uses: codecov/codecov-action@v5
         with:
