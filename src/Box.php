@@ -43,7 +43,7 @@ class Box implements BoxInterface
         }
 
         $this->logger = $this->config->logger;
-        $this->logger->debug('FreeBoxPHP Intializing');
+        $this->logger->debug('FreeBoxPHP Initializing');
 
         $this->cache = $this->config->cache;
 
