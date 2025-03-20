@@ -80,6 +80,9 @@ class Session implements SessionInterface
         return $result['session_token'];
     }
 
+    /**
+     * @return non-empty-array<string, string>
+     */
     public function getAuthHeader(): array
     {
         return ['X-Fbx-App-Auth' => $this->login()];

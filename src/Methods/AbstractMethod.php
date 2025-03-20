@@ -26,9 +26,10 @@ abstract class AbstractMethod implements MethodInterface
     protected const string FAIL_MESSAGE_UPDATE = '';
     protected const string FAIL_MESSAGE_DELETE = '';
 
+    /** @var non-empty-array<string, string> */
     protected array $authHeader;
 
-    private $separator = '/';
+    private string $separator = '/';
 
     public function __construct(
         protected AuthSessionInterface $authSession,
@@ -41,6 +42,10 @@ abstract class AbstractMethod implements MethodInterface
     }
 
     /**
+     * @param array<string, bool|int|string> $params
+     *
+     * @return null|array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     *
      * @throws InvalidArgumentException
      */
     public function run(string $action = 'get', null|int|string $id = null, array $params = []): ?array
@@ -54,6 +59,11 @@ abstract class AbstractMethod implements MethodInterface
         return $this->$action($id, $params);
     }
 
+    /**
+     * @param array<string, bool|int|string> $params (unused)
+     *
+     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     */
     protected function get(?int $id, array $params): array
     {
         $hasId = isset($id);
@@ -65,6 +75,10 @@ abstract class AbstractMethod implements MethodInterface
     }
 
     /**
+     * @param array<string, bool|int|string> $params
+     *
+     * @return null|array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     *
      * @throws AuthException
      */
     protected function set(null|int|string $id, array $params): ?array
@@ -100,6 +114,11 @@ abstract class AbstractMethod implements MethodInterface
         }
     }
 
+    /**
+     * @param array<string, bool|int|string> $params
+     *
+     * @return null|array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     */
     protected function update(?int $id, array $params): ?array
     {
         if (static::PERM != Permission::None && !$this->authSession->can(static::PERM)) {
@@ -133,6 +152,9 @@ abstract class AbstractMethod implements MethodInterface
         }
     }
 
+    /**
+     * @param array<string, bool|int|string> $params (unused)
+     */
     protected function delete(int $id, array $params): void
     {
         if (static::PERM != Permission::None && !$this->authSession->can(static::PERM)) {

@@ -12,6 +12,9 @@ interface ManagerInterface
 
     public function hasChallenge(): bool;
 
+    /**
+     * @param array<string, bool> $permissions
+     */
     public function setPermissions(array $permissions): self;
 
     public function hasPermission(string $permission): bool;

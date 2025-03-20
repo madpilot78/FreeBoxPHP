@@ -36,6 +36,8 @@ class BoxInfoTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid json returned');
+
+        // @phpstan-ignore argument.type (Intentional to trigger exception)
         $this->boxInfo->save([
             'foo' => ['bar', 'baz'],
         ]);
@@ -48,6 +50,8 @@ class BoxInfoTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid json returned');
+
+        // @phpstan-ignore argument.type (Intentional to trigger exception)
         $this->boxInfo->save([
             'foo' => $obj,
         ]);

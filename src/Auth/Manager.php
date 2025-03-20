@@ -9,7 +9,10 @@ use madpilot78\FreeBoxPHP\Exception\MissingAuthException;
 class Manager implements ManagerInterface
 {
     private ?string $authToken = null;
+
     private ?string $currentChallenge = null;
+
+    /** @var array<string, bool> */
     private array $permissions = [];
 
     public function setAuthToken(string $token): self
@@ -31,6 +34,9 @@ class Manager implements ManagerInterface
         return isset($this->currentChallenge);
     }
 
+    /**
+     * @param array<string, bool> $permissions
+     */
     public function setPermissions(array $permissions): self
     {
         $this->permissions = $permissions;

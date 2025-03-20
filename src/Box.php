@@ -83,21 +83,37 @@ class Box implements BoxInterface
         $this->logger->debug('FreeBoxPHP Initialization done');
     }
 
+    /**
+     * @return array<string, bool|int|string>
+     */
     public function getBoxInfo(): array
     {
         return $this->boxInfo->getInfo();
     }
 
+    /**
+     * @param array<string, bool|int|string> $params
+     *
+     * @return array<string, bool|int|string>|BoxInterface
+     */
     public function connectionConfiguration(string $action = 'get', array $params = []): array|BoxInterface
     {
         return $this->runMethod(__FUNCTION__, $action, null, $params);
     }
 
+    /**
+     * @param array<string, bool|int|string> $params
+     *
+     * @return array<string, bool|int|string>|BoxInterface
+     */
     public function connectionIPv6Configuration(string $action = 'get', array $params = []): array|BoxInterface
     {
         return $this->runMethod(__FUNCTION__, $action, null, $params);
     }
 
+    /**
+     * @return array<string, bool|int|list<int>|string>
+     */
     public function connectionStatus(): array
     {
         return $this->runMethod(__FUNCTION__);
@@ -108,21 +124,37 @@ class Box implements BoxInterface
         return $this->runMethod(__FUNCTION__);
     }
 
+    /**
+     * @param array<string, bool|int|string> $params
+     *
+     * @return array<string, array<string, array<string, mixed>>|bool|int|string>|BoxInterface
+     */
     public function fwRedir(string $action = 'get', null|int|string $id = null, array $params = []): array|BoxInterface
     {
         return $this->runMethod(__FUNCTION__, $action, $id, $params);
     }
 
+    /**
+     * @return array<string, int|string>
+     */
     public function lanBrowserInterfaces(): array
     {
         return $this->runMethod(__FUNCTION__);
     }
 
+    /**
+     * @param array<string, string> $params
+     *
+     * @return array<string, list<string>|string>|BoxInterface
+     */
     public function language(string $action = 'get', array $params = []): array|BoxInterface
     {
         return $this->runMethod(__FUNCTION__, $action, null, $params);
     }
 
+    /**
+     * @param array<string, string> $params
+     */
     public function lanWol(string $id, array $params): BoxInterface
     {
         return $this->runMethod(__FUNCTION__, 'set', $id, $params);
@@ -146,6 +178,11 @@ class Box implements BoxInterface
         return $this->container->get($fullName)->run($quiet, $skipSleep);
     }
 
+    /**
+     * @param array<string, bool|int|string> $params
+     *
+     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>|BoxInterface|string
+     */
     private function runMethod(string $name, string $action = 'get', null|int|string $id = null, array $params = []): array|BoxInterface|string
     {
         $this->logger->info('FreeBoxPHP Calling method', compact('name', 'action', 'id', 'params'));

@@ -35,6 +35,10 @@ class HttpClient implements HttpClientInterface
     }
 
     /**
+     * @param list<string> $reqResult
+     *
+     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     *
      * @throws ApiErrorException
      */
     private function bodyToJson(ResponseInterface $response, array $reqResult = []): array
@@ -70,21 +74,44 @@ class HttpClient implements HttpClientInterface
         return $json;
     }
 
+    /**
+     * @param list<string> $required
+     * @param array<string, array<int|string, mixed>|string> $options
+     *
+     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     */
     public function get(string $url, array $required = [], array $options = []): array
     {
         return $this->doRequest(__FUNCTION__, $url, $required, $options);
     }
 
+    /**
+     * @param list<string> $required
+     * @param array<string, array<int|string, mixed>|string> $options
+     *
+     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     */
     public function post(string $url, array $required = [], array $options = []): array
     {
         return $this->doRequest(__FUNCTION__, $url, $required, $options);
     }
 
+    /**
+     * @param list<string> $required
+     * @param array<string, array<int|string, mixed>|string> $options
+     *
+     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     */
     public function put(string $url, array $required = [], array $options = []): array
     {
         return $this->doRequest(__FUNCTION__, $url, $required, $options);
     }
 
+    /**
+     * @param array<string, array<int|string, mixed>|string> $options
+     *
+     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     */
     public function delete(string $url, array $options = []): array
     {
         return $this->doRequest(__FUNCTION__, $url, [], $options);
@@ -95,6 +122,11 @@ class HttpClient implements HttpClientInterface
      *
      * If first argument is an Array grab it for own use as required parameters in response.
      * Otherwise it is expected to be the UR>L argument to Guzzle.
+     *
+     * @param list<string> $reqResults
+     * @param array<string, array<int|string, mixed>|string> $options
+     *
+     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
      *
      * @throws ApiAuthException
      * @throws ApiErrorException

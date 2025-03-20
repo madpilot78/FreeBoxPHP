@@ -17,7 +17,9 @@ class BoxInfo implements BoxInfoInterface
         'api_version',
     ];
 
+    /** @var array<string, bool|int|string> */
     private array $info = [];
+
     private ?string $apiUrl = null;
 
     public function __construct(private Configuration $config) {}
@@ -27,6 +29,8 @@ class BoxInfo implements BoxInfoInterface
      * object with some properties.
      *
      * NOTE: Some can be overridden by configuration.
+     *
+     * @param array<string, bool|int|string> $data
      *
      * @throws InvalidArgumentException
      */
@@ -82,6 +86,9 @@ class BoxInfo implements BoxInfoInterface
         return $scheme . '://' . $this->info['api_domain'] . $port . $this->info['api_base_url'] . 'v' . $major;
     }
 
+    /**
+     * @return array<string, bool|int|string>
+     */
     public function getInfo(): array
     {
         return $this->info;

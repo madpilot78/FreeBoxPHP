@@ -10,6 +10,9 @@ interface SessionInterface
 {
     public const string NO_PERM_MSG = 'No permission';
 
+    /**
+     * @return non-empty-array<string, string>
+     */
     public function getAuthHeader(): array;
 
     public function can(Permission $perm): bool;
