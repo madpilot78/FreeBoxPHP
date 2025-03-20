@@ -123,9 +123,9 @@ class Box implements BoxInterface
         return $this->runMethod(__FUNCTION__, $action, null, $params);
     }
 
-    public function lanWol(array|int|string $id = [], array $params = []): BoxInterface
+    public function lanWol(string $id, array $params): BoxInterface
     {
-        return $this->runMethod(__FUNCTION__, 'set', null, $params);
+        return $this->runMethod(__FUNCTION__, 'set', $id, $params);
     }
 
     public function login(): BoxInterface

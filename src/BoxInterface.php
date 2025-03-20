@@ -22,7 +22,7 @@ interface BoxInterface
 
     public function language(string $action = 'get', array $params = []): array|BoxInterface;
 
-    public function lanWol(array $params = []): BoxInterface;
+    public function lanWol(string $id, array $params): BoxInterface;
 
     public function login(): BoxInterface;
 
