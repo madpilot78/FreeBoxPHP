@@ -230,10 +230,10 @@ class HttpClientTest extends TestCase
                 body: json_encode([
                     'success' => true,
                     'result' => [
-                        [
+                        'aa' => [
                             'foo' => '1',
                         ],
-                        [
+                        'bb' => [
                             'bar' => '2',
                         ],
                     ],
@@ -244,9 +244,9 @@ class HttpClientTest extends TestCase
         $content = $this->httpClient->post(self::URL, ['']);
 
         $this->assertCount(2, $content);
-        $this->assertArrayHasKey('foo', $content[0]);
-        $this->assertEquals('1', $content[0]['foo']);
-        $this->assertArrayHasKey('bar', $content[1]);
-        $this->assertEquals('2', $content[1]['bar']);
+        $this->assertArrayHasKey('foo', $content['aa']);
+        $this->assertEquals('1', $content['aa']['foo']);
+        $this->assertArrayHasKey('bar', $content['bb']);
+        $this->assertEquals('2', $content['bb']['bar']);
     }
 }
