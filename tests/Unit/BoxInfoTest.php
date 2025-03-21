@@ -135,6 +135,7 @@ class BoxInfoTest extends TestCase
     public function testBoxInfoGetApiUrlNonLocal(): void
     {
         $this->boxInfo = new BoxInfo(new Configuration(localAccess: false));
+        // @phpstan-ignore method.alreadyNarrowedType
         $this->assertInstanceOf(
             BoxInfo::class,
             $this->boxInfo->save(self::INFO),
@@ -150,6 +151,7 @@ class BoxInfoTest extends TestCase
     {
         $custom = 'myhost.example.org';
         $this->boxInfo = new BoxInfo(new Configuration(hostname: $custom));
+        // @phpstan-ignore method.alreadyNarrowedType
         $this->assertInstanceOf(
             BoxInfo::class,
             $this->boxInfo->save(self::INFO),

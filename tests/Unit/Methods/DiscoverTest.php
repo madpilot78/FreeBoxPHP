@@ -46,6 +46,7 @@ class DiscoverTest extends TestCase
             ->method('getProperty')
             ->willReturn(true);
 
+        // @phpstan-ignore method.alreadyNarrowedType
         $this->assertNull($this->discover->run());
     }
 
@@ -58,6 +59,7 @@ class DiscoverTest extends TestCase
         $this->expectException(NotSupportedException::class);
         $this->expectExceptionMessage('Only https enabled boxes supported.');
 
+        // @phpstan-ignore method.alreadyNarrowedType
         $this->assertNull($this->discover->run());
     }
 }

@@ -30,6 +30,7 @@ class LoginTest extends TestCase
 
     public function testLogin(): void
     {
+        // @phpstan-ignore method.alreadyNarrowedType
         $this->assertNull($this->login->run());
     }
 }

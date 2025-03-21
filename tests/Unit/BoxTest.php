@@ -27,12 +27,16 @@ class BoxTest extends TestCase
 
     public function testCreateBoxInstance(): void
     {
+        // @phpstan-ignore method.alreadyNarrowedType
         $this->assertInstanceOf(Box::class, new Box(client: $this->guzzleClient));
 
+        // @phpstan-ignore method.alreadyNarrowedType
         $this->assertInstanceOf(Box::class, new Box('token', new Configuration(), $this->guzzleClient));
 
+        // @phpstan-ignore method.alreadyNarrowedType
         $this->assertInstanceOf(Box::class, new Box(null, new Configuration(), $this->guzzleClient));
 
+        // @phpstan-ignore method.alreadyNarrowedType
         $this->assertInstanceOf(Box::class, new Box('token', new Configuration(), $this->guzzleClient));
     }
 
@@ -40,6 +44,7 @@ class BoxTest extends TestCase
     {
         $container = $this->createStub(ContainerInterface::class);
 
+        // @phpstan-ignore method.alreadyNarrowedType
         $this->assertInstanceOf(Box::class, new Box(null, new Configuration(container: $container)));
     }
 }

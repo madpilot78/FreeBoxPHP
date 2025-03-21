@@ -51,6 +51,7 @@ class HttpClientTest extends TestCase
             new Response(
                 status: 403,
                 headers: ['Content-Type' => 'application/json'],
+                /* @phpstan-ignore argument.type */
                 body: json_encode([
                     'status' => 'Access denied',
                 ]),
@@ -68,6 +69,7 @@ class HttpClientTest extends TestCase
             new Response(
                 status: 403,
                 headers: ['Content-Type' => 'application/json'],
+                /* @phpstan-ignore argument.type */
                 body: json_encode([
                     'msg' => 'Access denied',
                 ]),
@@ -85,6 +87,7 @@ class HttpClientTest extends TestCase
             new Response(
                 status: 404,
                 headers: ['Content-Type' => 'application/json'],
+                /* @phpstan-ignore argument.type */
                 body: json_encode([
                     'msg' => 'Richiesta non valida (404)',
                     'success' => false,
@@ -103,6 +106,7 @@ class HttpClientTest extends TestCase
             new Response(
                 status: 410,
                 headers: ['Content-Type' => 'application/json'],
+                /* @phpstan-ignore argument.type */
                 body: json_encode([
                     'msg' => 'Gone',
                 ]),
@@ -135,6 +139,7 @@ class HttpClientTest extends TestCase
             new Response(
                 status: 200,
                 headers: ['Content-Type' => 'application/json'],
+                /* @phpstan-ignore argument.type */
                 body: json_encode([
                     'foo' => 'bar',
                 ]),
@@ -153,6 +158,7 @@ class HttpClientTest extends TestCase
             new Response(
                 status: 200,
                 headers: ['Content-Type' => 'application/json'],
+                /* @phpstan-ignore argument.type */
                 body: json_encode([
                     'success' => true,
                     'result' => [
@@ -172,6 +178,7 @@ class HttpClientTest extends TestCase
             new Response(
                 status: 200,
                 headers: ['Content-Type' => 'application/json'],
+                /* @phpstan-ignore argument.type */
                 body: json_encode([
                     'success' => true,
                 ]),
@@ -188,6 +195,7 @@ class HttpClientTest extends TestCase
             new Response(
                 status: 200,
                 headers: ['Content-Type' => 'application/json'],
+                /* @phpstan-ignore argument.type */
                 body: json_encode([
                     'result' => [
                         'foo' => 'bar',
@@ -206,6 +214,7 @@ class HttpClientTest extends TestCase
             new Response(
                 status: 200,
                 headers: ['Content-Type' => 'application/json'],
+                /* @phpstan-ignore argument.type */
                 body: json_encode([
                     'success' => true,
                     'result' => [
@@ -227,6 +236,7 @@ class HttpClientTest extends TestCase
             new Response(
                 status: 200,
                 headers: ['Content-Type' => 'application/json'],
+                /* @phpstan-ignore argument.type */
                 body: json_encode([
                     'success' => true,
                     'result' => [

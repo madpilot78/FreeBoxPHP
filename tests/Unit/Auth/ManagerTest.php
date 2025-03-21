@@ -28,6 +28,7 @@ class ManagerTest extends TestCase
 
     public function testWithAuthTokenNoChallenge(): void
     {
+        // @phpstan-ignore method.alreadyNarrowedType
         $this->assertInstanceOf(
             AuthManager::class,
             $this->authManager->setAuthToken('token'),
@@ -38,6 +39,7 @@ class ManagerTest extends TestCase
 
     public function testWithAuthTokenAndChallengeArg(): void
     {
+        // @phpstan-ignore method.alreadyNarrowedType
         $this->assertInstanceOf(
             AuthManager::class,
             $this->authManager->setAuthToken('token'),
@@ -50,6 +52,7 @@ class ManagerTest extends TestCase
     {
         $this->assertFalse($this->authManager->hasChallenge());
 
+        // @phpstan-ignore method.alreadyNarrowedType
         $this->assertInstanceOf(
             AuthManager::class,
             $this->authManager->setChallenge('challenge'),
@@ -71,6 +74,7 @@ class ManagerTest extends TestCase
     public function testSetHasPermission(): void
     {
         $this->assertFalse($this->authManager->hasPermission('foo'));
+        // @phpstan-ignore method.alreadyNarrowedType
         $this->assertInstanceOf(
             AuthManager::class,
             $this->authManager->setPermissions([

@@ -47,6 +47,7 @@ class LogoutTest extends TestCase
             ->method('get')
             ->willReturn(['success' => true]);
 
+        // @phpstan-ignore method.alreadyNarrowedType
         $this->assertNull($this->logout->run());
     }
 
