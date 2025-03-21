@@ -137,11 +137,11 @@ class HttpClient implements HttpClientInterface
 
         try {
             $response = $this->client->request($method, $url, $options);
-            $this->logger->debug('FreeBoxPHP got response', compact('response'));
+            $this->logger->debug('FreeBoxPHP got response', ['headers' => $response->getHeaders(), 'body' => $response->getBody()]);
         } catch (ClientException $e) {
             $response = $e->getResponse();
             $statusCode = $response->getStatusCode();
-            $this->logger->warning('FreeBoxPHP got ClientException', compact('response', 'statusCode'));
+            $this->logger->warning('FreeBoxPHP got ClientException', ['status' => $statusCode, 'headers' => $response->getHeaders(), 'body' => $response->getBody()]);
 
             switch ($statusCode) {
                 case 403:
