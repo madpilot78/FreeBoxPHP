@@ -37,7 +37,7 @@ class HttpClient implements HttpClientInterface
     /**
      * @param list<string> $reqResult
      *
-     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     * @return array<string, mixed>
      *
      * @throws ApiErrorException
      */
@@ -78,7 +78,7 @@ class HttpClient implements HttpClientInterface
      * @param list<string> $required
      * @param array<string, array<int|string, mixed>|string> $options
      *
-     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     * @return array<string, mixed>
      */
     public function get(string $url, array $required = [], array $options = []): array
     {
@@ -89,7 +89,7 @@ class HttpClient implements HttpClientInterface
      * @param list<string> $required
      * @param array<string, array<int|string, mixed>|string> $options
      *
-     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     * @return array<string, mixed>
      */
     public function post(string $url, array $required = [], array $options = []): array
     {
@@ -100,7 +100,7 @@ class HttpClient implements HttpClientInterface
      * @param list<string> $required
      * @param array<string, array<int|string, mixed>|string> $options
      *
-     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     * @return array<string, mixed>
      */
     public function put(string $url, array $required = [], array $options = []): array
     {
@@ -110,7 +110,7 @@ class HttpClient implements HttpClientInterface
     /**
      * @param array<string, array<int|string, mixed>|string> $options
      *
-     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     * @return array<string, mixed>
      */
     public function delete(string $url, array $options = []): array
     {
@@ -126,7 +126,7 @@ class HttpClient implements HttpClientInterface
      * @param list<string> $reqResults
      * @param array<string, array<int|string, mixed>|string> $options
      *
-     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     * @return array<string, mixed>
      *
      * @throws ApiAuthException
      * @throws ApiErrorException

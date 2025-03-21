@@ -59,10 +59,10 @@ class Box implements BoxInterface
         $this->boxInfo = new BoxInfo($this->config);
 
         $this->container = new Container();
-        $this->container->delegate(new ReflectionContainer(true));
         if (is_a($this->config->container, ContainerInterface::class)) {
             $this->container->delegate($this->config->container);
         }
+        $this->container->delegate(new ReflectionContainer(true));
         $this->container->add(Configuration::class, $this->config);
         $this->container->add(LoggerInterface::class, $this->logger);
         $this->container->add(CacheInterface::class, $this->cache);
@@ -94,7 +94,7 @@ class Box implements BoxInterface
     /**
      * @param array<string, bool|int|string> $params
      *
-     * @return array<string, bool|int|string>|BoxInterface
+     * @return array<string, mixed>|BoxInterface
      */
     public function connectionConfiguration(string $action = 'get', array $params = []): array|BoxInterface
     {
@@ -104,7 +104,7 @@ class Box implements BoxInterface
     /**
      * @param array<string, bool|int|string> $params
      *
-     * @return array<string, bool|int|string>|BoxInterface
+     * @return array<string, mixed>|BoxInterface
      */
     public function connectionIPv6Configuration(string $action = 'get', array $params = []): array|BoxInterface
     {
@@ -112,22 +112,24 @@ class Box implements BoxInterface
     }
 
     /**
-     * @return array<string, bool|int|list<int>|string>
+     * @return array<string, mixed>|BoxInterface
      */
-    public function connectionStatus(): array
+    public function connectionStatus(): array|BoxInterface
     {
         return $this->runMethod(__FUNCTION__);
     }
 
     public function discover(): BoxInterface
     {
-        return $this->runMethod(__FUNCTION__);
+        return $this->isInterfaceInstance(
+            $this->runMethod(__FUNCTION__),
+        );
     }
 
     /**
      * @param array<string, bool|int|string> $params
      *
-     * @return array<string, array<string, array<string, mixed>>|bool|int|string>|BoxInterface
+     * @return array<string, mixed>|BoxInterface
      */
     public function fwRedir(string $action = 'get', null|int|string $id = null, array $params = []): array|BoxInterface
     {
@@ -135,9 +137,9 @@ class Box implements BoxInterface
     }
 
     /**
-     * @return array<string, int|string>
+     * @return array<string, mixed>|BoxInterface
      */
-    public function lanBrowserInterfaces(): array
+    public function lanBrowserInterfaces(): array|BoxInterface
     {
         return $this->runMethod(__FUNCTION__);
     }
@@ -145,7 +147,7 @@ class Box implements BoxInterface
     /**
      * @param array<string, string> $params
      *
-     * @return array<string, list<string>|string>|BoxInterface
+     * @return array<string, mixed>|BoxInterface
      */
     public function language(string $action = 'get', array $params = []): array|BoxInterface
     {
@@ -157,17 +159,23 @@ class Box implements BoxInterface
      */
     public function lanWol(string $id, array $params): BoxInterface
     {
-        return $this->runMethod(__FUNCTION__, 'set', $id, $params);
+        return $this->isInterfaceInstance(
+            $this->runMethod(__FUNCTION__, 'set', $id, $params),
+        );
     }
 
     public function login(): BoxInterface
     {
-        return $this->runMethod(__FUNCTION__);
+        return $this->isInterfaceInstance(
+            $this->runMethod(__FUNCTION__),
+        );
     }
 
     public function logout(): BoxInterface
     {
-        return $this->runMethod(__FUNCTION__);
+        return $this->isInterfaceInstance(
+            $this->runMethod(__FUNCTION__),
+        );
     }
 
     public function register(bool $quiet = true, bool $skipSleep = false): string
@@ -181,7 +189,7 @@ class Box implements BoxInterface
     /**
      * @param array<string, bool|int|string> $params
      *
-     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>|BoxInterface|string
+     * @return ($name is 'register' ? string : array<string, mixed>|BoxInterface)
      */
     private function runMethod(string $name, string $action = 'get', null|int|string $id = null, array $params = []): array|BoxInterface|string
     {
@@ -193,5 +201,19 @@ class Box implements BoxInterface
     private function getFullMethod(string $method): string
     {
         return 'madpilot78\\FreeBoxPHP\\Methods\\' . ucfirst($method);
+    }
+
+    /**
+     * @param array<string, mixed>|BoxInterface $ent
+     */
+    private function isInterfaceInstance(array|BoxInterface $ent): BoxInterface
+    {
+        if (!($ent instanceof BoxInterface)) {
+            $err = 'Unexpected object type returned';
+            $this->logger->critical($err);
+            throw new \RuntimeException($err, 42);
+        }
+
+        return $ent;
     }
 }

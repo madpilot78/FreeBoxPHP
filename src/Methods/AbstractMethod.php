@@ -15,12 +15,17 @@ use madpilot78\FreeBoxPHP\HttpClientInterface;
 abstract class AbstractMethod implements MethodInterface
 {
     protected const string API = '';
+    /** @var list<string> */
     protected const array ACTIONS = [];
     protected const Permission PERM = Permission::None;
     protected const string FAIL_MESSAGE = '';
+    /** @var list<string> */
     protected const array REQUIRED_GET = [];
+    /** @var list<string> */
     protected const array REQUIRED_GET_ID = [];
+    /** @var list<string> */
     protected const array REQUIRED_SET = [];
+    /** @var list<string> */
     protected const array REQUIRED_PUT = [];
     protected const string FAIL_MESSAGE_SET = '';
     protected const string FAIL_MESSAGE_UPDATE = '';
@@ -44,7 +49,7 @@ abstract class AbstractMethod implements MethodInterface
     /**
      * @param array<string, bool|int|string> $params
      *
-     * @return null|array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     * @return null|array<string, mixed>
      *
      * @throws InvalidArgumentException
      */
@@ -62,7 +67,7 @@ abstract class AbstractMethod implements MethodInterface
     /**
      * @param array<string, bool|int|string> $params (unused)
      *
-     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     * @return array<string, mixed>
      */
     protected function get(?int $id, array $params): array
     {
@@ -77,7 +82,7 @@ abstract class AbstractMethod implements MethodInterface
     /**
      * @param array<string, bool|int|string> $params
      *
-     * @return null|array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     * @return null|array<string, mixed>
      *
      * @throws AuthException
      */
@@ -117,7 +122,7 @@ abstract class AbstractMethod implements MethodInterface
     /**
      * @param array<string, bool|int|string> $params
      *
-     * @return null|array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     * @return null|array<string, mixed>
      */
     protected function update(?int $id, array $params): ?array
     {

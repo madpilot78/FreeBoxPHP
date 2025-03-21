@@ -66,14 +66,18 @@ class BoxInfo implements BoxInfoInterface
     private function makeApiUrl(): ?string
     {
         if (
-            !isset($this->info['api_domain']) ||
-            !isset($this->info['api_base_url']) ||
-            !isset($this->info['api_version'])
+            !isset($this->info['api_domain']) || !is_string($this->info['api_domain']) ||
+            !isset($this->info['api_base_url']) || !is_string($this->info['api_base_url']) ||
+            !isset($this->info['api_version']) || !is_string($this->info['api_version'])
         ) {
             return null;
         }
 
-        $major = substr($this->info['api_version'], 0, strpos($this->info['api_version'], '.'));
+        $major = substr(
+            $this->info['api_version'],
+            0,
+            strpos($this->info['api_version'], '.') ?: strlen($this->info['api_version']),
+        );
 
         if ($this->info['https_available']) {
             $port = $this->config->localAccess ? '' : ':' . $this->info['https_port'];

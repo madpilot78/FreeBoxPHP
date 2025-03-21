@@ -27,7 +27,7 @@ class Register
         private LoggerInterface $logger,
     ) {}
 
-    public function run(bool $quiet = true, bool $skipSleep = false): ?string
+    public function run(bool $quiet = true, bool $skipSleep = false): string
     {
         $this->logger->notice('FreeBoxPHP Registration started');
         if (!$quiet) {
