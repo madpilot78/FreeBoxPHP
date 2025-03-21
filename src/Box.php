@@ -121,7 +121,9 @@ class Box implements BoxInterface
 
     public function discover(): BoxInterface
     {
-        return $this->runMethod(__FUNCTION__);
+        return $this->isInterfaceInstance(
+            $this->runMethod(__FUNCTION__)
+        );
     }
 
     /**
@@ -157,17 +159,23 @@ class Box implements BoxInterface
      */
     public function lanWol(string $id, array $params): BoxInterface
     {
-        return $this->runMethod(__FUNCTION__, 'set', $id, $params);
+        return $this->isInterfaceInstance(
+            $this->runMethod(__FUNCTION__, 'set', $id, $params)
+        );
     }
 
     public function login(): BoxInterface
     {
-        return $this->runMethod(__FUNCTION__);
+        return $this->isInterfaceInstance(
+            $this->runMethod(__FUNCTION__)
+        );
     }
 
     public function logout(): BoxInterface
     {
-        return $this->runMethod(__FUNCTION__);
+        return $this->isInterfaceInstance(
+            $this->runMethod(__FUNCTION__)
+        );
     }
 
     public function register(bool $quiet = true, bool $skipSleep = false): string
@@ -193,5 +201,19 @@ class Box implements BoxInterface
     private function getFullMethod(string $method): string
     {
         return 'madpilot78\\FreeBoxPHP\\Methods\\' . ucfirst($method);
+    }
+
+    /**
+     * @param array<string, mixed>|BoxInterface $ent
+     */
+    private function isInterfaceInstance(array|BoxInterface $ent): BoxInterface
+    {
+        if (!($ent instanceof BoxInterface)) {
+            $err = 'Unexpected object type returned';
+            $this->logger->critical($err);
+            throw new \RuntimeException($err, 42);
+        }
+
+        return $ent;
     }
 }
