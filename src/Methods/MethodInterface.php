@@ -9,7 +9,7 @@ interface MethodInterface
     /**
      * @param array<string, bool|int|string> $params
      *
-     * @return null|array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     * @return null|array<string, mixed>
      *
      * @throws \InvalidArgumentException
      */

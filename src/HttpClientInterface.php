@@ -10,7 +10,7 @@ interface HttpClientInterface
      * @param list<string> $required
      * @param array<string, array<int|string, mixed>|string> $options
      *
-     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     * @return array<string, mixed>
      */
     public function get(string $url, array $required = [], array $options = []): array;
 
@@ -18,7 +18,7 @@ interface HttpClientInterface
      * @param list<string> $required
      * @param array<string, array<int|string, mixed>|string> $options
      *
-     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     * @return array<string, mixed>
      */
     public function post(string $url, array $required = [], array $options = []): array;
 
@@ -26,14 +26,14 @@ interface HttpClientInterface
      * @param list<string> $required
      * @param array<string, array<int|string, mixed>|string> $options
      *
-     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     * @return array<string, mixed>
      */
     public function put(string $url, array $required = [], array $options = []): array;
 
     /**
      * @param array<string, array<int|string, mixed>|string> $options
      *
-     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     * @return array<string, mixed>
      */
     public function delete(string $url, array $options = []): array;
 }

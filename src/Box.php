@@ -94,7 +94,7 @@ class Box implements BoxInterface
     /**
      * @param array<string, bool|int|string> $params
      *
-     * @return array<string, bool|int|string>|BoxInterface
+     * @return array<string, mixed>|BoxInterface
      */
     public function connectionConfiguration(string $action = 'get', array $params = []): array|BoxInterface
     {
@@ -104,7 +104,7 @@ class Box implements BoxInterface
     /**
      * @param array<string, bool|int|string> $params
      *
-     * @return array<string, bool|int|string>|BoxInterface
+     * @return array<string, mixed>|BoxInterface
      */
     public function connectionIPv6Configuration(string $action = 'get', array $params = []): array|BoxInterface
     {
@@ -112,7 +112,7 @@ class Box implements BoxInterface
     }
 
     /**
-     * @return array<string, bool|int|list<int>|string>
+     * @return array<string, mixed>
      */
     public function connectionStatus(): array
     {
@@ -127,7 +127,7 @@ class Box implements BoxInterface
     /**
      * @param array<string, bool|int|string> $params
      *
-     * @return array<string, array<string, array<string, mixed>>|bool|int|string>|BoxInterface
+     * @return array<string, mixed>|BoxInterface
      */
     public function fwRedir(string $action = 'get', null|int|string $id = null, array $params = []): array|BoxInterface
     {
@@ -135,7 +135,7 @@ class Box implements BoxInterface
     }
 
     /**
-     * @return array<string, int|string>
+     * @return array<string, mixed>
      */
     public function lanBrowserInterfaces(): array
     {
@@ -145,7 +145,7 @@ class Box implements BoxInterface
     /**
      * @param array<string, string> $params
      *
-     * @return array<string, list<string>|string>|BoxInterface
+     * @return array<string, mixed>|BoxInterface
      */
     public function language(string $action = 'get', array $params = []): array|BoxInterface
     {
@@ -181,7 +181,7 @@ class Box implements BoxInterface
     /**
      * @param array<string, bool|int|string> $params
      *
-     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>|BoxInterface|string
+     * @return ($name is 'register' ? string : array<string, mixed>|BoxInterface)
      */
     private function runMethod(string $name, string $action = 'get', null|int|string $id = null, array $params = []): array|BoxInterface|string
     {

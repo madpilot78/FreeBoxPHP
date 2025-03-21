@@ -44,7 +44,7 @@ abstract class AbstractMethod implements MethodInterface
     /**
      * @param array<string, bool|int|string> $params
      *
-     * @return null|array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     * @return null|array<string, mixed>
      *
      * @throws InvalidArgumentException
      */
@@ -62,7 +62,7 @@ abstract class AbstractMethod implements MethodInterface
     /**
      * @param array<string, bool|int|string> $params (unused)
      *
-     * @return array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     * @return array<string, mixed>
      */
     protected function get(?int $id, array $params): array
     {
@@ -77,7 +77,7 @@ abstract class AbstractMethod implements MethodInterface
     /**
      * @param array<string, bool|int|string> $params
      *
-     * @return null|array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     * @return null|array<string, mixed>
      *
      * @throws AuthException
      */
@@ -117,7 +117,7 @@ abstract class AbstractMethod implements MethodInterface
     /**
      * @param array<string, bool|int|string> $params
      *
-     * @return null|array<string, array<string, array<string, mixed>|bool|list<string>>|bool|int|list<int>|string>
+     * @return null|array<string, mixed>
      */
     protected function update(?int $id, array $params): ?array
     {
