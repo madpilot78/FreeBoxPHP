@@ -62,6 +62,6 @@ class Manager implements ManagerInterface
             throw new MissingAuthException('No Challenge provided');
         }
 
-        return hash_hmac('sha1', $challenge ?? $this->currentChallenge, $this->authToken);
+        return hash_hmac('sha1', $challenge ?? $this->currentChallenge ?? '', $this->authToken);
     }
 }
