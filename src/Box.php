@@ -112,9 +112,9 @@ class Box implements BoxInterface
     }
 
     /**
-     * @return array<string, mixed>
+     * @return array<string, mixed>|BoxInterface
      */
-    public function connectionStatus(): array
+    public function connectionStatus(): array|BoxInterface
     {
         return $this->runMethod(__FUNCTION__);
     }
@@ -135,9 +135,9 @@ class Box implements BoxInterface
     }
 
     /**
-     * @return array<string, mixed>
+     * @return array<string, mixed>|BoxInterface
      */
-    public function lanBrowserInterfaces(): array
+    public function lanBrowserInterfaces(): array|BoxInterface
     {
         return $this->runMethod(__FUNCTION__);
     }
