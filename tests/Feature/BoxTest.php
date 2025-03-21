@@ -8,8 +8,11 @@ use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
+use League\Container\Container;
 use PHPUnit\Framework\TestCase;
 use madpilot78\FreeBoxPHP\Box;
+use madpilot78\FreeBoxPHP\Configuration;
+use madpilot78\FreeBoxPHP\Methods\LanWol;
 
 class BoxTest extends TestCase
 {
@@ -50,5 +53,28 @@ class BoxTest extends TestCase
         $this->assertInstanceOf(Box::class, $box->discover());
 
         $this->assertEquals(json_decode(self::JSON, true), $box->getBoxInfo());
+    }
+
+    public function testBoxIsInterfaceCheck(): void
+    {
+        $discoverStub = $this->createStub(LanWol::class);
+        $discoverStub
+            ->method('run')
+            ->willReturn([
+                'test' => 'test',
+            ]);
+
+        $delegatedContainer = new Container();
+        $delegatedContainer->add(LanWol::class, $discoverStub);
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Unexpected object type returned');
+
+        $box = new Box(
+            client: $this->guzzleClient,
+            configuration: new Configuration(container: $delegatedContainer),
+        );
+
+        $box->lanWol('foo', ['bar' => 'baz']);
     }
 }
