@@ -59,10 +59,10 @@ class Box implements BoxInterface
         $this->boxInfo = new BoxInfo($this->config);
 
         $this->container = new Container();
-        $this->container->delegate(new ReflectionContainer(true));
         if (is_a($this->config->container, ContainerInterface::class)) {
             $this->container->delegate($this->config->container);
         }
+        $this->container->delegate(new ReflectionContainer(true));
         $this->container->add(Configuration::class, $this->config);
         $this->container->add(LoggerInterface::class, $this->logger);
         $this->container->add(CacheInterface::class, $this->cache);
