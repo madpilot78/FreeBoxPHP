@@ -76,7 +76,7 @@ class BoxInfo implements BoxInfoInterface
         $major = substr(
             $this->info['api_version'],
             0,
-            strpos($this->info['api_version'], '.') ?: strlen($this->info['api_version'])
+            strpos($this->info['api_version'], '.') ?: strlen($this->info['api_version']),
         );
 
         if ($this->info['https_available']) {

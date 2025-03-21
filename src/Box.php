@@ -122,7 +122,7 @@ class Box implements BoxInterface
     public function discover(): BoxInterface
     {
         return $this->isInterfaceInstance(
-            $this->runMethod(__FUNCTION__)
+            $this->runMethod(__FUNCTION__),
         );
     }
 
@@ -160,21 +160,21 @@ class Box implements BoxInterface
     public function lanWol(string $id, array $params): BoxInterface
     {
         return $this->isInterfaceInstance(
-            $this->runMethod(__FUNCTION__, 'set', $id, $params)
+            $this->runMethod(__FUNCTION__, 'set', $id, $params),
         );
     }
 
     public function login(): BoxInterface
     {
         return $this->isInterfaceInstance(
-            $this->runMethod(__FUNCTION__)
+            $this->runMethod(__FUNCTION__),
         );
     }
 
     public function logout(): BoxInterface
     {
         return $this->isInterfaceInstance(
-            $this->runMethod(__FUNCTION__)
+            $this->runMethod(__FUNCTION__),
         );
     }
 
