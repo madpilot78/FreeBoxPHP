@@ -29,7 +29,7 @@ class ApiErrorException extends RuntimeException
                     $code = $apiResponse['error_code'];
                 }
 
-                if (array_key_exists('msg', $apiResponse)) {
+                if (array_key_exists('msg', $apiResponse) && is_string($apiResponse['msg'])) {
                     $message = $apiResponse['msg'];
                 }
             }

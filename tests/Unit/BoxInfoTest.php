@@ -23,6 +23,8 @@ class BoxInfoTest extends TestCase
         'api_version' => '10.1',
     ];
 
+    private const string MAJOR = '10';
+
     private BoxInfoInterface $boxInfo;
 
     protected function setUp(): void
@@ -107,10 +109,9 @@ class BoxInfoTest extends TestCase
             BoxInfo::class,
             $this->boxInfo->save(self::INFO),
         );
-        $major = substr(self::INFO['api_version'], 0, strpos(self::INFO['api_version'], '.'));
 
         $this->assertEquals(
-            'https://' . self::INFO['api_domain'] . self::INFO['api_base_url'] . 'v' . $major,
+            'https://' . self::INFO['api_domain'] . self::INFO['api_base_url'] . 'v' . self::MAJOR,
             $this->boxInfo->getApiUrl(),
         );
     }
@@ -124,10 +125,9 @@ class BoxInfoTest extends TestCase
             BoxInfo::class,
             $this->boxInfo->save($info),
         );
-        $major = substr($info['api_version'], 0, strpos($info['api_version'], '.'));
 
         $this->assertEquals(
-            'http://' . $info['api_domain'] . $info['api_base_url'] . 'v' . $major,
+            'http://' . $info['api_domain'] . $info['api_base_url'] . 'v' . self::MAJOR,
             $this->boxInfo->getApiUrl(),
         );
     }
@@ -139,10 +139,9 @@ class BoxInfoTest extends TestCase
             BoxInfo::class,
             $this->boxInfo->save(self::INFO),
         );
-        $major = substr(self::INFO['api_version'], 0, strpos(self::INFO['api_version'], '.'));
 
         $this->assertEquals(
-            'https://' . self::INFO['api_domain'] . ':' . self::INFO['https_port'] . self::INFO['api_base_url'] . 'v' . $major,
+            'https://' . self::INFO['api_domain'] . ':' . self::INFO['https_port'] . self::INFO['api_base_url'] . 'v' . self::MAJOR,
             $this->boxInfo->getApiUrl(),
         );
     }

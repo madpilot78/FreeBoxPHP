@@ -47,12 +47,15 @@ final readonly class Configuration
         string $deviceName = self::DEFAULT_DEVICENAME,
         ?string $certFile = '',
     ) {
-        $this->certFile = $certFile  === ''
-            ? realpath(__DIR__ . '/../' . self::CERT_PATH . '/' . $this->boxType->value . '.pem')
-            : $certFile;
+        if ($certFile === '') {
+            $certPath = realpath(__DIR__ . '/../' . self::CERT_PATH . '/' . $this->boxType->value . '.pem');
+            $this->certFile = $certPath !== false ? $certPath : null;
+        } else {
+            $this->certFile = $certFile;
+        }
 
         $machineHostname = gethostname();
-        $this->deviceName = $deviceName === self::DEFAULT_DEVICENAME && strlen($machineHostname)
+        $this->deviceName = $deviceName === self::DEFAULT_DEVICENAME && is_string($machineHostname) && strlen($machineHostname)
             ? $machineHostname
             : $deviceName;
 
