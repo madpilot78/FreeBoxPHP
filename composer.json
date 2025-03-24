@@ -30,10 +30,10 @@
         "ergebnis/composer-normalize": "^2.42",
         "friendsofphp/php-cs-fixer": "^3.54",
         "madpilot78/php-cs-fixer-config": "^1.0",
-        "phpunit/phpunit": "^11 || 12.0.0 - 12.0.8",
+        "phpunit/phpunit": "^11 || ^12",
         "symfony/var-dumper": "^7.0",
         "phpstan/phpstan": "^2.1",
-        "phpstan/phpstan-phpunit": "^2.0"
+        "phpstan/phpstan-phpunit": "^2.0.5"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
