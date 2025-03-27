@@ -29,6 +29,9 @@ class Manager implements ManagerInterface
         return $this;
     }
 
+    /**
+     * @phpstan-assert-if-true string $this->currentChallenge
+     */
     public function hasChallenge(): bool
     {
         return isset($this->currentChallenge);
