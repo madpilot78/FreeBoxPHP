@@ -120,9 +120,6 @@ class HttpClient implements HttpClientInterface
     /**
      * Wrap Guzzle client.
      *
-     * If first argument is an Array grab it for own use as required parameters in response.
-     * Otherwise it is expected to be the UR>L argument to Guzzle.
-     *
      * @param list<string> $reqResults
      * @param array<string, array<int|string, mixed>|string> $options
      *
