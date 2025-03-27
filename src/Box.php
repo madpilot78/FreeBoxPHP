@@ -55,21 +55,28 @@ class Box implements BoxInterface
 
         $this->boxInfo = new BoxInfo($this->config);
 
-        $this->container = new Container();
+        $this->container = $this->getConfiguredContainer();
+
+        $this->logger->debug('FreeBoxPHP Initialization done');
+    }
+
+    private function getConfiguredContainer(): ContainerInterface
+    {
+        $container = new Container();
         if (isset($this->config->container) && is_a($this->config->container, ContainerInterface::class)) {
-            $this->container->delegate($this->config->container);
+            $container->delegate($this->config->container);
         }
-        $this->container->delegate(new ReflectionContainer(true));
-        $this->container->add(Configuration::class, $this->config);
-        $this->container->add(LoggerInterface::class, $this->logger);
-        $this->container->add(CacheInterface::class, $this->cache);
-        $this->container->add(ClientInterface::class, $this->client);
-        $this->container->add(HttpClientInterface::class, HttpClient::class)
+        $container->delegate(new ReflectionContainer(true));
+        $container->add(Configuration::class, $this->config);
+        $container->add(LoggerInterface::class, $this->logger);
+        $container->add(CacheInterface::class, $this->cache);
+        $container->add(ClientInterface::class, $this->client);
+        $container->add(HttpClientInterface::class, HttpClient::class)
             ->addArgument(ClientInterface::class)
             ->addArgument(LoggerInterface::class);
-        $this->container->add(BoxInfoInterface::class, $this->boxInfo);
-        $this->container->add(AuthManagerInterface::class, $this->authManager);
-        $this->container->add(AuthSessionInterface::class, AuthSession::class)
+        $container->add(BoxInfoInterface::class, $this->boxInfo);
+        $container->add(AuthManagerInterface::class, $this->authManager);
+        $container->add(AuthSessionInterface::class, AuthSession::class)
             ->addArgument(AuthManagerInterface::class)
             ->addArgument(BoxInfoInterface::class)
             ->addArgument(Configuration::class)
@@ -77,7 +84,7 @@ class Box implements BoxInterface
             ->addArgument(LoggerInterface::class)
             ->addArgument(CacheInterface::class);
 
-        $this->logger->debug('FreeBoxPHP Initialization done');
+        return $container;
     }
 
     /**
