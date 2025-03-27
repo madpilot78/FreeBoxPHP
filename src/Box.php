@@ -60,7 +60,7 @@ class Box implements BoxInterface
         $this->logger->debug('FreeBoxPHP Initialization done');
     }
 
-    private function getConfiguredContainer(): ContainerInterface
+    private function getConfiguredContainer(): Container
     {
         $container = new Container();
         if (isset($this->config->container) && is_a($this->config->container, ContainerInterface::class)) {
