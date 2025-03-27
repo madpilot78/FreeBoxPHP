@@ -33,11 +33,11 @@ class Box implements BoxInterface
     ) {
         $this->authManager = new AuthManager();
 
+        $this->config = $configuration ?? new Configuration();
+
         if (isset($authToken)) {
             $this->authManager->setAuthToken($authToken);
         }
-
-        $this->config = $configuration ?? new Configuration();
 
         $this->logger = $this->config->logger;
         $this->logger->debug('FreeBoxPHP Initializing');
