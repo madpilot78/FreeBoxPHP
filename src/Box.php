@@ -20,7 +20,7 @@ class Box implements BoxInterface
 {
     private AuthManagerInterface $authManager;
     private BoxInfoInterface $boxInfo;
-    private ?Configuration $config;
+    private Configuration $config;
     private Container $container;
     private LoggerInterface $logger;
     private CacheInterface $cache;
