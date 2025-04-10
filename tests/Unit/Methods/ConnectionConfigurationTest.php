@@ -66,14 +66,18 @@ class ConnectionConfigurationTest extends TestCase
 
     public function testSetConnectionConfiguration(): void
     {
+        $exp = self::CONFOBJ;
+        $exp['ping'] = false;
+        $exp['wol'] = true;
+
         $this->httpClientStub
             ->method('put')
-            ->willReturn(['success' => true]);
+            ->willReturn($exp);
         $this->authSessionStub
             ->method('can')
             ->willReturn(true);
 
-        $this->assertNull($this->connectionConfiguration->run('update', null, [
+        $this->assertEquals($exp, $this->connectionConfiguration->run('update', null, [
             'ping' => false,
             'wol' => true,
         ]));
@@ -83,7 +87,7 @@ class ConnectionConfigurationTest extends TestCase
     {
         $this->httpClientStub
             ->method('put')
-            ->willReturn(['success' => true]);
+            ->willReturn(self::CONFOBJ);
         $this->authSessionStub
             ->method('can')
             ->willReturn(false);

@@ -12,8 +12,15 @@ class ConnectionIPv6Configuration extends AbstractMethod implements MethodInterf
     protected const array ACTIONS = ['get', 'update'];
     protected const array REQUIRED_GET = [
         'ipv6_enabled',
+        'ipv6_prefix_firewall',
         'delegations',
+        'ipv6_firewall',
+    ];
+    protected const array REQUIRED_PUT = [
+        'ipv6_enabled',
+        'ipv6_prefix_firewall',
+        'delegations',
+        'ipv6_firewall',
     ];
     protected const Permission PERM = Permission::Settings;
-    protected const string FAIL_MESSAGE_UPDATE = 'Failed to update connection IPv6 configuration';
 }

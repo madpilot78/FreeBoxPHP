@@ -49,11 +49,11 @@ class ConnectionConfigurationTest extends MethodTestCase
     {
         $this->setupFakeLogin(Permission::Settings);
 
-        $this->mock->append(new Response(body: '{"success": true}'));
+        $this->mock->append(new Response(body: self::CONFJSON));
 
         $box = new Box(authToken: 'fakeToken', client: $this->guzzleClient);
 
-        $this->assertInstanceOf(Box::class, $box->connectionConfiguration('update', [
+        $this->assertEquals(json_decode(self::CONFJSON, true)['result'], $box->connectionConfiguration('update', [
             'ping' => false,
             'wol' => true,
         ]));
@@ -72,23 +72,6 @@ class ConnectionConfigurationTest extends MethodTestCase
             'ping' => false,
             'wol' => true,
         ]));
-    }
-
-    public function testConnectonConfigurationSetFail(): void
-    {
-        $this->setupFakeLogin(Permission::Settings);
-
-        $this->mock->append(new Response(body: '{"success": false}'));
-
-        $box = new Box(authToken: 'fakeToken', client: $this->guzzleClient);
-
-        $this->expectException(ApiErrorException::class);
-        $this->expectExceptionMessage('Failed to update connection configuration');
-
-        $box->connectionConfiguration('update', [
-            'ping' => false,
-            'wol' => true,
-        ]);
     }
 
     public function testConnectonConfigurationWrongMethod(): void

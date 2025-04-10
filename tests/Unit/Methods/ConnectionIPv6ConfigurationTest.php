@@ -20,6 +20,7 @@ class ConnectionIPv6ConfigurationTest extends TestCase
 {
     private const array CONFOBJ = [
         'ipv6_enabled' => true,
+        "ipv6_prefix_firewall" => false,
         'delegations' => [
             [
                 'prefix' => '2a01:e30:d252:a2a0::/64',
@@ -54,6 +55,7 @@ class ConnectionIPv6ConfigurationTest extends TestCase
                 'next_hop' => '',
             ],
         ],
+        'ipv6_firewall' => false,
     ];
 
     private AuthSessionInterface&Stub $authSessionStub;
@@ -91,14 +93,17 @@ class ConnectionIPv6ConfigurationTest extends TestCase
 
     public function testSetConnectionIPv6Configuration(): void
     {
+        $exp = self::CONFOBJ;
+        $exp['ipv6_firewall'] = true;
+
         $this->httpClientStub
             ->method('put')
-            ->willReturn(['success' => true]);
+            ->willReturn($exp);
         $this->authSessionStub
             ->method('can')
             ->willReturn(true);
 
-        $this->assertNull($this->connectionIPv6Configuration->run('update', null, [
+        $this->assertEquals($exp, $this->connectionIPv6Configuration->run('update', null, [
             'ipv6_firewall' => true,
         ]));
     }
@@ -107,7 +112,7 @@ class ConnectionIPv6ConfigurationTest extends TestCase
     {
         $this->httpClientStub
             ->method('put')
-            ->willReturn(['success' => true]);
+            ->willReturn(self::CONFOBJ);
         $this->authSessionStub
             ->method('can')
             ->willReturn(false);

@@ -21,6 +21,8 @@ class ConnectionIPv6ConfigurationTest extends MethodTestCase
             "success": true,
             "result": {
                 "ipv6_enabled": true,
+                "ipv6_firewall": false,
+                "ipv6_prefix_firewall": false,
                 "delegations": [
                     {
                         "prefix": "2a01:e30:d252:a2a0::/64",
@@ -74,11 +76,11 @@ class ConnectionIPv6ConfigurationTest extends MethodTestCase
     {
         $this->setupFakeLogin(Permission::Settings);
 
-        $this->mock->append(new Response(body: '{"success": true}'));
+        $this->mock->append(new Response(body: self::CONFJSON));
 
         $box = new Box(authToken: 'fakeToken', client: $this->guzzleClient);
 
-        $this->assertInstanceOf(Box::class, $box->connectionIPv6Configuration('update', [
+        $this->assertEquals(json_decode(self::CONFJSON, true)['result'], $box->connectionIPv6Configuration('update', [
             'ipv6_firewall' => true,
         ]));
     }
@@ -95,22 +97,6 @@ class ConnectionIPv6ConfigurationTest extends MethodTestCase
         $this->assertInstanceOf(Box::class, $box->connectionIPv6Configuration('update', [
             'ipv6_firewall' => true,
         ]));
-    }
-
-    public function testConnectonIPv6ConfigurationSetFail(): void
-    {
-        $this->setupFakeLogin(Permission::Settings);
-
-        $this->mock->append(new Response(body: '{"success": false}'));
-
-        $box = new Box(authToken: 'fakeToken', client: $this->guzzleClient);
-
-        $this->expectException(ApiErrorException::class);
-        $this->expectExceptionMessage('Failed to update connection IPv6 configuration');
-
-        $box->connectionIPv6Configuration('update', [
-            'ipv6_firewall' => true,
-        ]);
     }
 
     public function testConnectonIPv6ConfigurationWrongMethod(): void
