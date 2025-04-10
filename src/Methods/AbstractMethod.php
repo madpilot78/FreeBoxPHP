@@ -130,32 +130,15 @@ abstract class AbstractMethod implements MethodInterface
             throw new AuthException(AuthSessionInterface::NO_PERM_MSG);
         }
 
-        if (empty(static::REQUIRED_PUT)) {
-            $response = $this->client->put(
-                $this->boxInfo->getApiUrl() . static::API . (isset($id) ? $this->separator . $id : ''),
-                [],
-                [
-                    'headers' => $this->authHeader,
-                    'json' => $params,
-                ],
-            );
-
-            if (!$response['success']) {
-                throw new ApiErrorException(static::FAIL_MESSAGE_UPDATE);
-            }
-
-            return null;
-        } else {
-            return $this->client->put(
-                $this->boxInfo->getApiUrl() . static::API . (isset($id) ? $this->separator . $id : ''),
-                static::REQUIRED_PUT,
-                [
-                    'headers' => $this->authHeader,
-                    'json' => $params,
-                ],
-            );
-        }
-    }
+        return $this->client->put(
+            $this->boxInfo->getApiUrl() . static::API . (isset($id) ? $this->separator . $id : ''),
+            static::REQUIRED_PUT,
+            [
+                'headers' => $this->authHeader,
+                'json' => $params,
+            ],
+        );
+}
 
     /**
      * @param array<string, bool|int|string> $params (unused)
