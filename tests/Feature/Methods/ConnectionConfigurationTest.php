@@ -9,7 +9,6 @@ use InvalidArgumentException;
 use Tests\Feature\NeedsLogin;
 use madpilot78\FreeBoxPHP\Box;
 use madpilot78\FreeBoxPHP\Enum\Permission;
-use madpilot78\FreeBoxPHP\Exception\ApiErrorException;
 use madpilot78\FreeBoxPHP\Exception\AuthException;
 
 class ConnectionConfigurationTest extends MethodTestCase

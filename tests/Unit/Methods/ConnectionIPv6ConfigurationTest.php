@@ -20,7 +20,7 @@ class ConnectionIPv6ConfigurationTest extends TestCase
 {
     private const array CONFOBJ = [
         'ipv6_enabled' => true,
-        "ipv6_prefix_firewall" => false,
+        'ipv6_prefix_firewall' => false,
         'delegations' => [
             [
                 'prefix' => '2a01:e30:d252:a2a0::/64',
