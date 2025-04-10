@@ -93,7 +93,7 @@ in the instance)
 The IPv6 firewall can be turned on with (this API will also return the new configuration):
 
 ```php
-$ret = $box->connectionIPv6Configuration('set', ['ipv6_firewall' => true]);
+$ret = $box->connectionIPv6Configuration('update', ['ipv6_firewall' => true]);
 
 var_dump($ret);
 ```
