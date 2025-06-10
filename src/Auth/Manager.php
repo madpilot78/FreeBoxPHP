@@ -15,14 +15,14 @@ class Manager implements ManagerInterface
     /** @var array<string, bool> */
     private array $permissions = [];
 
-    public function setAuthToken(string $token): self
+    public function setAuthToken(#[\SensitiveParameter] string $token): self
     {
         $this->authToken = $token;
 
         return $this;
     }
 
-    public function setChallenge(string $challenge): self
+    public function setChallenge(#[\SensitiveParameter] string $challenge): self
     {
         $this->currentChallenge = $challenge;
 

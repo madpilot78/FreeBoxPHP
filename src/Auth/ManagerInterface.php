@@ -6,9 +6,9 @@ namespace madpilot78\FreeBoxPHP\Auth;
 
 interface ManagerInterface
 {
-    public function setAuthToken(string $token): self;
+    public function setAuthToken(#[\SensitiveParameter] string $token): self;
 
-    public function setChallenge(string $challenge): self;
+    public function setChallenge(#[\SensitiveParameter] string $challenge): self;
 
     public function hasChallenge(): bool;
 
