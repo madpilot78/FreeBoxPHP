@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Added `#[\SensitiveParameter]` where appropriate
+
 ## [1.0.4] - 2024-08-22
 
 - Removed bundled composer.lock
