@@ -14,7 +14,7 @@ use madpilot78\FreeBoxPHP\HttpClientInterface;
 class Register
 {
     private const int POLL_WAIT = 5;
-    private const int POLL_MAX = 60; /* 5 minutes */
+    private const int POLL_MAX = 60; /* 60 times POLL_WAIT = 5 minutes */
 
     private int $trackId;
     private string $unauthToken;
