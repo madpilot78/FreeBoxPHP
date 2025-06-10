@@ -27,7 +27,7 @@ class Box implements BoxInterface
     private ?ClientInterface $client;
 
     public function __construct(
-        ?string $authToken = null,
+        #[\SensitiveParameter] ?string $authToken = null,
         ?Configuration $configuration = null,
         ?ClientInterface $client = null,
     ) {
