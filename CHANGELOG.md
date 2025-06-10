@@ -12,7 +12,7 @@
 
 ## [1.0.2] - 2024-08-18
 
-- Removed sabing session token in property
+- Removed saving session token in property
 
 ## [1.0.1] - 2024-08-18
 
