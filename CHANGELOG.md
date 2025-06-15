@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.3.1] - 2025-06-15
 
 - Added `#[\SensitiveParameter]` where appropriate
 - Changed PHPStan level to 9
