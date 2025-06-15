@@ -5,6 +5,33 @@
 - Added `#[\SensitiveParameter]` where appropriate
 - Changed PHPStan level to 9
 
+## [1.3.0] - 2025-04-10
+
+- Update connection configuration APIs to return router provided responses data
+- Remove some dead code
+- Fixed error in README example
+
+## [1.2.1] - 2025-04-09
+
+- Changed internal code structure, misc improvements
+
+## [1.2.0] - 2025-03-21
+
+- Improved PHPStan compliance
+- Improved debug logging in HTTP Client
+
+## [1.1.0] - 2025-03-03
+
+- Changed internal structure
+  - Stop using magic methods
+  - Fix some PHPStan errors
+
+## [1.0.5] - 2025-03-01
+
+- Added support for LAN Browser Interfaces API
+- Added support for LAN WOL API
+- Improved tests code coverage
+
 ## [1.0.4] - 2024-08-22
 
 - Removed bundled composer.lock
