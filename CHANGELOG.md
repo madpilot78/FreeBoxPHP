@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 - Added `#[\SensitiveParameter]` where appropriate
+- Changed PHPStan level to 9
 
 ## [1.0.4] - 2024-08-22
 
