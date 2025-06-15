@@ -34,6 +34,7 @@ class Register
             echo 'Authorization request sent...Check router.' . PHP_EOL;
         }
 
+        /** @var array{app_token: string, track_id: int} */
         $result = $this->client->post(
             $this->boxInfo->getApiUrl() . '/login/authorize',
             ['app_token', 'track_id'],
@@ -68,6 +69,7 @@ class Register
         }
 
         for ($i = 0; $i < self::POLL_MAX; $i++) {
+            /** @var array{status: string, challenge: string} */
             $result = $this->client->get(
                 $this->boxInfo->getApiUrl() . '/login/authorize/' . $this->trackId,
                 ['status', 'challenge'],

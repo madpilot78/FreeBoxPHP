@@ -22,12 +22,14 @@ class Discover extends AbstractMethod implements MethodInterface
      */
     public function run(string $action = 'get', null|int|string $id = null, array $params = []): null
     {
-        $this->boxInfo->save($this->client->get(
+        /** @var array<string, bool|int|string> */
+        $result = $this->client->get(
             'http' . ($this->config->https ? 's' : '') . '://' .
             $this->config->hostname .
             '/api_version',
             [],
-        ));
+        );
+        $this->boxInfo->save($result);
 
         if (!$this->boxInfo->getProperty('https_available')) {
             throw new NotSupportedException('Only https enabled boxes supported.');

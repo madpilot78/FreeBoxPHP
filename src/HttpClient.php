@@ -37,7 +37,7 @@ class HttpClient implements HttpClientInterface
     /**
      * @param list<string> $reqResult
      *
-     * @return array<string, mixed>
+     * @return array<string, array<string, mixed>|bool|int|string>
      *
      * @throws ApiErrorException
      */
@@ -48,6 +48,7 @@ class HttpClient implements HttpClientInterface
             throw new ApiErrorException('Invalid JSON in body');
         }
 
+        /** @var array{success: bool, result: array<string, array<string, mixed>|bool|int|string>} */
         $json = json_decode($rawBody, true);
 
         if (!empty($reqResult)) {
@@ -78,7 +79,7 @@ class HttpClient implements HttpClientInterface
      * @param list<string> $required
      * @param array<string, array<int|string, mixed>|string> $options
      *
-     * @return array<string, mixed>
+     * @return array<string, array<string, mixed>|bool|int|string>
      */
     public function get(string $url, array $required = [], array $options = []): array
     {
@@ -89,7 +90,7 @@ class HttpClient implements HttpClientInterface
      * @param list<string> $required
      * @param array<string, array<int|string, mixed>|string> $options
      *
-     * @return array<string, mixed>
+     * @return array<string, array<string, mixed>|bool|int|string>
      */
     public function post(string $url, array $required = [], array $options = []): array
     {
@@ -100,7 +101,7 @@ class HttpClient implements HttpClientInterface
      * @param list<string> $required
      * @param array<string, array<int|string, mixed>|string> $options
      *
-     * @return array<string, mixed>
+     * @return array<string, array<string, mixed>|bool|int|string>
      */
     public function put(string $url, array $required = [], array $options = []): array
     {
@@ -110,7 +111,7 @@ class HttpClient implements HttpClientInterface
     /**
      * @param array<string, array<int|string, mixed>|string> $options
      *
-     * @return array<string, mixed>
+     * @return array<string, array<string, mixed>|bool|int|string>
      */
     public function delete(string $url, array $options = []): array
     {
@@ -123,7 +124,7 @@ class HttpClient implements HttpClientInterface
      * @param list<string> $reqResults
      * @param array<string, array<int|string, mixed>|string> $options
      *
-     * @return array<string, mixed>
+     * @return array<string, array<string, mixed>|bool|int|string>
      *
      * @throws ApiAuthException
      * @throws ApiErrorException
@@ -142,6 +143,7 @@ class HttpClient implements HttpClientInterface
 
             switch ($statusCode) {
                 case 403:
+                    /** @var array{msg: string} */
                     $error = $this->bodyToJson($response);
                     throw new ApiAuthException($error['msg'] ?? 'Unknown error', $statusCode);
 

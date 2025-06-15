@@ -184,22 +184,27 @@ class Box implements BoxInterface
 
     public function register(bool $quiet = true, bool $skipSleep = false): string
     {
-        $fullName = $this->getFullMethod(__FUNCTION__);
-
         $this->logger->info('FreeBoxPHP Calling method', ['name' => __FUNCTION__, 'quiet' => $quiet, 'skipSleep' => $skipSleep]);
-        return $this->container->get($fullName)->run($quiet, $skipSleep);
+
+        /** @var \madpilot78\FreeBoxPHP\Methods\Register */
+        $method = $this->container->get($this->getFullMethod(__FUNCTION__));
+
+        return $method->run($quiet, $skipSleep);
     }
 
     /**
      * @param array<string, bool|int|string> $params
      *
-     * @return ($name is 'register' ? string : array<string, mixed>|BoxInterface)
+     * @return array<string, mixed>|BoxInterface
      */
-    private function runMethod(string $name, string $action = 'get', null|int|string $id = null, array $params = []): array|BoxInterface|string
+    private function runMethod(string $name, string $action = 'get', null|int|string $id = null, array $params = []): array|BoxInterface
     {
         $this->logger->info('FreeBoxPHP Calling method', compact('name', 'action', 'id', 'params'));
 
-        return $this->container->get($this->getFullMethod($name))->run($action, $id, $params) ?? $this;
+        /** @var \madpilot78\FreeBoxPHP\Methods\MethodInterface */
+        $method = $this->container->get($this->getFullMethod($name));
+
+        return $method->run($action, $id, $params) ?? $this;
     }
 
     private function getFullMethod(string $method): string

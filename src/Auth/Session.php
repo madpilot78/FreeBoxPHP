@@ -30,7 +30,9 @@ class Session implements SessionInterface
     {
         $this->logger->debug('FreeBoxPHP starting Auth\Session::login()');
 
+        /** @var string */
         $session_token = $this->cache->get($this->config->cacheKeyBase . self::SESSION_KEY);
+        /** @var array<string, bool> */
         $permissions = $this->cache->get($this->config->cacheKeyBase . self::PERMISSIONS_KEY);
 
         if (isset($session_token) && isset($permissions)) {
@@ -42,6 +44,7 @@ class Session implements SessionInterface
             return $session_token;
         }
 
+        /** @var array<string, string> */
         $result = $this->client->get(
             $this->boxInfo->getApiUrl() . '/login/',
             ['challenge'],
@@ -49,6 +52,7 @@ class Session implements SessionInterface
 
         $this->authManager->setChallenge($result['challenge']);
 
+        /** @var array{session_token: string, challenge: string, permissions: array<string, bool>} */
         $result = $this->client->post(
             $this->boxInfo->getApiUrl() . '/login/session/',
             ['session_token', 'challenge', 'permissions'],

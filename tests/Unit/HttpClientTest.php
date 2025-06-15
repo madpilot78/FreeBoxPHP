@@ -251,6 +251,7 @@ class HttpClientTest extends TestCase
             ),
         );
 
+        /** @var array<string, array<string, string>> */
         $content = $this->httpClient->post(self::URL, ['']);
 
         $this->assertCount(2, $content);
