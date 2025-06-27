@@ -13,7 +13,7 @@ use Psr\SimpleCache\CacheInterface;
 
 final readonly class Configuration
 {
-    public const string VERSION = '1.0.1';
+    public const string VERSION = '1.3.1';
 
     public const string DEFAULT_APPID = 'net.madpilot.freeboxphp';
     public const string DEFAULT_APPNAME = 'FreeBoxPHP';
