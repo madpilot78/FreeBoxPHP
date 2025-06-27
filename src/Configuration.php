@@ -64,7 +64,7 @@ final readonly class Configuration
             : $cache;
     }
 
-    public function isDefaulthostname(): bool
+    public function isDefaultHostname(): bool
     {
         return $this->hostname === self::DEFAULT_HOSTNAME;
     }

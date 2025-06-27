@@ -56,7 +56,7 @@ class BoxInfo implements BoxInfoInterface
             );
         }
 
-        if (!$this->config->isDefaulthostname()) {
+        if (!$this->config->isDefaultHostname()) {
             $this->info['api_domain'] = $this->config->hostname;
         }
 

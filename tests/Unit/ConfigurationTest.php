@@ -21,7 +21,7 @@ class ConfigurationTest extends TestCase
         );
         $this->assertEquals(gethostname(), $configuration->deviceName);
 
-        $this->assertTrue($configuration->isDefaulthostname());
+        $this->assertTrue($configuration->isDefaultHostname());
     }
 
     public function testCustomConfiguration(): void
@@ -35,6 +35,6 @@ class ConfigurationTest extends TestCase
         $this->assertNull($configuration->certFile);
         $this->assertEquals('DeepThought', $configuration->deviceName);
         $this->assertEquals('box.example.org', $configuration->hostname);
-        $this->assertFalse($configuration->isDefaulthostname());
+        $this->assertFalse($configuration->isDefaultHostname());
     }
 }
