@@ -1,6 +1,6 @@
 ---
 
-name: markdownlint
+name: yamllint
 
 on:
   push:
