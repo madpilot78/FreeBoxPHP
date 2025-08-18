@@ -23,6 +23,9 @@ jobs:
           - '8.4'
         experimental:
           - false
+        include:
+          - version: '8.5'
+            experimental: true
     steps:
       - name: Checkout Code
         uses: actions/checkout@v5
