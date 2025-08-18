@@ -1,6 +1,6 @@
 ---
 
-name: yamllint
+name: lint
 
 on:
   push:
@@ -12,6 +12,16 @@ on:
   workflow_dispatch: {}
 
 jobs:
+  markdownlint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v5
+      - name: Lint README (markdown)
+        uses: avto-dev/markdown-lint@v1
+        with:
+          config: ./.markdownlint.yml
+          args: ./README.md ./CHANGELOG.md
   yamllint:
     runs-on: 'ubuntu-latest'
     steps:
