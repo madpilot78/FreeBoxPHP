@@ -37,7 +37,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Run composer
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@
         continue-on-error: ${{ matrix.experimental }}
         with:
           dependency-versions: highest
