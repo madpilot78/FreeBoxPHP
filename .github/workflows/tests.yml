@@ -24,7 +24,7 @@ jobs:
         experimental:
           - false
         include:
-          - version: '8.5'
+          - php: '8.5'
             experimental: true
     steps:
       - name: Checkout Code
@@ -43,7 +43,6 @@ jobs:
           dependency-versions: highest
       - name: Run phpstan
         uses: php-actions/phpstan@v3
-        if: ${{ matrix.php != 8.5 }}
         with:
           php_version: ${{ matrix.php }}
           memory_limit: 512M
