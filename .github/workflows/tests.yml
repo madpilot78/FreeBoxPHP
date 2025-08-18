@@ -14,7 +14,6 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
-    continue-on-error: ${{ matrix.experimental }}
     strategy:
       fail-fast: false
       matrix:
@@ -38,15 +37,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Run composer
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@
+        continue-on-error: ${{ matrix.experimental }}
         with:
           dependency-versions: highest
       - name: Run phpstan
         uses: php-actions/phpstan@v3
+        continue-on-error: ${{ matrix.experimental }}
         with:
           php_version: ${{ matrix.php }}
           memory_limit: 512M
       - name: Run phpunit
+        continue-on-error: ${{ matrix.experimental }}
         run: vendor/bin/phpunit --cache-directory "$RUNNER_TEMP" --coverage-clover ./coverage.xml
       - name: Upload to Codecov
         uses: codecov/codecov-action@v5
