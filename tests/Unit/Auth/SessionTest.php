@@ -16,7 +16,9 @@ use madpilot78\FreeBoxPHP\HttpClientInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use Psr\SimpleCache\CacheInterface;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 
+#[AllowMockObjectsWithoutExpectations]
 class SessionTest extends TestCase
 {
     private const string MOCK_URL = 'https://host.test.net/api/v10';
