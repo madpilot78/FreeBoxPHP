@@ -20,11 +20,9 @@ jobs:
         php:
           - '8.3'
           - '8.4'
+          - '8.5'
         experimental:
           - false
-        include:
-          - php: '8.5'
-            experimental: true
     steps:
       - name: Checkout Code
         id: checkout
