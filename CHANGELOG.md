@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.3.2] - 2026-03-18
+
+- Updated dependencies
+- Renamed method `Configuration::isDefaulthostname()` to `Configuration::isDefaultHostname()`
+
 ## [1.3.1] - 2025-06-15
 
 - Added `#[\SensitiveParameter]` where appropriate
